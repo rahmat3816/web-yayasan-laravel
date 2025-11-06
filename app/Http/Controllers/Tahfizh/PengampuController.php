@@ -20,7 +20,7 @@ class PengampuController extends Controller
     {
         $user = auth()->user();
 
-        // 🔹 Tentukan jenis kelamin sesuai role
+        // Tentukan jenis kelamin sesuai role
         $gender = null;
         if ($user->hasRole('koordinator_tahfizh_putra')) {
             $gender = 'L';
@@ -29,9 +29,7 @@ class PengampuController extends Controller
         }
 
         $halaqoh = Halaqoh::with(['guru:id,nama,jenis_kelamin,unit_id', 'unit:id,nama_unit'])
-            // 🔒 Batasi unit jika bukan superadmin
             ->when(!$user->hasRole('superadmin'), fn($q) => $q->where('unit_id', $user->unit_id))
-            // 🔒 Batasi gender guru sesuai koordinator
             ->when($gender, fn($q) =>
                 $q->whereHas('guru', fn($g) => $g->where('jenis_kelamin', $gender))
             )
@@ -161,41 +159,43 @@ class PengampuController extends Controller
     /**
      * ✏️ Form Edit Halaqoh
      */
-    /**
- * ✏️ Form Edit Halaqoh
- */
-public function edit($id)
-{
-    $user = auth()->user();
-    $halaqoh = Halaqoh::with(['guru', 'santri', 'unit'])->findOrFail($id);
+    public function edit($id)
+    {
+        $user = auth()->user();
+        $halaqoh = Halaqoh::with(['guru', 'santri', 'unit'])->findOrFail($id);
 
-    // Tentukan gender (hanya untuk koordinator tahfizh)
-    $gender = null;
-    if ($user->hasRole('koordinator_tahfizh_putra')) {
-        $gender = 'L';
-    } elseif ($user->hasRole('koordinator_tahfizh_putri')) {
-        $gender = 'P';
+        // Tentukan gender sesuai role
+        $gender = null;
+        if ($user->hasRole('koordinator_tahfizh_putra')) {
+            $gender = 'L';
+        } elseif ($user->hasRole('koordinator_tahfizh_putri')) {
+            $gender = 'P';
+        }
+
+        // 🔒 Batasi akses halaqoh lawan jenis (keamanan tambahan)
+        if ($gender && ($halaqoh->guru->jenis_kelamin ?? null) !== $gender) {
+            abort(403, 'Anda tidak diizinkan mengakses halaqoh ini.');
+        }
+
+        // 🔹 Daftar guru yang bisa dipilih (belum punya halaqoh atau guru ini sendiri)
+        $guru = Guru::select('id', 'nama', 'unit_id', 'jenis_kelamin')
+            ->where(function ($q) use ($halaqoh) {
+                $q->whereDoesntHave('halaqoh')
+                ->orWhere('id', $halaqoh->guru_id);
+            })
+            ->when(!$user->hasRole('superadmin'), fn($q) => $q->where('unit_id', $user->unit_id))
+            ->when($gender, fn($q) => $q->where('jenis_kelamin', $gender))
+            ->orderBy('nama')
+            ->get();
+
+        // 🔹 Unit (superadmin bisa lihat semua)
+        $units = Unit::select('id', 'nama_unit')
+            ->when(!$user->hasRole('superadmin'), fn($q) => $q->where('id', $user->unit_id))
+            ->orderBy('nama_unit')
+            ->get();
+
+        return view('tahfizh.halaqoh.edit', compact('halaqoh', 'guru', 'units'));
     }
-
-    // 🔹 Daftar guru yang bisa dipilih (belum punya halaqoh atau guru ini sendiri)
-    $guru = Guru::select('id', 'nama', 'unit_id', 'jenis_kelamin')
-        ->where(function ($q) use ($halaqoh) {
-            $q->whereDoesntHave('halaqoh')
-              ->orWhere('id', $halaqoh->guru_id);
-        })
-        ->when(!$user->hasRole('superadmin'), fn($q) => $q->where('unit_id', $user->unit_id))
-        ->when($gender, fn($q) => $q->where('jenis_kelamin', $gender))
-        ->orderBy('nama')
-        ->get();
-
-    // 🔹 Unit (hanya tampil penuh untuk superadmin)
-    $units = Unit::select('id', 'nama_unit')
-        ->when(!$user->hasRole('superadmin'), fn($q) => $q->where('id', $user->unit_id))
-        ->orderBy('nama_unit')
-        ->get();
-
-    return view('tahfizh.halaqoh.edit', compact('halaqoh', 'guru', 'units'));
-}
 
     /**
      * 💾 Update Data Halaqoh
