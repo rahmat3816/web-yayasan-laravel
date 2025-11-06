@@ -61,7 +61,7 @@ class Santri extends Model
 
     public function halaqoh()
     {
-        return $this->belongsToMany(Halaqoh::class, 'halaqoh_santri', 'santri_id', 'halaqoh_id')
+        return $this->belongsToMany(\App\Models\Halaqoh::class, 'halaqoh_santri', 'santri_id', 'halaqoh_id')
             ->withTimestamps();
     }
 

@@ -30,6 +30,7 @@ class GuruController extends Controller
     {
         $user = $request->user();
         $units = Unit::orderBy('id')->get(['id','nama_unit']);
+
         if (in_array(strtolower($user->role ?? ''), ['admin','operator'], true) && $user->unit_id) {
             $units = Unit::where('id', $user->unit_id)->get(['id','nama_unit']);
         }
@@ -54,6 +55,7 @@ class GuruController extends Controller
         if ($isUnitScoped) {
             $data['unit_id'] = (int) $userLogin->unit_id;
         }
+
         if (empty($data['unit_id'])) {
             return back()->withErrors(['unit_id' => 'Unit pendidikan wajib diisi.'])->withInput();
         }
@@ -67,22 +69,8 @@ class GuruController extends Controller
                 'status_aktif'  => $data['status_aktif'],
             ]);
 
-            // 🔹 Buat akun user otomatis
-            $username = $this->generateUsername2Digits($guru->nama);
-            $user = User::create([
-                'name'           => $guru->nama,
-                'email'          => $username.'@yayasan.local',
-                'username'       => $username,
-                'password'       => bcrypt('password'),
-                'role'           => 'guru',
-                'unit_id'        => $guru->unit_id,
-                'linked_guru_id' => $guru->id,
-            ]);
-
-            // Role default = guru
-            if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
-                $user->assignRole('guru');
-            }
+            // 🔹 Buat akun user otomatis (cek duplikasi)
+            $user = $this->createUserForGuru($guru);
 
             // 🔹 Sinkron jabatan sesuai form
             $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
@@ -144,47 +132,25 @@ class GuruController extends Controller
         if (in_array(strtolower($userLogin->role ?? ''), ['admin','operator'], true) && $userLogin->unit_id) {
             $data['unit_id'] = (int) $userLogin->unit_id;
         }
-        $targetUnit = (int)($data['unit_id'] ?? $guru->unit_id);
 
-        DB::transaction(function () use ($guru, $data, $targetUnit) {
+        DB::transaction(function () use ($guru, $data) {
             $guru->update([
                 'nama'          => $data['nama'],
                 'nip'           => $data['nip'] ?? null,
                 'jenis_kelamin' => $data['jenis_kelamin'],
-                'unit_id'       => $targetUnit,
+                'unit_id'       => $data['unit_id'],
                 'status_aktif'  => $data['status_aktif'],
             ]);
 
+            // Pastikan hanya 1 user terhubung
             $user = User::where('linked_guru_id', $guru->id)->first();
-
             if (!$user) {
-                $username = $this->generateUsername2Digits($guru->nama);
-                $user = User::create([
-                    'name'           => $guru->nama,
-                    'email'          => $username.'@yayasan.local',
-                    'username'       => $username,
-                    'password'       => bcrypt('password'),
-                    'role'           => 'guru',
-                    'unit_id'        => $guru->unit_id,
-                    'linked_guru_id' => $guru->id,
-                ]);
+                $user = $this->createUserForGuru($guru);
             } else {
                 $user->update([
-                    'name'    => $guru->nama,
+                    'name' => $guru->nama,
                     'unit_id' => $guru->unit_id,
                 ]);
-
-                if (empty($user->username) || str_starts_with($user->username, 'guru.')) {
-                    $user->username = $this->generateUsername2Digits($guru->nama);
-                }
-                if (empty($user->email) || str_starts_with($user->email, 'guru.')) {
-                    $user->email = $user->username.'@yayasan.local';
-                }
-                $user->save();
-            }
-
-            if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
-                $user->assignRole('guru');
             }
 
             $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
@@ -199,55 +165,89 @@ class GuruController extends Controller
 
         DB::transaction(function () use ($guru) {
             $user = User::where('linked_guru_id', $guru->id)->first();
-            if ($user && method_exists($user, 'removeRole')) {
-                foreach (['wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri','guru'] as $r) {
-                    if ($user->hasRole($r)) $user->removeRole($r);
+
+            if ($user) {
+                // 🔹 Hapus semua role dari user
+                if (method_exists($user, 'roles') && $user->roles()->count() > 0) {
+                    foreach ($user->getRoleNames() as $role) {
+                        $user->removeRole($role);
+                    }
                 }
+
+                // 🔹 Hapus akun user terkait guru
+                $user->delete();
             }
+
+            // 🔹 Hapus data guru
             $guru->delete();
         });
 
-        return back()->with('success','Guru dihapus.');
+        return back()->with('success', 'Data guru dan akun pengguna terkait telah dihapus.');
     }
 
-    /** ===============================
+    /* ======================================================
      * 🔧 Helpers
-     * =============================== */
+     * ====================================================== */
+
+     private function createUserForGuru(Guru $guru): ?User
+     {
+         // 🔒 Cegah duplikasi user
+         $existing = User::where('linked_guru_id', $guru->id)->first();
+         if ($existing) {
+             return $existing;
+         }
+
+         // 🔹 Gunakan nama suku kata pertama + 2 digit unik
+         $username = $this->generateUsername2Digits($guru->nama);
+         $email    = $username . '@yayasan.local';
+
+         // 🔹 Buat user baru (forceFill agar tidak dipengaruhi mutator model)
+         $user = new User();
+         $user->forceFill([
+             'name'           => $guru->nama,
+             'email'          => $email,
+             'username'       => $username,
+             'password'       => bcrypt('password'),
+             'role'           => 'guru',
+             'unit_id'        => $guru->unit_id,
+             'linked_guru_id' => $guru->id,
+         ])->save();
+
+         // 🔹 Hardening: pastikan format username tetap “kata + 2 digit”
+         if (!preg_match('/^[a-z0-9]+[0-9]{2}$/', $user->username)) {
+             $user->username = $this->generateUsername2Digits($guru->nama);
+             $user->email    = $user->username.'@yayasan.local';
+             $user->save();
+         }
+
+         // 🔹 Pastikan punya role 'guru' default
+         if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
+             $user->assignRole('guru');
+         }
+
+         return $user;
+     }
 
     private function generateUsername2Digits(string $nama): string
     {
-        $nama = trim($nama);
-        if ($nama === '') {
-            $nama = 'user';
-        }
+        $nama = trim($nama) ?: 'user';
+        $first = trim(preg_split('/\\s+/', $nama)[0] ?? '');
+        $base  = strtolower(preg_replace('/[^a-z0-9]/i', '', $first)) ?: 'user';
 
-        $first = trim(preg_split('/\s+/', $nama)[0] ?? '');
-        $base  = strtolower(preg_replace('/[^a-z0-9]/i', '', $first));
-        if ($base === '') {
-            $base = 'user';
-        }
-
-        $existing = \App\Models\User::where('username', 'like', $base.'%')->pluck('username')->all();
-
+        $existing = User::where('username', 'like', $base.'%')->pluck('username')->all();
         $used = [];
         foreach ($existing as $u) {
-            if (preg_match('/^'.preg_quote($base,'/').'(\d{2})$/', $u, $m)) {
+            if (preg_match('/^'.preg_quote($base,'/').'([0-9]{2})$/', $u, $m)) {
                 $used[(int)$m[1]] = true;
             }
         }
 
-        $candidates = [];
         for ($i = 1; $i <= 99; $i++) {
             if (!isset($used[$i])) {
-                $candidates[] = str_pad((string)$i, 2, '0', STR_PAD_LEFT);
-            }
-        }
-        shuffle($candidates);
-
-        foreach ($candidates as $suffix) {
-            $username = $base.$suffix;
-            if (!\App\Models\User::where('username', $username)->exists()) {
-                return $username;
+                $username = $base . str_pad((string)$i, 2, '0', STR_PAD_LEFT);
+                if (!User::where('username', $username)->exists()) {
+                    return $username;
+                }
             }
         }
 
@@ -256,24 +256,13 @@ class GuruController extends Controller
 
     private function syncJabatanRole($user, ?string $jabatan, ?string $jenisKelamin)
     {
-        if (!$user) {
-            return;
-        }
+        if (!$user) return;
 
-        $validRoles = [
-            'guru',
-            'wali_kelas',
-            'koordinator_tahfizh_putra',
-            'koordinator_tahfizh_putri',
-        ];
-
+        $validRoles = ['guru','wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'];
         $jabatan = strtolower($jabatan ?? 'guru');
-        if (!in_array($jabatan, $validRoles, true)) {
-            $jabatan = 'guru';
-        }
+        if (!in_array($jabatan, $validRoles, true)) $jabatan = 'guru';
 
         $user->update(['role' => $jabatan]);
-
         if ($user->hasAnyRole($validRoles)) {
             $user->syncRoles([$jabatan]);
         } else {

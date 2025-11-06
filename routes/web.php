@@ -202,14 +202,16 @@ Route::middleware('auth')->group(function () {
 
             Route::controller(PengampuController::class)->group(function () {
                 Route::get('/halaqoh', 'index')->name('tahfizh.halaqoh.index');
+                // 🔹 AJAX - Daftar guru & santri otomatis
+                Route::get('/halaqoh/santri-by-guru/{guruId}', 'getSantriByGuru')->name('tahfizh.halaqoh.santriByGuru');
+                Route::get('/ajax/guru-by-unit/{unitId}', 'getGuruByUnit')->name('tahfizh.ajax.guruByUnit');
+                Route::get('/ajax/santri-by-unit/{unitId}', 'getSantriByUnit')->name('tahfizh.ajax.santriByUnit');
+
                 Route::get('/halaqoh/create', 'create')->name('tahfizh.halaqoh.create');
                 Route::post('/halaqoh', 'store')->name('tahfizh.halaqoh.store');
                 Route::get('/halaqoh/{id}/pengampu/edit', 'edit')->name('tahfizh.halaqoh.pengampu.edit');
                 Route::put('/halaqoh/{id}/pengampu', 'update')->name('tahfizh.halaqoh.pengampu.update');
 
-                // AJAX dropdown
-                Route::get('/ajax/guru-by-unit/{unitId}', 'getGuruByUnit')->name('tahfizh.ajax.guruByUnit');
-                Route::get('/ajax/santri-by-unit/{unitId}', 'getSantriByUnit')->name('tahfizh.ajax.santriByUnit');
             });
         });
 });

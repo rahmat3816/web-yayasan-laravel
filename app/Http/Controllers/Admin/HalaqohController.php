@@ -60,32 +60,52 @@ class HalaqohController extends Controller
             return response()->json(['error' => 'Guru tidak ditemukan.'], 404);
         }
 
-        // Filter santri sesuai unit & jenis kelamin guru
+        $unitId = $guru->unit_id;
+        $gender = strtoupper(trim($guru->jenis_kelamin ?? ''));
+
+        // Awali query dasar
         $santriQuery = Santri::select('id', 'nama', 'nisy', 'jenis_kelamin', 'unit_id')
-            ->where('unit_id', $guru->unit_id)
-            ->where('jenis_kelamin', $guru->jenis_kelamin)
-            ->whereDoesntHave('halaqoh') // hanya santri yang belum punya halaqoh
+            ->where('unit_id', $unitId)
+            ->when(in_array($gender, ['L', 'P']), function ($q) use ($gender) {
+                // Case insensitive gender
+                $q->whereRaw('UPPER(jenis_kelamin) = ?', [$gender]);
+            })
             ->orderBy('nama');
 
-        $selectedIds = [];
+        // Jika sedang edit, kita tampilkan santri yang belum punya halaqoh
+        // ATAU santri yang sudah tergabung di halaqoh yang sedang diedit
         if ($request->filled('halaqoh_id')) {
-            $halaqoh = Halaqoh::with('santri')->find($request->halaqoh_id);
-            if ($halaqoh) {
-                $selectedIds = $halaqoh->santri->pluck('id')->toArray();
-            }
+            $halaqohId = (int) $request->halaqoh_id;
+
+            $santriQuery->where(function ($q) use ($halaqohId) {
+                $q->whereDoesntHave('halaqoh')
+                ->orWhereHas('halaqoh', function ($qq) use ($halaqohId) {
+                    $qq->where('halaqoh.id', $halaqohId);
+                });
+            });
+        } else {
+            $santriQuery->whereDoesntHave('halaqoh');
         }
 
-        $santri = $santriQuery->get()->map(function ($s) use ($selectedIds) {
-            return [
-                'id' => $s->id,
-                'nama' => $s->nama,
-                'nisy' => $s->nisy,
-                'terpilih' => in_array($s->id, $selectedIds),
-            ];
-        });
+        $santri = $santriQuery->get();
 
-        return response()->json($santri);
+        // Log untuk debug sementara
+        if ($santri->isEmpty()) {
+            \Log::info('🧪 Admin getSantriByGuru kosong', [
+                'guru_id' => $guruId,
+                'unit_id' => $unitId,
+                'gender' => $gender,
+            ]);
+        }
+
+        return response()->json($santri->map(fn($s) => [
+            'id' => $s->id,
+            'nama' => $s->nama,
+            'nisy' => $s->nisy,
+        ]));
     }
+
+
 
     /**
      * 💾 Simpan Data Halaqoh

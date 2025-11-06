@@ -4,78 +4,73 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-// ✅ Wajib untuk Spatie Permission
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
 
-    /**
-     * Spatie guard name (default 'web').
-     * Pastikan sesuai dengan guard yang kamu pakai di config/auth.php
-     */
     protected string $guard_name = 'web';
 
-    /**
-     * Kolom yang boleh di-mass assign.
-     */
     protected $fillable = [
         'name',
         'email',
         'username',
         'password',
-        'role',              // kolom role milik app (boleh tetap dipakai bersamaan dengan Spatie roles)
+        'role',
         'unit_id',
         'linked_guru_id',
         'linked_santri_id',
-        // tambahkan kolom lain jika ada (mis. 'remember_token' tidak perlu di-fillable)
     ];
 
-    /**
-     * Sembunyikan saat serialisasi.
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Casting kolom.
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     /**
-     * Sinkronkan kolom 'role' (string) dengan Spatie Role saat disimpan.
-     * Opsional, tapi membantu konsistensi jika kamu tetap menyimpan role string di kolom 'role'.
+     * 🧱 Matikan perubahan otomatis pada username/email.
+     * Hanya jalankan fallback kalau benar-benar kosong.
      */
     protected static function booted(): void
     {
+        static::creating(function (User $user) {
+            // 🚫 Jangan ubah username/email jika sudah dikirim dari controller
+            if (!isset($user->username) || trim($user->username) === '') {
+                $first = strtolower(preg_replace('/[^a-z0-9]/i', '', explode(' ', $user->name)[0] ?? 'user'));
+                $user->username = $first . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
+            }
+            if (!isset($user->email) || trim($user->email) === '') {
+                $user->email = $user->username . '@yayasan.local';
+            }
+        });
+
+        static::saving(function (User $user) {
+            // 🚫 Jangan auto-update username/email saat update name
+            if ($user->isDirty('name') && !$user->isDirty('username')) {
+                // Biarkan username tetap
+            }
+        });
+
+        // 🔄 Sinkronisasi role string dan Spatie roles
         static::saved(function (User $user) {
-            // Jika package Spatie tersedia dan kolom 'role' berisi sesuatu
             if (!empty($user->role) && class_exists(\Spatie\Permission\Models\Role::class)) {
                 try {
-                    // Buat role jika belum ada (opsional; kalau tidak ingin auto-create, bisa dicegah)
                     \Spatie\Permission\Models\Role::findOrCreate($user->role, $user->guard_name ?? 'web');
-
-                    // Sync satu role utama sesuai kolom 'role'
                     if (!$user->hasRole($user->role)) {
                         $user->syncRoles([$user->role]);
                     }
                 } catch (\Throwable $e) {
-                    // Diamkan agar tidak memblok proses save jika role belum disetup
-                    // Kamu bisa log error jika perlu: \Log::warning($e->getMessage());
+                    // Diamkan saja, supaya tidak error
                 }
             }
         });
     }
 
-    /**
-     * Helper optional (tidak wajib).
-     */
     public function isSuperadmin(): bool
     {
         return strtolower($this->role ?? '') === 'superadmin' || $this->hasRole('superadmin');

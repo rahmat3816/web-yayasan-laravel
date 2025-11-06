@@ -37,7 +37,7 @@ class Guru extends Model
 
     public function halaqoh()
     {
-        return $this->hasOne(Halaqoh::class, 'guru_id');
+        return $this->hasOne(\App\Models\Halaqoh::class, 'guru_id');
     }
 
     public function user()

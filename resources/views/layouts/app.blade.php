@@ -87,5 +87,10 @@
         </main>
     </div>
 </div>
+
+    {{-- ⬇️ penting: render semua script yang di-push dari view --}}
+    @stack('scripts')
+    @yield('scripts')
+
 </body>
 </html>
