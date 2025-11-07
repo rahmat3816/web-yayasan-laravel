@@ -22,6 +22,7 @@ Berbasis data_quran.json (tanpa mode halaman)
         </div>
     @endif
 
+    <x-admin.alert />
     <form method="POST" action="{{ route('guru.setoran.store', ['santriId' => $santri->id]) }}" class="space-y-4">
         @csrf
 
@@ -109,11 +110,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // === Ambil data setoran santri (yang sudah disetor) ===
     fetch(getSetoranSantriUrl)
         .then(res => res.json())
-        .then(data => { completedSetoran = data || []; })
+        .then(data => {
+            completedSetoran = Array.isArray(data) ? data : [];
+            console.log("✅ Setoran sudah ada:", completedSetoran);
+        })
         .catch(() => { completedSetoran = []; });
 
     // === Saat Juz dipilih ===
-    juzSelect.addEventListener('change', function() {
+    juzSelect.addEventListener('change', async function() {
         const juz = parseInt(this.value);
         surahSelect.innerHTML = '<option value="">-- Pilih Surah --</option>';
         ayahStartSelect.innerHTML = '<option value="">-- Pilih Ayat --</option>';
@@ -121,19 +125,45 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!juz) return;
 
         const url = suratByJuzUrlTpl.replace('__JUZ__', encodeURIComponent(juz));
-        fetch(url)
-            .then(res => res.json())
-            .then(rows => {
-                if (!Array.isArray(rows)) return;
-                rows.forEach(r => {
-                    const opt = document.createElement('option');
-                    opt.value = r.surah_id;
-                    opt.textContent = `(${String(r.surah_id).padStart(3,'0')}) ${r.nama_latin}`;
-                    opt.dataset.ayatAwal  = r.ayat_awal;
-                    opt.dataset.ayatAkhir = r.ayat_akhir;
-                    surahSelect.appendChild(opt);
-                });
-            });
+        const res = await fetch(url);
+        const rows = await res.json();
+        if (!Array.isArray(rows)) return;
+
+        // Ambil semua data setoran pada juz ini
+        const setoranJuz = completedSetoran.filter(s => parseInt(s.juz) === juz);
+
+        rows.forEach(r => {
+            const opt = document.createElement('option');
+            opt.value = r.surah_id;
+            opt.textContent = `(${String(r.surah_id).padStart(3,'0')}) ${r.nama_latin}`;
+            opt.dataset.ayatAwal  = r.ayat_awal;
+            opt.dataset.ayatAkhir = r.ayat_akhir;
+
+            // 🔍 Cari setoran terakhir pada surah ini
+            const lastSetoran = setoranJuz.find(s => parseInt(s.surat_akhir) === r.surah_id);
+            const ayatTerakhir = lastSetoran ? parseInt(lastSetoran.ayat_akhir) : 0;
+
+            // Jika semua ayat surah ini sudah disetor (ayatTerakhir >= ayat_akhir), disable
+            if (ayatTerakhir >= r.ayat_akhir) {
+                opt.disabled = true;
+                opt.classList.add('text-gray-400');
+                opt.textContent += ' ✅ (Sudah selesai)';
+            }
+
+            surahSelect.appendChild(opt);
+        });
+
+        // 🔒 Jika semua surah dalam juz ini sudah selesai, disable seluruh dropdown
+        const semuaSelesai = rows.every(r => {
+            const last = setoranJuz.find(s => parseInt(s.surat_akhir) === r.surah_id);
+            const akhirSetor = last ? parseInt(last.ayat_akhir) : 0;
+            return akhirSetor >= r.ayat_akhir;
+        });
+        if (semuaSelesai) {
+            juzSelect.classList.add('bg-gray-200', 'text-gray-500');
+            alert(`✅ Juz ${juz} sudah selesai seluruhnya!`);
+            juzSelect.value = '';
+        }
     });
 
     // === Saat Surah dipilih ===
@@ -142,15 +172,35 @@ document.addEventListener('DOMContentLoaded', function() {
         ayahStartSelect.innerHTML = '<option value="">-- Pilih Ayat --</option>';
         ayahEndSelect.innerHTML   = '<option value="">-- Pilih Ayat --</option>';
         if (!opt) return;
+
         const mulai = parseInt(opt.dataset.ayatAwal, 10);
         const akhir = parseInt(opt.dataset.ayatAkhir, 10);
+        const juzTerpilih = parseInt(juzSelect.value);
+
+        // Cari data setoran terakhir di surah ini
+        const lastSetoran = completedSetoran.find(
+            s => s.juz == juzTerpilih && s.surat_akhir == parseInt(opt.value)
+        );
+        const batasTerakhir = lastSetoran ? parseInt(lastSetoran.ayat_akhir, 10) : 0;
+
         for (let i = mulai; i <= akhir; i++) {
-            ayahStartSelect.innerHTML += `<option value="${i}">${i}</option>`;
-            ayahEndSelect.innerHTML += `<option value="${i}">${i}</option>`;
+            const disabled = i <= batasTerakhir;
+            const attr = disabled ? 'disabled class="text-gray-400 bg-gray-100 line-through"' : '';
+            ayahStartSelect.innerHTML += `<option value="${i}" ${attr}>${i}${disabled ? ' (Sudah)' : ''}</option>`;
+            ayahEndSelect.innerHTML += `<option value="${i}" ${attr}>${i}${disabled ? ' (Sudah)' : ''}</option>`;
         }
-        ayahStartSelect.value = mulai;
-        ayahEndSelect.value = mulai;
+
+        // Pilih ayat pertama yang belum disetor
+        const firstAvailable = Array.from(ayahStartSelect.options).find(o => !o.disabled && o.value);
+        if (firstAvailable) {
+            ayahStartSelect.value = firstAvailable.value;
+            ayahEndSelect.value = firstAvailable.value;
+        } else {
+            alert('Surah ini sudah selesai seluruhnya ✅');
+            surahSelect.value = '';
+        }
     });
 });
 </script>
+
 @endsection

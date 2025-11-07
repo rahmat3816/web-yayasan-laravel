@@ -13,49 +13,55 @@ use App\Models\User;
 
 class GuruController extends Controller
 {
+    // List semua guru, dengan paginasi
     public function index(Request $request)
     {
         $user = $request->user();
-        $q = Guru::with('unit:id,nama_unit')->orderBy('nama');
+        $query = Guru::with('unit:id,nama_unit')->orderBy('nama');
 
-        if (in_array(strtolower($user->role ?? ''), ['admin','operator'], true) && $user->unit_id) {
-            $q->where('unit_id', $user->unit_id);
+        if ($this->isUnitScoped($user)) {
+            $query->where('unit_id', $user->unit_id);
         }
 
-        $guru = $q->paginate(20);
+        $guru = $query->paginate(20);
         return view('admin.guru.index', compact('guru'));
     }
 
+    // Tampilkan form create
     public function create(Request $request)
     {
         $user = $request->user();
-        $units = Unit::orderBy('id')->get(['id','nama_unit']);
-
-        if (in_array(strtolower($user->role ?? ''), ['admin','operator'], true) && $user->unit_id) {
-            $units = Unit::where('id', $user->unit_id)->get(['id','nama_unit']);
+        if ($this->isUnitScoped($user)) {
+            $units = Unit::where('id', $user->unit_id)
+                         ->get(['id','nama_unit']);
+        } else {
+            $units = Unit::orderBy('id')
+                         ->get(['id','nama_unit']);
         }
 
         return view('admin.guru.create', compact('units'));
     }
 
+    // Simpan guru baru
     public function store(Request $request)
     {
         $userLogin = $request->user();
-        $isUnitScoped = in_array(strtolower($userLogin->role ?? ''), ['admin','operator'], true) && $userLogin->unit_id;
+        $unitScoped = $this->isUnitScoped($userLogin);
 
         $data = $request->validate([
             'nama'          => ['required','string','max:150'],
-            'nip'           => ['nullable','string','max:50', 'unique:guru,nip'],
+            'nip'           => ['nullable','string','max:50', Rule::unique('guru','nip')],
             'jenis_kelamin' => ['required', Rule::in(['L','P'])],
-            'unit_id'       => ['nullable','integer','exists:units,id'],
+            'unit_id'       => [$unitScoped ? 'required' : 'nullable','integer','exists:units,id'],
             'status_aktif'  => ['required', Rule::in(['aktif','nonaktif'])],
-            'jabatan'       => ['nullable', Rule::in(['wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'])],
+            'jabatan'       => ['nullable', Rule::in(self::JABATAN_LIST())],
         ]);
 
-        if ($isUnitScoped) {
+        if ($unitScoped) {
             $data['unit_id'] = (int) $userLogin->unit_id;
         }
 
+        // Pastikan unit_id diberikan
         if (empty($data['unit_id'])) {
             return back()->withErrors(['unit_id' => 'Unit pendidikan wajib diisi.'])->withInput();
         }
@@ -69,54 +75,64 @@ class GuruController extends Controller
                 'status_aktif'  => $data['status_aktif'],
             ]);
 
-            // 🔹 Buat akun user otomatis (cek duplikasi)
+            // Buat akun user otomatis
             $user = $this->createUserForGuru($guru);
 
-            // 🔹 Sinkron jabatan sesuai form
+            // Sinkron jabatan sesuai form
             $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
         });
 
-        return redirect()->route('admin.guru.index')->with('success','Guru berhasil ditambahkan.');
+        return redirect()->route('admin.guru.index')
+                         ->with('success','Guru berhasil ditambahkan.');
     }
 
+    // Tampilkan detail guru
     public function show(int $id)
     {
         $guru = Guru::with('unit:id,nama_unit')->findOrFail($id);
         return view('admin.guru.show', compact('guru'));
     }
 
+    // Tampilkan form edit
     public function edit(Request $request, int $id)
     {
         $user = $request->user();
         $guru = Guru::findOrFail($id);
 
-        if (in_array(strtolower($user->role ?? ''), ['admin','operator'], true) && $user->unit_id && (int)$guru->unit_id !== (int)$user->unit_id) {
+        if ($this->isUnitScoped($user) && (int)$guru->unit_id !== (int)$user->unit_id) {
             abort(403, 'Anda hanya dapat mengedit guru di unit Anda.');
         }
 
-        $units = Unit::orderBy('id')->get(['id','nama_unit']);
-        if (in_array(strtolower($user->role ?? ''), ['admin','operator'], true) && $user->unit_id) {
-            $units = Unit::where('id', $user->unit_id)->get(['id','nama_unit']);
+        if ($this->isUnitScoped($user)) {
+            $units = Unit::where('id', $user->unit_id)
+                         ->get(['id','nama_unit']);
+        } else {
+            $units = Unit::orderBy('id')
+                         ->get(['id','nama_unit']);
         }
 
-        // Deteksi jabatan aktif
         $userGuru = User::where('linked_guru_id', $guru->id)->first();
         $jabatanSelected = '';
         if ($userGuru && method_exists($userGuru, 'hasRole')) {
-            if ($userGuru->hasRole('koordinator_tahfizh_putra')) $jabatanSelected = 'koordinator_tahfizh_putra';
-            elseif ($userGuru->hasRole('koordinator_tahfizh_putri')) $jabatanSelected = 'koordinator_tahfizh_putri';
-            elseif ($userGuru->hasRole('wali_kelas')) $jabatanSelected = 'wali_kelas';
+            if ($userGuru->hasRole('koordinator_tahfizh_putra')) {
+                $jabatanSelected = 'koordinator_tahfizh_putra';
+            } elseif ($userGuru->hasRole('koordinator_tahfizh_putri')) {
+                $jabatanSelected = 'koordinator_tahfizh_putri';
+            } elseif ($userGuru->hasRole('wali_kelas')) {
+                $jabatanSelected = 'wali_kelas';
+            }
         }
 
         return view('admin.guru.edit', compact('guru','units','jabatanSelected'));
     }
 
+    // Update guru
     public function update(Request $request, int $id)
     {
         $userLogin = $request->user();
         $guru = Guru::findOrFail($id);
 
-        if (in_array(strtolower($userLogin->role ?? ''), ['admin','operator'], true) && $userLogin->unit_id && (int)$guru->unit_id !== (int)$userLogin->unit_id) {
+        if ($this->isUnitScoped($userLogin) && (int)$guru->unit_id !== (int)$userLogin->unit_id) {
             abort(403, 'Anda hanya dapat mengedit guru di unit Anda.');
         }
 
@@ -124,13 +140,13 @@ class GuruController extends Controller
             'nama'          => ['required','string','max:150'],
             'nip'           => ['nullable','string','max:50', Rule::unique('guru','nip')->ignore($guru->id)],
             'jenis_kelamin' => ['required', Rule::in(['L','P'])],
-            'unit_id'       => ['nullable','integer','exists:units,id'],
+            'unit_id'       => [$this->isUnitScoped($userLogin) ? 'required' : 'nullable','integer','exists:units,id'],
             'status_aktif'  => ['required', Rule::in(['aktif','nonaktif'])],
-            'jabatan'       => ['nullable', Rule::in(['wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'])],
+            'jabatan'       => ['nullable', Rule::in(self::JABATAN_LIST())],
         ]);
 
-        if (in_array(strtolower($userLogin->role ?? ''), ['admin','operator'], true) && $userLogin->unit_id) {
-            $data['unit_id'] = (int) $userLogin->unit_id;
+        if ($this->isUnitScoped($userLogin)) {
+            $data['unit_id'] = (int)$userLogin->unit_id;
         }
 
         DB::transaction(function () use ($guru, $data) {
@@ -142,13 +158,12 @@ class GuruController extends Controller
                 'status_aktif'  => $data['status_aktif'],
             ]);
 
-            // Pastikan hanya 1 user terhubung
             $user = User::where('linked_guru_id', $guru->id)->first();
             if (!$user) {
                 $user = $this->createUserForGuru($guru);
             } else {
                 $user->update([
-                    'name' => $guru->nama,
+                    'name'    => $guru->nama,
                     'unit_id' => $guru->unit_id,
                 ]);
             }
@@ -156,9 +171,11 @@ class GuruController extends Controller
             $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
         });
 
-        return redirect()->route('admin.guru.index')->with('success', 'Data guru diperbarui.');
+        return redirect()->route('admin.guru.index')
+                         ->with('success', 'Data guru diperbarui.');
     }
 
+    // Hapus guru + user terkait
     public function destroy(int $id)
     {
         $guru = Guru::findOrFail($id);
@@ -167,52 +184,40 @@ class GuruController extends Controller
             $user = User::where('linked_guru_id', $guru->id)->first();
 
             if ($user) {
-                // 🔹 Hapus semua role dari user
                 if (method_exists($user, 'roles') && $user->roles()->count() > 0) {
                     foreach ($user->getRoleNames() as $role) {
                         $user->removeRole($role);
                     }
                 }
-
-                // 🔹 Hapus akun user terkait guru
                 $user->delete();
             }
 
-            // 🔹 Hapus data guru
             $guru->delete();
         });
 
         return back()->with('success', 'Data guru dan akun pengguna terkait telah dihapus.');
     }
 
-    /**
-     * 🔹 Membuat akun user otomatis untuk guru baru
-     * Username otomatis = nama depan + 2 digit angka unik (contoh: fani23)
-     */
+    // Membuat akun user otomatis untuk guru baru
     private function createUserForGuru(Guru $guru): ?User
     {
-        // 🔒 Kalau sudah ada user terhubung, koreksi bila formatnya salah
         $existing = User::where('linked_guru_id', $guru->id)->first();
         if ($existing) {
-            // Jika username bukan pola "huruf + 2 digit", perbaiki sekarang
             if (!preg_match('/^[a-z]+[0-9]{2}$/', $existing->username)) {
-                $new = $this->generateUsername2Digits($guru->nama);
-                // Pastikan unik terhadap user lain
-                if (!User::where('username', $new)->where('id', '!=', $existing->id)->exists()) {
-                    $existing->username = $new;
-                    $existing->email    = $new.'@yayasan.local';
+                $newUsername = $this->generateUsername2Digits($guru->nama);
+                if (!User::where('username', $newUsername)->where('id','!=',$existing->id)->exists()) {
+                    $existing->username = $newUsername;
+                    $existing->email    = $newUsername.'@yayasan.local';
                     $existing->save();
                 }
             }
             return $existing;
         }
 
-        // 🔹 Bangun username sesuai aturan
         $username = $this->generateUsername2Digits($guru->nama);
         $email    = $username . '@yayasan.local';
 
-        // ❗ Bypass event "creating" di model User yg mungkin menimpa username
-        $user = \App\Models\User::withoutEvents(function () use ($guru, $username, $email) {
+        $user = User::withoutEvents(function () use ($guru, $username, $email) {
             return User::create([
                 'name'           => $guru->nama,
                 'email'          => $email,
@@ -224,7 +229,6 @@ class GuruController extends Controller
             ]);
         });
 
-        // Role default
         if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
             $user->assignRole('guru');
         }
@@ -232,55 +236,70 @@ class GuruController extends Controller
         return $user;
     }
 
-    /**
-     * Contoh:
-     *  "Fani Eldiana"   -> "fani23"
-     *  "Mushowwir Umar" -> "mushowwir33"
-     * (huruf kecil + 2 digit, unik di DB)
-     */
     private function generateUsername2Digits(string $nama): string
     {
-        // Ambil kata pertama dari nama, buang non-alfabet
         $first = trim(preg_split('/\s+/', $nama)[0] ?? 'user');
         $base  = strtolower(preg_replace('/[^a-z]/i', '', $first)) ?: 'user';
 
-        // Ambil semua username yg punya prefix sama (untuk menghindari tabrakan)
-        $existing = User::where('username', 'like', $base.'%')->pluck('username')->all();
+        // Coba maksimal 50 kali dengan angka acak
+        for ($i = 0; $i < 50; $i++) {
+            $rand = str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
+            $candidate = $base . $rand;
+            if (!User::where('username', $candidate)->exists()) {
+                return $candidate;
+            }
+        }
+
+        // Fallback: pakai angka urut jika semua angka acak sudah terpakai
+        $existing = User::where('username','like',$base.'%')->pluck('username')->all();
         $used = [];
         foreach ($existing as $u) {
             if (preg_match('/^'.preg_quote($base, '/').'([0-9]{2})$/', $u, $m)) {
-                $used[(int) $m[1]] = true;
+                $used[(int)$m[1]] = true;
             }
         }
 
-        // Cari 2 digit yg belum dipakai
         for ($i = 1; $i <= 99; $i++) {
             if (!isset($used[$i])) {
-                $candidate = $base . str_pad((string)$i, 2, '0', STR_PAD_LEFT);
-                if (!User::where('username', $candidate)->exists()) {
-                    return $candidate;
-                }
+                return $base . str_pad((string)$i, 2, '0', STR_PAD_LEFT);
             }
         }
 
-        // Fallback terakhir (harusnya tidak pernah sampai sini)
+        // Fallback terakhir
         return $base . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
     }
 
-
-    private function syncJabatanRole($user, ?string $jabatan, ?string $jenisKelamin)
+    private function syncJabatanRole(User $user, ?string $jabatan, ?string $jenisKelamin)
     {
         if (!$user) return;
 
-        $validRoles = ['guru','wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'];
-        $jabatan = strtolower($jabatan ?? 'guru');
-        if (!in_array($jabatan, $validRoles, true)) $jabatan = 'guru';
-
-        $user->update(['role' => $jabatan]);
-        if ($user->hasAnyRole($validRoles)) {
-            $user->syncRoles([$jabatan]);
-        } else {
-            $user->assignRole($jabatan);
+        $jabatanLower = strtolower($jabatan ?? 'guru');
+        if (!in_array($jabatanLower, self::JABATAN_LIST(), true)) {
+            $jabatanLower = 'guru';
         }
+
+        $user->update(['role' => $jabatanLower]);
+
+        $validRoles = self::JABATAN_LIST();
+        if (method_exists($user, 'hasAnyRole') && method_exists($user, 'syncRoles')) {
+            if ($user->hasAnyRole($validRoles)) {
+                $user->syncRoles([$jabatanLower]);
+            } else {
+                $user->assignRole($jabatanLower);
+            }
+        }
+    }
+
+    // Helper: cek apakah user terbatas ke unit
+    private function isUnitScoped($user): bool
+    {
+        return in_array(strtolower($user->role ?? ''), ['admin','operator'], true)
+            && !empty($user->unit_id);
+    }
+
+    // Daftar konstanta jabatan
+    private static function JABATAN_LIST(): array
+    {
+        return ['guru','wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'];
     }
 }

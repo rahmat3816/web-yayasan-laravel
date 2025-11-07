@@ -1,3 +1,7 @@
+{{-- ===============================================
+📍 Komponen Breadcrumb (v3 Final)
+Aman dari redeclare & konsisten dengan layout admin
+================================================ --}}
 @php
     // Ambil segment URL aktif, misal: ['admin', 'santri', 'edit']
     $segments = request()->segments();
@@ -10,22 +14,24 @@
         $paths[$segment] = $build;
     }
 
-    // Ubah slug menjadi format teks normal
-    function formatSegment($segment) {
-        return ucfirst(str_replace(['-', '_'], ' ', $segment));
+    // ✅ Cegah duplikasi deklarasi fungsi
+    if (!function_exists('formatSegment')) {
+        function formatSegment($segment) {
+            return ucfirst(str_replace(['-', '_'], ' ', $segment));
+        }
     }
 @endphp
 
 <nav class="text-sm text-gray-600 dark:text-gray-300 mb-4" aria-label="Breadcrumb">
     <ol class="flex flex-wrap items-center space-x-2">
-        {{-- Link pertama selalu Dashboard --}}
+        {{-- 🏠 Dashboard --}}
         <li>
             <a href="/dashboard" class="hover:text-blue-600 flex items-center">
                 🏠 <span class="ml-1">Dashboard</span>
             </a>
         </li>
 
-        {{-- Loop untuk setiap segment URL --}}
+        {{-- 🔗 Loop untuk setiap segment --}}
         @foreach ($paths as $segment => $url)
             <li class="text-gray-400">›</li>
             <li>
@@ -44,7 +50,7 @@
         @endforeach
     </ol>
 
-    {{-- Judul besar halaman --}}
+    {{-- 🧭 Judul Halaman --}}
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mt-2 capitalize">
         {{ formatSegment(last($segments) ?? 'Dashboard') }}
     </h2>

@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\HalaqohController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\GuruRoleController;
+use App\Http\Controllers\Admin\LaporanHafalanController;
+
 
 // ===============================
 // 🧾 SETORAN HAFALAN (GURU)
@@ -123,6 +125,12 @@ Route::middleware('auth')->group(function () {
 
             // 📈 LAPORAN
             Route::get('/laporan', [LaporanController::class, 'index'])->name('admin.laporan.index');
+
+            // 📈 LAPORAN HAFALAN QURAN
+            Route::get('/laporan/hafalan', [LaporanHafalanController::class, 'index'])
+                ->name('admin.laporan.hafalan');
+            Route::get('laporan/hafalan/santri/{id}/grafik', [LaporanHafalanController::class, 'grafikSantri'])
+                ->name('admin.laporan.hafalan.grafikSantri');
         });
 
     // =====================================================
@@ -218,4 +226,5 @@ Route::middleware('auth')->group(function () {
 
             });
         });
+
 });

@@ -2,7 +2,6 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-<x-admin.alert />
 <x-breadcrumb title="📚 Dashboard Admin" />
 
 <x-admin.card title="📊 Ringkasan Data Yayasan">
@@ -17,6 +16,5 @@
     </div>
 </x-admin.card>
 
-{{-- bagian lainnya (unit, quick links, data user) biarkan seperti semula --}}
 @include('admin.partials.dashboard_extra')
 @endsection

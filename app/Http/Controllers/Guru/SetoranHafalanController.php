@@ -37,23 +37,43 @@ class SetoranHafalanController extends Controller
             $allHalaqoh = collect();
         }
 
-        // ringkas: total juz & surah
+        // ===============================
+        // 🧮 Rekap Data Hafalan
+        // ===============================
         $dataAll = HafalanQuran::where('halaqoh_id', $halaqoh->id)->get();
-        $totalJuz = $dataAll->filter(fn($h) => $h->juz_start && $h->juz_end)
-            ->flatMap(fn($h) => range($h->juz_start, $h->juz_end))->unique()->count();
-        $totalSurah = $dataAll->whereNotNull('surah_id')->unique('surah_id')->count();
 
         $rekap = [
-            'total_juz'   => $totalJuz,
-            'total_surah' => $totalSurah,
+            'total_halaman' => 0,
+            'total_juz'     => 0,
+            'total_surah'   => 0,
         ];
+
+        if ($dataAll->count() > 0) {
+            $rekap['total_halaman'] = $dataAll->sum(function ($h) {
+                if ($h->mode === 'page' && $h->page_start && $h->page_end) {
+                    return ($h->page_end - $h->page_start) + 1;
+                }
+                return 0;
+            });
+
+            $rekap['total_juz'] = $dataAll
+                ->filter(fn($h) => $h->juz_start && $h->juz_end)
+                ->flatMap(fn($h) => range($h->juz_start, $h->juz_end))
+                ->unique()
+                ->count();
+
+            $rekap['total_surah'] = $dataAll
+                ->whereNotNull('surah_id')
+                ->unique('surah_id')
+                ->count();
+        }
 
         return view('guru.setoran.index', [
             'halaqoh'    => $halaqoh,
             'allHalaqoh' => $allHalaqoh,
             'santri'     => $halaqoh?->santri ?? collect(),
             'rekap'      => $rekap,
-            'isSuper'    => $user->role === 'superadmin',
+            'isSuper'    => strtolower($user->role ?? '') === 'superadmin',
         ]);
     }
 
@@ -91,20 +111,37 @@ class SetoranHafalanController extends Controller
             'ayah_end'      => ['required', 'integer', 'gte:ayah_start'],
         ]);
 
-        // 🧠 Validasi overlap hafalan (per ayat)
-        $last = HafalanQuran::where('santri_id', $santriId)
+        // ===============================
+        // 🧠 Validasi overlap & urutan progres per juz
+        // ===============================
+
+        // [NEW] Cek urutan surah tidak mundur relatif terhadap progres tertinggi di juz ini
+        $lastOverall = HafalanQuran::where('santri_id', $santriId)
             ->where('juz_start', $data['juz_start'])
             ->orderByDesc('surah_id')
             ->orderByDesc('ayah_end')
             ->first();
 
-        if ($last && (
-            $data['surah_id'] < $last->surah_id ||
-            ($data['surah_id'] == $last->surah_id && $data['ayah_start'] <= $last->ayah_end)
-        )) {
+        if ($lastOverall && (int)$data['surah_id'] < (int)$lastOverall->surah_id) {
             return back()->withErrors([
-                'ayah_start' => "Setoran baru tumpang tindih dengan setoran terakhir (Surah {$last->surah_id}, Ayat {$last->ayah_end})."
+                'surah_id' => "Urutan surah tidak boleh mundur. Terakhir disetor: Surah {$lastOverall->surah_id}."
             ])->withInput();
+        }
+
+        // [UPDATED] Cek surah yang sama wajib mulai dari ayat (last_end + 1)
+        $lastThisSurah = HafalanQuran::where('santri_id', $santriId)
+            ->where('juz_start', $data['juz_start'])
+            ->where('surah_id', $data['surah_id'])
+            ->orderByDesc('ayah_end')
+            ->first();
+
+        if ($lastThisSurah) {
+            $requiredNextStart = ((int)$lastThisSurah->ayah_end) + 1;
+            if ((int)$data['ayah_start'] < $requiredNextStart) {
+                return back()->withErrors([
+                    'ayah_start' => "Setoran baru tumpang tindih atau mengulang (Surah {$lastThisSurah->surah_id}, Ayat {$lastThisSurah->ayah_end}). Mulai minimal dari ayat {$requiredNextStart}."
+                ])->withInput();
+            }
         }
 
         // 🔎 Validasi rentang ayat terhadap data_quran.json
@@ -127,7 +164,7 @@ class SetoranHafalanController extends Controller
             'guru_id'       => $linkedGuruId,
             'santri_id'     => $santri->id,
             'tanggal_setor' => $data['tanggal_setor'],
-            'mode'          => 'ayat', // default karena tidak ada mode halaman
+            'mode'          => 'ayat', // default mode
             'surah_id'      => $data['surah_id'],
             'ayah_start'    => $data['ayah_start'],
             'ayah_end'      => $data['ayah_end'],
@@ -157,6 +194,12 @@ class SetoranHafalanController extends Controller
             ->get();
 
         $rekap = [
+            'total_halaman' => $data->sum(function ($h) {
+                if ($h->mode === 'page' && $h->page_start && $h->page_end) {
+                    return ($h->page_end - $h->page_start) + 1;
+                }
+                return 0;
+            }),
             'total_juz'   => $data->flatMap(fn($h) => range($h->juz_start ?? 0, $h->juz_end ?? 0))->unique()->count(),
             'total_surah' => $data->whereNotNull('surah_id')->unique('surah_id')->count(),
         ];
@@ -169,11 +212,13 @@ class SetoranHafalanController extends Controller
     // ===============================
     public function getSetoranSantri(int $santriId)
     {
-        $data = HafalanQuran::where('santri_id', $santriId)
-            ->select('juz_start as juz', 'surah_id as surat_akhir', 'ayah_end as ayat_akhir')
+        // [UPDATED] Ringkasan per (juz, surah) → ambil MAX(ayat_akhir)
+        $data = HafalanQuran::query()
+            ->where('santri_id', $santriId)
+            ->selectRaw('juz_start as juz, surah_id as surat_akhir, MAX(ayah_end) as ayat_akhir')
+            ->groupBy('juz_start', 'surah_id')
             ->orderBy('juz_start')
             ->orderBy('surah_id')
-            ->orderBy('ayah_end')
             ->get();
 
         return response()->json($data);

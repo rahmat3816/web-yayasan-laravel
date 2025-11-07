@@ -22,10 +22,11 @@ class LaporanController extends Controller
         $totalHalaqoh = Halaqoh::count();
 
         // Statistik Santri per Unit
-        $santriPerUnit = Unit::leftJoin('santri', 'unit.id', '=', 'santri.unit_id')
-            ->select('unit.nama_unit', \DB::raw('COUNT(santri.id) as total'))
-            ->groupBy('unit.id', 'unit.nama_unit')
-            ->orderBy('unit.nama_unit')
+        $santriPerUnit = Unit::from('units as u')
+            ->leftJoin('santri as s', 'u.id', '=', 's.unit_id')
+            ->select('u.nama_unit', \DB::raw('COUNT(s.id) as total'))
+            ->groupBy('u.id', 'u.nama_unit')
+            ->orderBy('u.nama_unit')
             ->get();
 
         return view('admin.laporan.index', compact(

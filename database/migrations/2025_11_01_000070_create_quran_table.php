@@ -18,15 +18,28 @@ return new class extends Migration {
         });
 
         // ==============================
+        // 📖 TABEL quran_ayat
+        // ==============================
+        Schema::create('quran_ayat', function (Blueprint $table) {
+            $table->id(); // BIGINT UNSIGNED
+            $table->foreignId('surah_id')
+                ->constrained('quran_surah')
+                ->onDelete('cascade');
+            $table->unsignedTinyInteger('juz')->index();
+            $table->unsignedSmallInteger('ayat_ke')->index();
+            $table->unsignedInteger('ayat_global')->index();
+            $table->timestamps();
+        });
+
+        // ==============================
         // 📖 TABEL quran_juz_map
         // ==============================
         Schema::create('quran_juz_map', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('juz');
-            // ✅ gunakan foreignId agar otomatis BIGINT UNSIGNED
             $table->foreignId('surah_id')
-                  ->constrained('quran_surah')
-                  ->onDelete('cascade');
+                ->constrained('quran_surah')
+                ->onDelete('cascade');
             $table->unsignedSmallInteger('ayat_awal')->nullable();
             $table->unsignedSmallInteger('ayat_akhir')->nullable();
             $table->timestamps();
@@ -39,11 +52,10 @@ return new class extends Migration {
             $table->id();
             $table->unsignedSmallInteger('page');
             $table->unsignedTinyInteger('juz')->nullable();
-            // ✅ tipe sama (BIGINT UNSIGNED)
             $table->foreignId('surah_id')
-                  ->nullable()
-                  ->constrained('quran_surah')
-                  ->onDelete('cascade');
+                ->nullable()
+                ->constrained('quran_surah')
+                ->onDelete('cascade');
             $table->unsignedSmallInteger('ayat_awal')->nullable();
             $table->unsignedSmallInteger('ayat_akhir')->nullable();
             $table->timestamps();
@@ -55,6 +67,7 @@ return new class extends Migration {
         Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('quran_page_map');
         Schema::dropIfExists('quran_juz_map');
+        Schema::dropIfExists('quran_ayat');
         Schema::dropIfExists('quran_surah');
         Schema::enableForeignKeyConstraints();
     }

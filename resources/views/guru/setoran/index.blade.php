@@ -4,6 +4,9 @@
 <div class="p-6">
     <h1 class="text-2xl font-semibold mb-4">Setoran Hafalan — Halaqoh</h1>
 
+    {{-- 🔔 Notifikasi global (sukses, error, warning) --}}
+    <x-admin.alert />
+
     @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
     @endif
