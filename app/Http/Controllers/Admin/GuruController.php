@@ -185,71 +185,88 @@ class GuruController extends Controller
         return back()->with('success', 'Data guru dan akun pengguna terkait telah dihapus.');
     }
 
-    /* ======================================================
-     * 🔧 Helpers
-     * ====================================================== */
+    /**
+     * 🔹 Membuat akun user otomatis untuk guru baru
+     * Username otomatis = nama depan + 2 digit angka unik (contoh: fani23)
+     */
+    private function createUserForGuru(Guru $guru): ?User
+    {
+        // 🔒 Kalau sudah ada user terhubung, koreksi bila formatnya salah
+        $existing = User::where('linked_guru_id', $guru->id)->first();
+        if ($existing) {
+            // Jika username bukan pola "huruf + 2 digit", perbaiki sekarang
+            if (!preg_match('/^[a-z]+[0-9]{2}$/', $existing->username)) {
+                $new = $this->generateUsername2Digits($guru->nama);
+                // Pastikan unik terhadap user lain
+                if (!User::where('username', $new)->where('id', '!=', $existing->id)->exists()) {
+                    $existing->username = $new;
+                    $existing->email    = $new.'@yayasan.local';
+                    $existing->save();
+                }
+            }
+            return $existing;
+        }
 
-     private function createUserForGuru(Guru $guru): ?User
-     {
-         // 🔒 Cegah duplikasi user
-         $existing = User::where('linked_guru_id', $guru->id)->first();
-         if ($existing) {
-             return $existing;
-         }
+        // 🔹 Bangun username sesuai aturan
+        $username = $this->generateUsername2Digits($guru->nama);
+        $email    = $username . '@yayasan.local';
 
-         // 🔹 Gunakan nama suku kata pertama + 2 digit unik
-         $username = $this->generateUsername2Digits($guru->nama);
-         $email    = $username . '@yayasan.local';
+        // ❗ Bypass event "creating" di model User yg mungkin menimpa username
+        $user = \App\Models\User::withoutEvents(function () use ($guru, $username, $email) {
+            return User::create([
+                'name'           => $guru->nama,
+                'email'          => $email,
+                'username'       => $username,
+                'password'       => bcrypt('password'),
+                'role'           => 'guru',
+                'unit_id'        => $guru->unit_id,
+                'linked_guru_id' => $guru->id,
+            ]);
+        });
 
-         // 🔹 Buat user baru (forceFill agar tidak dipengaruhi mutator model)
-         $user = new User();
-         $user->forceFill([
-             'name'           => $guru->nama,
-             'email'          => $email,
-             'username'       => $username,
-             'password'       => bcrypt('password'),
-             'role'           => 'guru',
-             'unit_id'        => $guru->unit_id,
-             'linked_guru_id' => $guru->id,
-         ])->save();
+        // Role default
+        if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
+            $user->assignRole('guru');
+        }
 
-         // 🔹 Hardening: pastikan format username tetap “kata + 2 digit”
-         if (!preg_match('/^[a-z0-9]+[0-9]{2}$/', $user->username)) {
-             $user->username = $this->generateUsername2Digits($guru->nama);
-             $user->email    = $user->username.'@yayasan.local';
-             $user->save();
-         }
+        return $user;
+    }
 
-         // 🔹 Pastikan punya role 'guru' default
-         if (method_exists($user, 'assignRole') && !$user->hasRole('guru')) {
-             $user->assignRole('guru');
-         }
-
-         return $user;
-     }
-
+    /**
+     * Contoh:
+     *  "Fani Eldiana"   -> "fani23"
+     *  "Mushowwir Umar" -> "mushowwir33"
+     * (huruf kecil + 2 digit, unik di DB)
+     */
     private function generateUsername2Digits(string $nama): string
     {
-        // Ambil hanya kata pertama dari nama
-        $nama = trim($nama) ?: 'user';
-        $first = trim(preg_split('/\\s+/', $nama)[0] ?? '');
-        $base = strtolower(preg_replace('/[^a-z]/', '', $first)) ?: 'user';
+        // Ambil kata pertama dari nama, buang non-alfabet
+        $first = trim(preg_split('/\s+/', $nama)[0] ?? 'user');
+        $base  = strtolower(preg_replace('/[^a-z]/i', '', $first)) ?: 'user';
 
-        // Cek username yang sudah ada dengan prefix yang sama
-        $existing = User::where('username', 'like', $base.'%')->pluck('username')->toArray();
-
-        // Cari angka acak 2 digit yang belum terpakai
-        for ($i = 0; $i < 30; $i++) {
-            $random = str_pad((string) random_int(1, 99), 2, '0', STR_PAD_LEFT);
-            $username = $base . $random;
-            if (!in_array($username, $existing)) {
-                return $username;
+        // Ambil semua username yg punya prefix sama (untuk menghindari tabrakan)
+        $existing = User::where('username', 'like', $base.'%')->pluck('username')->all();
+        $used = [];
+        foreach ($existing as $u) {
+            if (preg_match('/^'.preg_quote($base, '/').'([0-9]{2})$/', $u, $m)) {
+                $used[(int) $m[1]] = true;
             }
         }
 
-        // fallback terakhir (jarang terjadi)
-        return $base . str_pad((string) random_int(1, 99), 2, '0', STR_PAD_LEFT);
+        // Cari 2 digit yg belum dipakai
+        for ($i = 1; $i <= 99; $i++) {
+            if (!isset($used[$i])) {
+                $candidate = $base . str_pad((string)$i, 2, '0', STR_PAD_LEFT);
+                if (!User::where('username', $candidate)->exists()) {
+                    return $candidate;
+                }
+            }
+        }
+
+        // Fallback terakhir (harusnya tidak pernah sampai sini)
+        return $base . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
     }
+
 
     private function syncJabatanRole($user, ?string $jabatan, ?string $jenisKelamin)
     {

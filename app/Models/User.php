@@ -38,14 +38,15 @@ class User extends Authenticatable
      */
     protected static function booted(): void
     {
-        static::creating(function (User $user) {
-            // 🚫 Jangan ubah username/email jika sudah dikirim dari controller
-            if (!isset($user->username) || trim($user->username) === '') {
-                $first = strtolower(preg_replace('/[^a-z0-9]/i', '', explode(' ', $user->name)[0] ?? 'user'));
-                $user->username = $first . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
+        static::creating(function ($user) {
+            // ❗ Jangan menimpa kalau sudah di-set dari controller
+            if (blank($user->username)) {
+                // fallback lama, kalau tidak diisi dari luar
+                $user->username = Str::slug(Str::before($user->name, ' '), '');
             }
-            if (!isset($user->email) || trim($user->email) === '') {
-                $user->email = $user->username . '@yayasan.local';
+
+            if (blank($user->email)) {
+                $user->email = Str::lower($user->username) . '@yayasan.local';
             }
         });
 
