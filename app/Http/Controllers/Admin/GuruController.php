@@ -230,28 +230,25 @@ class GuruController extends Controller
 
     private function generateUsername2Digits(string $nama): string
     {
+        // Ambil hanya kata pertama dari nama
         $nama = trim($nama) ?: 'user';
         $first = trim(preg_split('/\\s+/', $nama)[0] ?? '');
-        $base  = strtolower(preg_replace('/[^a-z0-9]/i', '', $first)) ?: 'user';
+        $base = strtolower(preg_replace('/[^a-z]/', '', $first)) ?: 'user';
 
-        $existing = User::where('username', 'like', $base.'%')->pluck('username')->all();
-        $used = [];
-        foreach ($existing as $u) {
-            if (preg_match('/^'.preg_quote($base,'/').'([0-9]{2})$/', $u, $m)) {
-                $used[(int)$m[1]] = true;
+        // Cek username yang sudah ada dengan prefix yang sama
+        $existing = User::where('username', 'like', $base.'%')->pluck('username')->toArray();
+
+        // Cari angka acak 2 digit yang belum terpakai
+        for ($i = 0; $i < 30; $i++) {
+            $random = str_pad((string) random_int(1, 99), 2, '0', STR_PAD_LEFT);
+            $username = $base . $random;
+            if (!in_array($username, $existing)) {
+                return $username;
             }
         }
 
-        for ($i = 1; $i <= 99; $i++) {
-            if (!isset($used[$i])) {
-                $username = $base . str_pad((string)$i, 2, '0', STR_PAD_LEFT);
-                if (!User::where('username', $username)->exists()) {
-                    return $username;
-                }
-            }
-        }
-
-        return $base . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
+        // fallback terakhir (jarang terjadi)
+        return $base . str_pad((string) random_int(1, 99), 2, '0', STR_PAD_LEFT);
     }
 
     private function syncJabatanRole($user, ?string $jabatan, ?string $jenisKelamin)

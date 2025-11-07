@@ -146,31 +146,33 @@ Route::middleware('auth')->group(function () {
     // 👨‍🏫 GURU + KOORDINATOR + SUPERADMIN
     // =====================================================
     Route::prefix('guru')
-        ->middleware('role:guru|koordinator_tahfizh_putra|koordinator_tahfizh_putri|superadmin')
-        ->group(function () {
+    ->middleware('role:guru|koordinator_tahfizh_putra|koordinator_tahfizh_putri|superadmin')
+    ->group(function () {
 
-            Route::get('/dashboard', [GuruDashboardController::class, 'index'])->name('guru.dashboard');
+        Route::get('/dashboard', [GuruDashboardController::class, 'index'])->name('guru.dashboard');
 
-            // 📋 Daftar setoran & rekap
-            Route::middleware('ensure.setoran.list.access')->group(function () {
-                Route::get('/setoran', [SetoranHafalanController::class, 'index'])->name('guru.setoran.index');
-                Route::get('/setoran/rekap', [SetoranHafalanController::class, 'rekap'])->name('guru.setoran.rekap');
-            });
-
-            // ✍️ Input setoran (guru pengampu)
-            Route::middleware('ensure.guru.pengampu')->group(function () {
-                Route::get('/setoran/santri/{santriId}/create', [SetoranHafalanController::class, 'create'])->name('guru.setoran.create');
-                Route::post('/setoran/santri/{santriId}', [SetoranHafalanController::class, 'store'])->name('guru.setoran.store');
-            });
-
-            // === AJAX endpoint (untuk form interaktif)
-            Route::get('/setoran/ajax/get-setoran-santri/{santriId}', [SetoranHafalanController::class, 'getSetoranSantri'])
-                ->name('guru.setoran.ajax.getSetoranSantri');
-            Route::get('/setoran/ajax/get-surat-by-juz/{juz}', [SetoranHafalanController::class, 'getSuratByJuz'])
-                ->name('guru.setoran.ajax.getSuratByJuz');
-
-            Route::view('/laporan', 'guru.laporan.index')->name('guru.laporan.index');
+        // 📋 Daftar setoran & rekap
+        Route::middleware('ensure.setoran.list.access')->group(function () {
+            Route::get('/setoran', [SetoranHafalanController::class, 'index'])->name('guru.setoran.index');
+            Route::get('/setoran/rekap', [SetoranHafalanController::class, 'rekap'])->name('guru.setoran.rekap');
         });
+
+        // ✍️ Input setoran (guru pengampu)
+        Route::middleware('ensure.guru.pengampu')->group(function () {
+            Route::get('/setoran/santri/{santriId}/create', [SetoranHafalanController::class, 'create'])->name('guru.setoran.create');
+            Route::post('/setoran/santri/{santriId}', [SetoranHafalanController::class, 'store'])->name('guru.setoran.store');
+        });
+
+        // === AJAX endpoint (untuk form interaktif)
+        Route::get('/setoran/ajax/get-setoran-santri/{santriId}', [SetoranHafalanController::class, 'getSetoranSantri'])
+            ->name('guru.setoran.ajax.getSetoranSantri');
+
+        Route::get('/setoran/ajax/get-surat-by-juz/{juz}', [SetoranHafalanController::class, 'getSuratByJuz'])
+            ->name('guru.setoran.ajax.getSuratByJuz');
+
+        Route::view('/laporan', 'guru.laporan.index')->name('guru.laporan.index');
+    });
+
 
     // =====================================================
     // 👨‍👩‍👧‍👦 WALI SANTRI
@@ -196,7 +198,9 @@ Route::middleware('auth')->group(function () {
     // 📖 KOORDINATOR TAHFIZH
     // =====================================================
     Route::prefix('tahfizh')
-        ->middleware('role:koordinator_tahfizh_putra|koordinator_tahfizh_putri|admin|superadmin')
+        ->middleware([
+            'role:koordinator_tahfizh_putra|koordinator_tahfizh_putri|admin|superadmin',
+        ])
         ->group(function () {
             Route::get('/dashboard', [TahfizhDashboardController::class, 'index'])->name('tahfizh.dashboard');
 

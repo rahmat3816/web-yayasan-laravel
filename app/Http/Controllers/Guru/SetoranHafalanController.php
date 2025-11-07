@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Halaqoh;
 use App\Models\Santri;
 use App\Models\HafalanQuran;
-use App\Models\QuranJuzMap;
-use App\Models\QuranSurah;
-use App\Rules\NoOverlapHafalan;
 
 class SetoranHafalanController extends Controller
 {
@@ -39,20 +37,15 @@ class SetoranHafalanController extends Controller
             $allHalaqoh = collect();
         }
 
+        // ringkas: total juz & surah
+        $dataAll = HafalanQuran::where('halaqoh_id', $halaqoh->id)->get();
+        $totalJuz = $dataAll->filter(fn($h) => $h->juz_start && $h->juz_end)
+            ->flatMap(fn($h) => range($h->juz_start, $h->juz_end))->unique()->count();
+        $totalSurah = $dataAll->whereNotNull('surah_id')->unique('surah_id')->count();
+
         $rekap = [
-            'total_halaman' => HafalanQuran::where('halaqoh_id', $halaqoh->id)
-                ->sum(fn($h) => $h->mode === 'page' && $h->page_start && $h->page_end ? (($h->page_end - $h->page_start) + 1) : 0),
-            'total_juz' => HafalanQuran::where('halaqoh_id', $halaqoh->id)
-                ->whereNotNull('juz_start')
-                ->whereNotNull('juz_end')
-                ->get()
-                ->flatMap(fn($h) => range($h->juz_start, $h->juz_end))
-                ->unique()
-                ->count(),
-            'total_surah' => HafalanQuran::where('halaqoh_id', $halaqoh->id)
-                ->whereNotNull('surah_id')
-                ->distinct('surah_id')
-                ->count('surah_id'),
+            'total_juz'   => $totalJuz,
+            'total_surah' => $totalSurah,
         ];
 
         return view('guru.setoran.index', [
@@ -90,56 +83,61 @@ class SetoranHafalanController extends Controller
 
         $data = $request->validate([
             'tanggal_setor' => ['required', 'date'],
-            'mode'          => ['required', Rule::in(['ayat', 'page'])],
             'status'        => ['nullable', Rule::in(['lulus', 'ulang'])],
             'catatan'       => ['nullable', 'string'],
-            'juz_start'     => ['nullable', 'integer', 'between:1,30'],
-            'surah_id'      => ['nullable', 'integer', 'between:1,114'],
-            'ayah_start'    => ['nullable', 'integer', 'min:1'],
-            'ayah_end'      => ['nullable', 'integer', 'gte:ayah_start'],
-            'page_start'    => ['nullable', 'integer', 'min:1', 'max:604'],
-            'page_end'      => ['nullable', 'integer', 'min:1', 'max:604', 'gte:page_start'],
+            'juz_start'     => ['required', 'integer', 'between:1,30'],
+            'surah_id'      => ['required', 'integer', 'between:1,114'],
+            'ayah_start'    => ['required', 'integer', 'min:1'],
+            'ayah_end'      => ['required', 'integer', 'gte:ayah_start'],
         ]);
 
-        // 🧠 Validasi overlap hafalan (mode ayat)
-        if ($data['mode'] === 'ayat' && !empty($data['juz_start']) && !empty($data['surah_id'])) {
-            $last = HafalanQuran::where('santri_id', $santriId)
-                ->where('juz_start', $data['juz_start'])
-                ->orderByDesc('surah_id')
-                ->orderByDesc('ayah_end')
-                ->first();
+        // 🧠 Validasi overlap hafalan (per ayat)
+        $last = HafalanQuran::where('santri_id', $santriId)
+            ->where('juz_start', $data['juz_start'])
+            ->orderByDesc('surah_id')
+            ->orderByDesc('ayah_end')
+            ->first();
 
-            if ($last && (
-                $data['surah_id'] < $last->surah_id ||
-                ($data['surah_id'] == $last->surah_id && $data['ayah_start'] <= $last->ayah_end)
-            )) {
-                return back()->withErrors([
-                    'ayah_start' => "Setoran baru tumpang tindih dengan setoran sebelumnya (Surah {$last->surah_id}, Ayat {$last->ayah_end})."
-                ])->withInput();
-            }
+        if ($last && (
+            $data['surah_id'] < $last->surah_id ||
+            ($data['surah_id'] == $last->surah_id && $data['ayah_start'] <= $last->ayah_end)
+        )) {
+            return back()->withErrors([
+                'ayah_start' => "Setoran baru tumpang tindih dengan setoran terakhir (Surah {$last->surah_id}, Ayat {$last->ayah_end})."
+            ])->withInput();
         }
 
-        // 🧾 Simpan data hafalan
+        // 🔎 Validasi rentang ayat terhadap data_quran.json
+        $ok = $this->validateRangeWithJson(
+            (int) $data['juz_start'],
+            (int) $data['surah_id'],
+            (int) $data['ayah_start'],
+            (int) $data['ayah_end']
+        );
+        if (!$ok) {
+            return back()->withErrors([
+                'ayah_start' => 'Rentang ayat tidak valid untuk pilihan Juz/Surah berdasarkan data_quran.json.'
+            ])->withInput();
+        }
+
+        // 🧾 Simpan
         HafalanQuran::create([
             'unit_id'       => $halaqoh->unit_id,
             'halaqoh_id'    => $halaqoh->id,
             'guru_id'       => $linkedGuruId,
             'santri_id'     => $santri->id,
             'tanggal_setor' => $data['tanggal_setor'],
-            'mode'          => $data['mode'],
-            'page_start'    => $data['page_start'] ?? null,
-            'page_end'      => $data['page_end'] ?? null,
-            'surah_id'      => $data['surah_id'] ?? null,
-            'ayah_start'    => $data['ayah_start'] ?? null,
-            'ayah_end'      => $data['ayah_end'] ?? null,
-            'juz_start'     => $data['juz_start'] ?? null,
-            'juz_end'       => $data['juz_start'] ?? null,
+            'mode'          => 'ayat', // default karena tidak ada mode halaman
+            'surah_id'      => $data['surah_id'],
+            'ayah_start'    => $data['ayah_start'],
+            'ayah_end'      => $data['ayah_end'],
+            'juz_start'     => $data['juz_start'],
+            'juz_end'       => $data['juz_start'],
             'status'        => $data['status'] ?? 'lulus',
             'catatan'       => $data['catatan'] ?? null,
         ]);
 
-        return redirect()
-            ->route('guru.setoran.index')
+        return redirect()->route('guru.setoran.index')
             ->with('success', '✅ Setoran hafalan berhasil disimpan.');
     }
 
@@ -160,7 +158,7 @@ class SetoranHafalanController extends Controller
 
         $rekap = [
             'total_juz'   => $data->flatMap(fn($h) => range($h->juz_start ?? 0, $h->juz_end ?? 0))->unique()->count(),
-            'total_surah' => $data->unique('surah_id')->count(),
+            'total_surah' => $data->whereNotNull('surah_id')->unique('surah_id')->count(),
         ];
 
         return view('guru.setoran.rekap', compact('data', 'rekap', 'halaqoh'));
@@ -181,14 +179,82 @@ class SetoranHafalanController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * 🔎 Ambil daftar surah (dan range ayat) untuk sebuah Juz dari data_quran.json
+     */
     public function getSuratByJuz(int $juz)
     {
-        $maps = QuranJuzMap::where('juz', $juz)
-            ->join('quran_surah', 'quran_surah.id', '=', 'quran_juz_map.surah_id')
-            ->select('quran_juz_map.surah_id', 'quran_juz_map.ayat_awal', 'quran_juz_map.ayat_akhir', 'quran_surah.nama_latin')
-            ->orderBy('quran_juz_map.surah_id')
-            ->get();
+        $juz = (int) $juz;
+        if ($juz < 1 || $juz > 30) {
+            return response()->json([], 400);
+        }
 
-        return response()->json($maps);
+        $map = $this->loadQuranJson();
+        $rows = $map[(string)$juz] ?? $map[$juz] ?? [];
+
+        $result = [];
+        foreach ($rows as $row) {
+            if (isset($row['surat'])) {
+                $clean = trim($row['surat']);
+                if (preg_match('/^(\d{3})\.\s*(.+)$/u', $clean, $m)) {
+                    $surahId = (int) ltrim($m[1], '0');
+                    $nama    = trim($m[2]);
+                    $result[] = [
+                        'surah_id'    => $surahId,
+                        'nama_latin'  => $nama,
+                        'jumlah_ayat' => (int) ($row['jumlah_ayat'] ?? 0),
+                        'ayat_awal'   => (int) ($row['ayat_mulai'] ?? 1),
+                        'ayat_akhir'  => (int) ($row['ayat_akhir'] ?? ($row['jumlah_ayat'] ?? 0)),
+                    ];
+                }
+            }
+        }
+
+        return response()->json($result);
+    }
+
+    // ===============================
+    // 🔧 Helpers (load & validasi JSON)
+    // ===============================
+    private function loadQuranJson(): array
+    {
+        return Cache::rememberForever('quran.data_quran.json', function () {
+            $candidates = [
+                storage_path('app/data/data_quran.json'),
+                storage_path('app/quran/data_quran.json'),
+                resource_path('data/data_quran.json'),
+                base_path('data_quran.json'),
+            ];
+            foreach ($candidates as $path) {
+                if (is_file($path)) {
+                    $json = @file_get_contents($path);
+                    $data = json_decode($json, true);
+                    if (is_array($data)) {
+                        return $data;
+                    }
+                }
+            }
+            return [];
+        });
+    }
+
+    /**
+     * Validasi bahwa (juz, surah_id, ayat_start..ayat_end) sesuai dengan data JSON.
+     */
+    private function validateRangeWithJson(int $juz, int $surahId, int $ayahStart, int $ayahEnd): bool
+    {
+        $map = $this->loadQuranJson();
+        $rows = $map[(string)$juz] ?? $map[$juz] ?? [];
+        foreach ($rows as $row) {
+            if (isset($row['surat']) && preg_match('/^\s*(\d{3})\./', $row['surat'], $m)) {
+                $sid = (int) ltrim($m[1], '0');
+                if ($sid === $surahId) {
+                    $awal  = (int) ($row['ayat_mulai'] ?? 1);
+                    $akhir = (int) ($row['ayat_akhir'] ?? ($row['jumlah_ayat'] ?? 0));
+                    return $ayahStart >= $awal && $ayahEnd <= $akhir;
+                }
+            }
+        }
+        return false;
     }
 }

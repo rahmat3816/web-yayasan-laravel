@@ -47,9 +47,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // ✅ Middleware role & unit Yayasan As-Sunnah
-        'role' => \App\Http\Middleware\RoleMiddleware::class,
-        'unit.access' => \App\Http\Middleware\UnitAccessMiddleware::class,
-        'ensure.setoran.list.access' => \App\Http\Middleware\EnsureSetoranListAccess::class,
-        'ensure.guru.pengampu'      => \App\Http\Middleware\EnsureGuruPengampu::class,
+        'role'                          => \App\Http\Middleware\RoleMiddleware::class,
+        'unit.access'                   => \App\Http\Middleware\UnitAccessMiddleware::class,
+        'ensure.setoran.list.access'    => \App\Http\Middleware\EnsureSetoranListAccess::class,
+        'ensure.guru.pengampu'          => \App\Http\Middleware\EnsureGuruPengampu::class,
     ];
 }

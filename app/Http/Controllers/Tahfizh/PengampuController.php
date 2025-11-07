@@ -68,6 +68,12 @@ class PengampuController extends Controller
             ->orderBy('nama_unit')
             ->get();
 
+        // 🔒 Tambahan keamanan: jika tidak ada guru sesuai gender
+        if ($guru->isEmpty()) {
+            return redirect()->route('tahfizh.halaqoh.index')
+                ->with('error', 'Tidak ada guru sesuai kriteria (unit & jenis kelamin).');
+        }
+
         return view('tahfizh.halaqoh.create', compact('guru', 'units'));
     }
 

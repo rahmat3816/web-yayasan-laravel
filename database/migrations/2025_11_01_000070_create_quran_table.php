@@ -7,30 +7,55 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        // Master Surah
+        // ==============================
+        // 📘 TABEL quran_surah
+        // ==============================
         Schema::create('quran_surah', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_surah');
-            $table->integer('jumlah_ayat');
+            $table->id(); // BIGINT UNSIGNED
+            $table->string('nama_surah', 100);
+            $table->unsignedSmallInteger('jumlah_ayat');
             $table->timestamps();
         });
 
-        // Master Ayat
-        Schema::create('quran_ayat', function (Blueprint $table) {
+        // ==============================
+        // 📖 TABEL quran_juz_map
+        // ==============================
+        Schema::create('quran_juz_map', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('surah_id');
-            $table->integer('nomor_ayat');
-            $table->text('teks_arab')->nullable();
-            $table->text('terjemahan')->nullable();
+            $table->unsignedTinyInteger('juz');
+            // ✅ gunakan foreignId agar otomatis BIGINT UNSIGNED
+            $table->foreignId('surah_id')
+                  ->constrained('quran_surah')
+                  ->onDelete('cascade');
+            $table->unsignedSmallInteger('ayat_awal')->nullable();
+            $table->unsignedSmallInteger('ayat_akhir')->nullable();
             $table->timestamps();
+        });
 
-            $table->foreign('surah_id')->references('id')->on('quran_surah')->onDelete('cascade');
+        // ==============================
+        // 📄 TABEL quran_page_map
+        // ==============================
+        Schema::create('quran_page_map', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedSmallInteger('page');
+            $table->unsignedTinyInteger('juz')->nullable();
+            // ✅ tipe sama (BIGINT UNSIGNED)
+            $table->foreignId('surah_id')
+                  ->nullable()
+                  ->constrained('quran_surah')
+                  ->onDelete('cascade');
+            $table->unsignedSmallInteger('ayat_awal')->nullable();
+            $table->unsignedSmallInteger('ayat_akhir')->nullable();
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('quran_ayat');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('quran_page_map');
+        Schema::dropIfExists('quran_juz_map');
         Schema::dropIfExists('quran_surah');
+        Schema::enableForeignKeyConstraints();
     }
 };
