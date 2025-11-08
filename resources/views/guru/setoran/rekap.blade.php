@@ -14,11 +14,11 @@ Sinkron dengan SetoranHafalanController (tanpa mode halaman)
     {{-- ✅ Ringkasan --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-            <div class="text-sm text-gray-500">Total Juz (unik)</div>
+            <div class="text-sm text-gray-500">Total Juz</div>
             <div class="text-2xl font-bold">{{ $rekap['total_juz'] ?? 0 }}</div>
         </div>
         <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
-            <div class="text-sm text-gray-500">Total Surah (unik)</div>
+            <div class="text-sm text-gray-500">Total Surah</div>
             <div class="text-2xl font-bold">{{ $rekap['total_surah'] ?? 0 }}</div>
         </div>
         <div class="p-4 bg-white dark:bg-gray-800 rounded shadow">
