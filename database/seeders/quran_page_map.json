@@ -1,7 +1,7 @@
 [
   {
     "page": 1,
-    "juz": null,
+    "juz": 1,
     "surah_id": 1,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -10,7 +10,7 @@
   },
   {
     "page": 10,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 62,
     "ayat_akhir": 69,
@@ -19,7 +19,7 @@
   },
   {
     "page": 100,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 135,
     "ayat_akhir": 140,
@@ -28,7 +28,7 @@
   },
   {
     "page": 101,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 141,
     "ayat_akhir": 147,
@@ -37,7 +37,7 @@
   },
   {
     "page": 102,
-    "juz": null,
+    "juz": 6,
     "surah_id": 4,
     "ayat_awal": 148,
     "ayat_akhir": 154,
@@ -46,7 +46,7 @@
   },
   {
     "page": 103,
-    "juz": null,
+    "juz": 6,
     "surah_id": 4,
     "ayat_awal": 155,
     "ayat_akhir": 162,
@@ -55,7 +55,7 @@
   },
   {
     "page": 104,
-    "juz": null,
+    "juz": 6,
     "surah_id": 4,
     "ayat_awal": 163,
     "ayat_akhir": 170,
@@ -64,7 +64,7 @@
   },
   {
     "page": 105,
-    "juz": null,
+    "juz": 6,
     "surah_id": 4,
     "ayat_awal": 171,
     "ayat_akhir": 175,
@@ -73,7 +73,7 @@
   },
   {
     "page": 106,
-    "juz": null,
+    "juz": 6,
     "surah_id": 4,
     "ayat_awal": 176,
     "ayat_akhir": 176,
@@ -82,7 +82,7 @@
   },
   {
     "page": 106,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 1,
     "ayat_akhir": 2,
@@ -91,7 +91,7 @@
   },
   {
     "page": 107,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 3,
     "ayat_akhir": 5,
@@ -100,7 +100,7 @@
   },
   {
     "page": 108,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 6,
     "ayat_akhir": 9,
@@ -109,7 +109,7 @@
   },
   {
     "page": 109,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 10,
     "ayat_akhir": 13,
@@ -118,7 +118,7 @@
   },
   {
     "page": 11,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 70,
     "ayat_akhir": 76,
@@ -127,7 +127,7 @@
   },
   {
     "page": 110,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 14,
     "ayat_akhir": 17,
@@ -136,7 +136,7 @@
   },
   {
     "page": 111,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 18,
     "ayat_akhir": 23,
@@ -145,7 +145,7 @@
   },
   {
     "page": 112,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 24,
     "ayat_akhir": 31,
@@ -154,7 +154,7 @@
   },
   {
     "page": 113,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 32,
     "ayat_akhir": 36,
@@ -163,7 +163,7 @@
   },
   {
     "page": 114,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 37,
     "ayat_akhir": 41,
@@ -172,7 +172,7 @@
   },
   {
     "page": 115,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 42,
     "ayat_akhir": 45,
@@ -181,7 +181,7 @@
   },
   {
     "page": 116,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 46,
     "ayat_akhir": 50,
@@ -190,7 +190,7 @@
   },
   {
     "page": 117,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 51,
     "ayat_akhir": 57,
@@ -199,7 +199,7 @@
   },
   {
     "page": 118,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 58,
     "ayat_akhir": 64,
@@ -208,7 +208,7 @@
   },
   {
     "page": 119,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 65,
     "ayat_akhir": 70,
@@ -217,7 +217,7 @@
   },
   {
     "page": 12,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 77,
     "ayat_akhir": 83,
@@ -226,7 +226,7 @@
   },
   {
     "page": 120,
-    "juz": null,
+    "juz": 6,
     "surah_id": 5,
     "ayat_awal": 71,
     "ayat_akhir": 76,
@@ -244,7 +244,7 @@
   },
   {
     "page": 122,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 83,
     "ayat_akhir": 89,
@@ -253,7 +253,7 @@
   },
   {
     "page": 123,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 90,
     "ayat_akhir": 95,
@@ -262,7 +262,7 @@
   },
   {
     "page": 124,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 96,
     "ayat_akhir": 103,
@@ -271,7 +271,7 @@
   },
   {
     "page": 125,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 104,
     "ayat_akhir": 108,
@@ -280,7 +280,7 @@
   },
   {
     "page": 126,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 109,
     "ayat_akhir": 113,
@@ -289,7 +289,7 @@
   },
   {
     "page": 127,
-    "juz": null,
+    "juz": 7,
     "surah_id": 5,
     "ayat_awal": 114,
     "ayat_akhir": 120,
@@ -298,7 +298,7 @@
   },
   {
     "page": 128,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -307,7 +307,7 @@
   },
   {
     "page": 129,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 9,
     "ayat_akhir": 18,
@@ -316,7 +316,7 @@
   },
   {
     "page": 13,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 84,
     "ayat_akhir": 88,
@@ -325,7 +325,7 @@
   },
   {
     "page": 130,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 19,
     "ayat_akhir": 27,
@@ -334,7 +334,7 @@
   },
   {
     "page": 131,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 28,
     "ayat_akhir": 35,
@@ -343,7 +343,7 @@
   },
   {
     "page": 132,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 36,
     "ayat_akhir": 44,
@@ -352,7 +352,7 @@
   },
   {
     "page": 133,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 45,
     "ayat_akhir": 52,
@@ -361,7 +361,7 @@
   },
   {
     "page": 134,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 53,
     "ayat_akhir": 59,
@@ -370,7 +370,7 @@
   },
   {
     "page": 135,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 60,
     "ayat_akhir": 68,
@@ -379,7 +379,7 @@
   },
   {
     "page": 136,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 69,
     "ayat_akhir": 73,
@@ -388,7 +388,7 @@
   },
   {
     "page": 137,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 74,
     "ayat_akhir": 81,
@@ -397,7 +397,7 @@
   },
   {
     "page": 138,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 82,
     "ayat_akhir": 90,
@@ -406,7 +406,7 @@
   },
   {
     "page": 139,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 91,
     "ayat_akhir": 94,
@@ -415,7 +415,7 @@
   },
   {
     "page": 14,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 89,
     "ayat_akhir": 93,
@@ -424,7 +424,7 @@
   },
   {
     "page": 140,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 95,
     "ayat_akhir": 101,
@@ -433,7 +433,7 @@
   },
   {
     "page": 141,
-    "juz": null,
+    "juz": 7,
     "surah_id": 6,
     "ayat_awal": 102,
     "ayat_akhir": 110,
@@ -442,7 +442,7 @@
   },
   {
     "page": 142,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 111,
     "ayat_akhir": 118,
@@ -451,7 +451,7 @@
   },
   {
     "page": 143,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 119,
     "ayat_akhir": 124,
@@ -460,7 +460,7 @@
   },
   {
     "page": 144,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 125,
     "ayat_akhir": 131,
@@ -469,7 +469,7 @@
   },
   {
     "page": 145,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 132,
     "ayat_akhir": 137,
@@ -478,7 +478,7 @@
   },
   {
     "page": 146,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 138,
     "ayat_akhir": 142,
@@ -487,7 +487,7 @@
   },
   {
     "page": 147,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 143,
     "ayat_akhir": 146,
@@ -496,7 +496,7 @@
   },
   {
     "page": 148,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 147,
     "ayat_akhir": 151,
@@ -505,7 +505,7 @@
   },
   {
     "page": 149,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 152,
     "ayat_akhir": 157,
@@ -514,7 +514,7 @@
   },
   {
     "page": 15,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 94,
     "ayat_akhir": 101,
@@ -523,7 +523,7 @@
   },
   {
     "page": 150,
-    "juz": null,
+    "juz": 8,
     "surah_id": 6,
     "ayat_awal": 158,
     "ayat_akhir": 165,
@@ -532,7 +532,7 @@
   },
   {
     "page": 151,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -541,7 +541,7 @@
   },
   {
     "page": 152,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 12,
     "ayat_akhir": 22,
@@ -550,7 +550,7 @@
   },
   {
     "page": 153,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 23,
     "ayat_akhir": 30,
@@ -559,7 +559,7 @@
   },
   {
     "page": 154,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 31,
     "ayat_akhir": 37,
@@ -568,7 +568,7 @@
   },
   {
     "page": 155,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 38,
     "ayat_akhir": 43,
@@ -577,7 +577,7 @@
   },
   {
     "page": 156,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 44,
     "ayat_akhir": 51,
@@ -586,7 +586,7 @@
   },
   {
     "page": 157,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 52,
     "ayat_akhir": 57,
@@ -595,7 +595,7 @@
   },
   {
     "page": 158,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 58,
     "ayat_akhir": 67,
@@ -604,7 +604,7 @@
   },
   {
     "page": 159,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 68,
     "ayat_akhir": 73,
@@ -613,7 +613,7 @@
   },
   {
     "page": 16,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 102,
     "ayat_akhir": 105,
@@ -622,7 +622,7 @@
   },
   {
     "page": 160,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 74,
     "ayat_akhir": 81,
@@ -631,7 +631,7 @@
   },
   {
     "page": 161,
-    "juz": null,
+    "juz": 8,
     "surah_id": 7,
     "ayat_awal": 82,
     "ayat_akhir": 87,
@@ -640,7 +640,7 @@
   },
   {
     "page": 162,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 88,
     "ayat_akhir": 95,
@@ -649,7 +649,7 @@
   },
   {
     "page": 163,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 96,
     "ayat_akhir": 104,
@@ -658,7 +658,7 @@
   },
   {
     "page": 164,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 105,
     "ayat_akhir": 120,
@@ -667,7 +667,7 @@
   },
   {
     "page": 165,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 121,
     "ayat_akhir": 130,
@@ -676,7 +676,7 @@
   },
   {
     "page": 166,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 131,
     "ayat_akhir": 137,
@@ -685,7 +685,7 @@
   },
   {
     "page": 167,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 138,
     "ayat_akhir": 143,
@@ -694,7 +694,7 @@
   },
   {
     "page": 168,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 144,
     "ayat_akhir": 149,
@@ -703,7 +703,7 @@
   },
   {
     "page": 169,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 150,
     "ayat_akhir": 155,
@@ -712,7 +712,7 @@
   },
   {
     "page": 17,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 106,
     "ayat_akhir": 112,
@@ -721,7 +721,7 @@
   },
   {
     "page": 170,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 156,
     "ayat_akhir": 159,
@@ -730,7 +730,7 @@
   },
   {
     "page": 171,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 160,
     "ayat_akhir": 163,
@@ -739,7 +739,7 @@
   },
   {
     "page": 172,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 164,
     "ayat_akhir": 170,
@@ -748,7 +748,7 @@
   },
   {
     "page": 173,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 171,
     "ayat_akhir": 178,
@@ -757,7 +757,7 @@
   },
   {
     "page": 174,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 179,
     "ayat_akhir": 187,
@@ -766,7 +766,7 @@
   },
   {
     "page": 175,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 188,
     "ayat_akhir": 195,
@@ -775,7 +775,7 @@
   },
   {
     "page": 176,
-    "juz": null,
+    "juz": 9,
     "surah_id": 7,
     "ayat_awal": 196,
     "ayat_akhir": 206,
@@ -784,7 +784,7 @@
   },
   {
     "page": 177,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -793,7 +793,7 @@
   },
   {
     "page": 178,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 9,
     "ayat_akhir": 16,
@@ -802,7 +802,7 @@
   },
   {
     "page": 179,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 17,
     "ayat_akhir": 25,
@@ -811,7 +811,7 @@
   },
   {
     "page": 18,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 113,
     "ayat_akhir": 119,
@@ -820,7 +820,7 @@
   },
   {
     "page": 180,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 26,
     "ayat_akhir": 33,
@@ -829,7 +829,7 @@
   },
   {
     "page": 181,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 34,
     "ayat_akhir": 40,
@@ -838,7 +838,7 @@
   },
   {
     "page": 182,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 41,
     "ayat_akhir": 45,
@@ -847,7 +847,7 @@
   },
   {
     "page": 183,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 46,
     "ayat_akhir": 52,
@@ -856,7 +856,7 @@
   },
   {
     "page": 184,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 53,
     "ayat_akhir": 61,
@@ -865,7 +865,7 @@
   },
   {
     "page": 185,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 62,
     "ayat_akhir": 69,
@@ -874,7 +874,7 @@
   },
   {
     "page": 186,
-    "juz": null,
+    "juz": 10,
     "surah_id": 8,
     "ayat_awal": 70,
     "ayat_akhir": 75,
@@ -883,7 +883,7 @@
   },
   {
     "page": 187,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -892,7 +892,7 @@
   },
   {
     "page": 188,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 7,
     "ayat_akhir": 13,
@@ -901,7 +901,7 @@
   },
   {
     "page": 189,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 14,
     "ayat_akhir": 20,
@@ -910,7 +910,7 @@
   },
   {
     "page": 19,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 120,
     "ayat_akhir": 126,
@@ -919,7 +919,7 @@
   },
   {
     "page": 190,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 21,
     "ayat_akhir": 26,
@@ -928,7 +928,7 @@
   },
   {
     "page": 191,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 27,
     "ayat_akhir": 31,
@@ -937,7 +937,7 @@
   },
   {
     "page": 192,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 32,
     "ayat_akhir": 36,
@@ -946,7 +946,7 @@
   },
   {
     "page": 193,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 37,
     "ayat_akhir": 40,
@@ -955,7 +955,7 @@
   },
   {
     "page": 194,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 41,
     "ayat_akhir": 47,
@@ -964,7 +964,7 @@
   },
   {
     "page": 195,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 48,
     "ayat_akhir": 54,
@@ -973,7 +973,7 @@
   },
   {
     "page": 196,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 55,
     "ayat_akhir": 61,
@@ -982,7 +982,7 @@
   },
   {
     "page": 197,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 62,
     "ayat_akhir": 68,
@@ -991,7 +991,7 @@
   },
   {
     "page": 198,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 69,
     "ayat_akhir": 72,
@@ -1000,7 +1000,7 @@
   },
   {
     "page": 199,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 73,
     "ayat_akhir": 79,
@@ -1009,7 +1009,7 @@
   },
   {
     "page": 2,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -1018,7 +1018,7 @@
   },
   {
     "page": 20,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 127,
     "ayat_akhir": 134,
@@ -1027,7 +1027,7 @@
   },
   {
     "page": 200,
-    "juz": null,
+    "juz": 10,
     "surah_id": 9,
     "ayat_awal": 80,
     "ayat_akhir": 86,
@@ -1045,7 +1045,7 @@
   },
   {
     "page": 202,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 94,
     "ayat_akhir": 99,
@@ -1054,7 +1054,7 @@
   },
   {
     "page": 203,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 100,
     "ayat_akhir": 106,
@@ -1063,7 +1063,7 @@
   },
   {
     "page": 204,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 107,
     "ayat_akhir": 111,
@@ -1072,7 +1072,7 @@
   },
   {
     "page": 205,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 112,
     "ayat_akhir": 117,
@@ -1081,7 +1081,7 @@
   },
   {
     "page": 206,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 118,
     "ayat_akhir": 122,
@@ -1090,7 +1090,7 @@
   },
   {
     "page": 207,
-    "juz": null,
+    "juz": 11,
     "surah_id": 9,
     "ayat_awal": 123,
     "ayat_akhir": 129,
@@ -1099,7 +1099,7 @@
   },
   {
     "page": 208,
-    "juz": null,
+    "juz": 11,
     "surah_id": 10,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -1108,7 +1108,7 @@
   },
   {
     "page": 209,
-    "juz": null,
+    "juz": 11,
     "surah_id": 10,
     "ayat_awal": 7,
     "ayat_akhir": 14,
@@ -1117,7 +1117,7 @@
   },
   {
     "page": 21,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 135,
     "ayat_akhir": 141,
@@ -1126,7 +1126,7 @@
   },
   {
     "page": 210,
-    "juz": null,
+    "juz": 11,
     "surah_id": 10,
     "ayat_awal": 15,
     "ayat_akhir": 20,
@@ -1135,7 +1135,7 @@
   },
   {
     "page": 211,
-    "juz": null,
+    "juz": 11,
     "surah_id": 10,
     "ayat_awal": 21,
     "ayat_akhir": 25,
@@ -1144,7 +1144,7 @@
   },
   {
     "page": 212,
-    "juz": null,
+    "juz": 11,
     "surah_id": 10,
     "ayat_awal": 26,
     "ayat_akhir": 33,
@@ -1162,7 +1162,7 @@
   },
   {
     "page": 214,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 43,
     "ayat_akhir": 53,
@@ -1171,7 +1171,7 @@
   },
   {
     "page": 215,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 54,
     "ayat_akhir": 61,
@@ -1180,7 +1180,7 @@
   },
   {
     "page": 216,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 62,
     "ayat_akhir": 70,
@@ -1189,7 +1189,7 @@
   },
   {
     "page": 217,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 71,
     "ayat_akhir": 78,
@@ -1198,7 +1198,7 @@
   },
   {
     "page": 218,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 79,
     "ayat_akhir": 88,
@@ -1207,7 +1207,7 @@
   },
   {
     "page": 219,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 89,
     "ayat_akhir": 97,
@@ -1216,7 +1216,7 @@
   },
   {
     "page": 22,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 142,
     "ayat_akhir": 145,
@@ -1225,7 +1225,7 @@
   },
   {
     "page": 220,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 98,
     "ayat_akhir": 106,
@@ -1234,7 +1234,7 @@
   },
   {
     "page": 221,
-    "juz": null,
+    "juz": 12,
     "surah_id": 10,
     "ayat_awal": 107,
     "ayat_akhir": 109,
@@ -1243,7 +1243,7 @@
   },
   {
     "page": 221,
-    "juz": null,
+    "juz": 12,
     "surah_id": 11,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -1252,7 +1252,7 @@
   },
   {
     "page": 222,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 6,
     "ayat_akhir": 12,
@@ -1261,7 +1261,7 @@
   },
   {
     "page": 223,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 13,
     "ayat_akhir": 19,
@@ -1270,7 +1270,7 @@
   },
   {
     "page": 224,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 20,
     "ayat_akhir": 28,
@@ -1279,7 +1279,7 @@
   },
   {
     "page": 225,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 29,
     "ayat_akhir": 37,
@@ -1288,7 +1288,7 @@
   },
   {
     "page": 226,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 38,
     "ayat_akhir": 45,
@@ -1297,7 +1297,7 @@
   },
   {
     "page": 227,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 46,
     "ayat_akhir": 53,
@@ -1306,7 +1306,7 @@
   },
   {
     "page": 228,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 54,
     "ayat_akhir": 62,
@@ -1315,7 +1315,7 @@
   },
   {
     "page": 229,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 63,
     "ayat_akhir": 71,
@@ -1324,7 +1324,7 @@
   },
   {
     "page": 23,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 146,
     "ayat_akhir": 153,
@@ -1333,7 +1333,7 @@
   },
   {
     "page": 230,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 72,
     "ayat_akhir": 81,
@@ -1342,7 +1342,7 @@
   },
   {
     "page": 231,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 82,
     "ayat_akhir": 88,
@@ -1351,7 +1351,7 @@
   },
   {
     "page": 232,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 89,
     "ayat_akhir": 97,
@@ -1360,7 +1360,7 @@
   },
   {
     "page": 233,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 98,
     "ayat_akhir": 108,
@@ -1369,7 +1369,7 @@
   },
   {
     "page": 234,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 109,
     "ayat_akhir": 117,
@@ -1378,7 +1378,7 @@
   },
   {
     "page": 235,
-    "juz": null,
+    "juz": 13,
     "surah_id": 11,
     "ayat_awal": 118,
     "ayat_akhir": 123,
@@ -1387,7 +1387,7 @@
   },
   {
     "page": 235,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 1,
     "ayat_akhir": 4,
@@ -1396,7 +1396,7 @@
   },
   {
     "page": 236,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 5,
     "ayat_akhir": 14,
@@ -1405,7 +1405,7 @@
   },
   {
     "page": 237,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 15,
     "ayat_akhir": 22,
@@ -1414,7 +1414,7 @@
   },
   {
     "page": 238,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 23,
     "ayat_akhir": 30,
@@ -1423,7 +1423,7 @@
   },
   {
     "page": 239,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 31,
     "ayat_akhir": 37,
@@ -1432,7 +1432,7 @@
   },
   {
     "page": 24,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 154,
     "ayat_akhir": 163,
@@ -1441,7 +1441,7 @@
   },
   {
     "page": 240,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 38,
     "ayat_akhir": 43,
@@ -1450,7 +1450,7 @@
   },
   {
     "page": 241,
-    "juz": null,
+    "juz": 13,
     "surah_id": 12,
     "ayat_awal": 44,
     "ayat_akhir": 52,
@@ -1459,7 +1459,7 @@
   },
   {
     "page": 242,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 53,
     "ayat_akhir": 63,
@@ -1468,7 +1468,7 @@
   },
   {
     "page": 243,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 64,
     "ayat_akhir": 69,
@@ -1477,7 +1477,7 @@
   },
   {
     "page": 244,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 70,
     "ayat_akhir": 78,
@@ -1486,7 +1486,7 @@
   },
   {
     "page": 245,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 79,
     "ayat_akhir": 86,
@@ -1495,7 +1495,7 @@
   },
   {
     "page": 246,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 87,
     "ayat_akhir": 95,
@@ -1504,7 +1504,7 @@
   },
   {
     "page": 247,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 96,
     "ayat_akhir": 103,
@@ -1513,7 +1513,7 @@
   },
   {
     "page": 248,
-    "juz": null,
+    "juz": 14,
     "surah_id": 12,
     "ayat_awal": 104,
     "ayat_akhir": 111,
@@ -1522,7 +1522,7 @@
   },
   {
     "page": 249,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -1531,7 +1531,7 @@
   },
   {
     "page": 25,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 164,
     "ayat_akhir": 169,
@@ -1540,7 +1540,7 @@
   },
   {
     "page": 250,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 6,
     "ayat_akhir": 13,
@@ -1549,7 +1549,7 @@
   },
   {
     "page": 251,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 14,
     "ayat_akhir": 18,
@@ -1558,7 +1558,7 @@
   },
   {
     "page": 252,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 19,
     "ayat_akhir": 28,
@@ -1567,7 +1567,7 @@
   },
   {
     "page": 253,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 29,
     "ayat_akhir": 34,
@@ -1576,7 +1576,7 @@
   },
   {
     "page": 254,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 35,
     "ayat_akhir": 42,
@@ -1585,7 +1585,7 @@
   },
   {
     "page": 255,
-    "juz": null,
+    "juz": 14,
     "surah_id": 13,
     "ayat_awal": 43,
     "ayat_akhir": 43,
@@ -1594,7 +1594,7 @@
   },
   {
     "page": 255,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -1603,7 +1603,7 @@
   },
   {
     "page": 256,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 6,
     "ayat_akhir": 10,
@@ -1612,7 +1612,7 @@
   },
   {
     "page": 257,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 11,
     "ayat_akhir": 18,
@@ -1621,7 +1621,7 @@
   },
   {
     "page": 258,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 19,
     "ayat_akhir": 24,
@@ -1630,7 +1630,7 @@
   },
   {
     "page": 259,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 25,
     "ayat_akhir": 33,
@@ -1639,7 +1639,7 @@
   },
   {
     "page": 26,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 170,
     "ayat_akhir": 176,
@@ -1648,7 +1648,7 @@
   },
   {
     "page": 260,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 34,
     "ayat_akhir": 42,
@@ -1657,7 +1657,7 @@
   },
   {
     "page": 261,
-    "juz": null,
+    "juz": 14,
     "surah_id": 14,
     "ayat_awal": 43,
     "ayat_akhir": 52,
@@ -1666,7 +1666,7 @@
   },
   {
     "page": 262,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 1,
     "ayat_akhir": 15,
@@ -1675,7 +1675,7 @@
   },
   {
     "page": 263,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 16,
     "ayat_akhir": 31,
@@ -1684,7 +1684,7 @@
   },
   {
     "page": 264,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 32,
     "ayat_akhir": 51,
@@ -1693,7 +1693,7 @@
   },
   {
     "page": 265,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 52,
     "ayat_akhir": 70,
@@ -1702,7 +1702,7 @@
   },
   {
     "page": 266,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 71,
     "ayat_akhir": 90,
@@ -1711,7 +1711,7 @@
   },
   {
     "page": 267,
-    "juz": null,
+    "juz": 15,
     "surah_id": 15,
     "ayat_awal": 91,
     "ayat_akhir": 99,
@@ -1720,7 +1720,7 @@
   },
   {
     "page": 267,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -1729,7 +1729,7 @@
   },
   {
     "page": 268,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 7,
     "ayat_akhir": 14,
@@ -1738,7 +1738,7 @@
   },
   {
     "page": 269,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 15,
     "ayat_akhir": 26,
@@ -1747,7 +1747,7 @@
   },
   {
     "page": 27,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 177,
     "ayat_akhir": 181,
@@ -1756,7 +1756,7 @@
   },
   {
     "page": 270,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 27,
     "ayat_akhir": 34,
@@ -1765,7 +1765,7 @@
   },
   {
     "page": 271,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 35,
     "ayat_akhir": 42,
@@ -1774,7 +1774,7 @@
   },
   {
     "page": 272,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 43,
     "ayat_akhir": 54,
@@ -1783,7 +1783,7 @@
   },
   {
     "page": 273,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 55,
     "ayat_akhir": 64,
@@ -1792,7 +1792,7 @@
   },
   {
     "page": 274,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 65,
     "ayat_akhir": 72,
@@ -1801,7 +1801,7 @@
   },
   {
     "page": 275,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 73,
     "ayat_akhir": 79,
@@ -1810,7 +1810,7 @@
   },
   {
     "page": 276,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 80,
     "ayat_akhir": 87,
@@ -1819,7 +1819,7 @@
   },
   {
     "page": 277,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 88,
     "ayat_akhir": 93,
@@ -1828,7 +1828,7 @@
   },
   {
     "page": 278,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 94,
     "ayat_akhir": 102,
@@ -1837,7 +1837,7 @@
   },
   {
     "page": 279,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 103,
     "ayat_akhir": 110,
@@ -1846,7 +1846,7 @@
   },
   {
     "page": 28,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 182,
     "ayat_akhir": 186,
@@ -1855,7 +1855,7 @@
   },
   {
     "page": 280,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 111,
     "ayat_akhir": 118,
@@ -1864,7 +1864,7 @@
   },
   {
     "page": 281,
-    "juz": null,
+    "juz": 15,
     "surah_id": 16,
     "ayat_awal": 119,
     "ayat_akhir": 128,
@@ -1873,7 +1873,7 @@
   },
   {
     "page": 282,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -1882,7 +1882,7 @@
   },
   {
     "page": 283,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 8,
     "ayat_akhir": 17,
@@ -1891,7 +1891,7 @@
   },
   {
     "page": 284,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 18,
     "ayat_akhir": 27,
@@ -1900,7 +1900,7 @@
   },
   {
     "page": 285,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 28,
     "ayat_akhir": 38,
@@ -1909,7 +1909,7 @@
   },
   {
     "page": 286,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 39,
     "ayat_akhir": 49,
@@ -1918,7 +1918,7 @@
   },
   {
     "page": 287,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 50,
     "ayat_akhir": 58,
@@ -1927,7 +1927,7 @@
   },
   {
     "page": 288,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 59,
     "ayat_akhir": 66,
@@ -1936,7 +1936,7 @@
   },
   {
     "page": 289,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 67,
     "ayat_akhir": 75,
@@ -1945,7 +1945,7 @@
   },
   {
     "page": 29,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 187,
     "ayat_akhir": 190,
@@ -1954,7 +1954,7 @@
   },
   {
     "page": 290,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 76,
     "ayat_akhir": 86,
@@ -1963,7 +1963,7 @@
   },
   {
     "page": 291,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 87,
     "ayat_akhir": 96,
@@ -1972,7 +1972,7 @@
   },
   {
     "page": 292,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 97,
     "ayat_akhir": 104,
@@ -1981,7 +1981,7 @@
   },
   {
     "page": 293,
-    "juz": null,
+    "juz": 16,
     "surah_id": 17,
     "ayat_awal": 105,
     "ayat_akhir": 111,
@@ -1990,7 +1990,7 @@
   },
   {
     "page": 293,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 1,
     "ayat_akhir": 4,
@@ -1999,7 +1999,7 @@
   },
   {
     "page": 294,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 5,
     "ayat_akhir": 15,
@@ -2008,7 +2008,7 @@
   },
   {
     "page": 295,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 16,
     "ayat_akhir": 20,
@@ -2017,7 +2017,7 @@
   },
   {
     "page": 296,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 21,
     "ayat_akhir": 27,
@@ -2026,7 +2026,7 @@
   },
   {
     "page": 297,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 28,
     "ayat_akhir": 34,
@@ -2035,7 +2035,7 @@
   },
   {
     "page": 298,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 35,
     "ayat_akhir": 45,
@@ -2044,7 +2044,7 @@
   },
   {
     "page": 299,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 46,
     "ayat_akhir": 53,
@@ -2053,7 +2053,7 @@
   },
   {
     "page": 3,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 6,
     "ayat_akhir": 16,
@@ -2062,7 +2062,7 @@
   },
   {
     "page": 30,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 191,
     "ayat_akhir": 196,
@@ -2071,7 +2071,7 @@
   },
   {
     "page": 300,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 54,
     "ayat_akhir": 61,
@@ -2080,7 +2080,7 @@
   },
   {
     "page": 301,
-    "juz": null,
+    "juz": 16,
     "surah_id": 18,
     "ayat_awal": 62,
     "ayat_akhir": 74,
@@ -2089,7 +2089,7 @@
   },
   {
     "page": 302,
-    "juz": null,
+    "juz": 17,
     "surah_id": 18,
     "ayat_awal": 75,
     "ayat_akhir": 83,
@@ -2098,7 +2098,7 @@
   },
   {
     "page": 303,
-    "juz": null,
+    "juz": 17,
     "surah_id": 18,
     "ayat_awal": 84,
     "ayat_akhir": 97,
@@ -2107,7 +2107,7 @@
   },
   {
     "page": 304,
-    "juz": null,
+    "juz": 17,
     "surah_id": 18,
     "ayat_awal": 98,
     "ayat_akhir": 110,
@@ -2116,7 +2116,7 @@
   },
   {
     "page": 305,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -2125,7 +2125,7 @@
   },
   {
     "page": 306,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 12,
     "ayat_akhir": 25,
@@ -2134,7 +2134,7 @@
   },
   {
     "page": 307,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 26,
     "ayat_akhir": 38,
@@ -2143,7 +2143,7 @@
   },
   {
     "page": 308,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 39,
     "ayat_akhir": 51,
@@ -2152,7 +2152,7 @@
   },
   {
     "page": 309,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 52,
     "ayat_akhir": 64,
@@ -2161,7 +2161,7 @@
   },
   {
     "page": 31,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 197,
     "ayat_akhir": 202,
@@ -2170,7 +2170,7 @@
   },
   {
     "page": 310,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 65,
     "ayat_akhir": 76,
@@ -2179,7 +2179,7 @@
   },
   {
     "page": 311,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 77,
     "ayat_akhir": 95,
@@ -2188,7 +2188,7 @@
   },
   {
     "page": 312,
-    "juz": null,
+    "juz": 17,
     "surah_id": 19,
     "ayat_awal": 96,
     "ayat_akhir": 98,
@@ -2197,7 +2197,7 @@
   },
   {
     "page": 312,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 1,
     "ayat_akhir": 12,
@@ -2206,7 +2206,7 @@
   },
   {
     "page": 313,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 13,
     "ayat_akhir": 37,
@@ -2215,7 +2215,7 @@
   },
   {
     "page": 314,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 38,
     "ayat_akhir": 51,
@@ -2224,7 +2224,7 @@
   },
   {
     "page": 315,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 52,
     "ayat_akhir": 64,
@@ -2233,7 +2233,7 @@
   },
   {
     "page": 316,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 65,
     "ayat_akhir": 76,
@@ -2242,7 +2242,7 @@
   },
   {
     "page": 317,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 77,
     "ayat_akhir": 87,
@@ -2251,7 +2251,7 @@
   },
   {
     "page": 318,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 88,
     "ayat_akhir": 98,
@@ -2260,7 +2260,7 @@
   },
   {
     "page": 319,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 99,
     "ayat_akhir": 113,
@@ -2269,7 +2269,7 @@
   },
   {
     "page": 32,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 203,
     "ayat_akhir": 210,
@@ -2278,7 +2278,7 @@
   },
   {
     "page": 320,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 114,
     "ayat_akhir": 125,
@@ -2287,7 +2287,7 @@
   },
   {
     "page": 321,
-    "juz": null,
+    "juz": 17,
     "surah_id": 20,
     "ayat_awal": 126,
     "ayat_akhir": 135,
@@ -2296,7 +2296,7 @@
   },
   {
     "page": 322,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 1,
     "ayat_akhir": 10,
@@ -2305,7 +2305,7 @@
   },
   {
     "page": 323,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 11,
     "ayat_akhir": 24,
@@ -2314,7 +2314,7 @@
   },
   {
     "page": 324,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 25,
     "ayat_akhir": 35,
@@ -2323,7 +2323,7 @@
   },
   {
     "page": 325,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 36,
     "ayat_akhir": 44,
@@ -2332,7 +2332,7 @@
   },
   {
     "page": 326,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 45,
     "ayat_akhir": 57,
@@ -2341,7 +2341,7 @@
   },
   {
     "page": 327,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 58,
     "ayat_akhir": 72,
@@ -2350,7 +2350,7 @@
   },
   {
     "page": 328,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 73,
     "ayat_akhir": 81,
@@ -2359,7 +2359,7 @@
   },
   {
     "page": 329,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 82,
     "ayat_akhir": 90,
@@ -2368,7 +2368,7 @@
   },
   {
     "page": 33,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 211,
     "ayat_akhir": 215,
@@ -2377,7 +2377,7 @@
   },
   {
     "page": 330,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 91,
     "ayat_akhir": 101,
@@ -2386,7 +2386,7 @@
   },
   {
     "page": 331,
-    "juz": null,
+    "juz": 18,
     "surah_id": 21,
     "ayat_awal": 102,
     "ayat_akhir": 112,
@@ -2395,7 +2395,7 @@
   },
   {
     "page": 332,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -2404,7 +2404,7 @@
   },
   {
     "page": 333,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 6,
     "ayat_akhir": 15,
@@ -2413,7 +2413,7 @@
   },
   {
     "page": 334,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 16,
     "ayat_akhir": 23,
@@ -2422,7 +2422,7 @@
   },
   {
     "page": 335,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 24,
     "ayat_akhir": 30,
@@ -2431,7 +2431,7 @@
   },
   {
     "page": 336,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 31,
     "ayat_akhir": 38,
@@ -2440,7 +2440,7 @@
   },
   {
     "page": 337,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 39,
     "ayat_akhir": 46,
@@ -2449,7 +2449,7 @@
   },
   {
     "page": 338,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 47,
     "ayat_akhir": 55,
@@ -2458,7 +2458,7 @@
   },
   {
     "page": 339,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 56,
     "ayat_akhir": 64,
@@ -2467,7 +2467,7 @@
   },
   {
     "page": 34,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 216,
     "ayat_akhir": 219,
@@ -2476,7 +2476,7 @@
   },
   {
     "page": 340,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 65,
     "ayat_akhir": 72,
@@ -2485,7 +2485,7 @@
   },
   {
     "page": 341,
-    "juz": null,
+    "juz": 18,
     "surah_id": 22,
     "ayat_awal": 73,
     "ayat_akhir": 78,
@@ -2494,7 +2494,7 @@
   },
   {
     "page": 342,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 1,
     "ayat_akhir": 17,
@@ -2503,7 +2503,7 @@
   },
   {
     "page": 343,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 18,
     "ayat_akhir": 27,
@@ -2512,7 +2512,7 @@
   },
   {
     "page": 344,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 28,
     "ayat_akhir": 42,
@@ -2521,7 +2521,7 @@
   },
   {
     "page": 345,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 43,
     "ayat_akhir": 59,
@@ -2530,7 +2530,7 @@
   },
   {
     "page": 346,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 60,
     "ayat_akhir": 74,
@@ -2539,7 +2539,7 @@
   },
   {
     "page": 347,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 75,
     "ayat_akhir": 89,
@@ -2548,7 +2548,7 @@
   },
   {
     "page": 348,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 90,
     "ayat_akhir": 104,
@@ -2557,7 +2557,7 @@
   },
   {
     "page": 349,
-    "juz": null,
+    "juz": 19,
     "surah_id": 23,
     "ayat_awal": 105,
     "ayat_akhir": 118,
@@ -2566,7 +2566,7 @@
   },
   {
     "page": 35,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 220,
     "ayat_akhir": 224,
@@ -2575,7 +2575,7 @@
   },
   {
     "page": 350,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 1,
     "ayat_akhir": 10,
@@ -2584,7 +2584,7 @@
   },
   {
     "page": 351,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 11,
     "ayat_akhir": 20,
@@ -2593,7 +2593,7 @@
   },
   {
     "page": 352,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 21,
     "ayat_akhir": 27,
@@ -2602,7 +2602,7 @@
   },
   {
     "page": 353,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 28,
     "ayat_akhir": 31,
@@ -2611,7 +2611,7 @@
   },
   {
     "page": 354,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 32,
     "ayat_akhir": 36,
@@ -2620,7 +2620,7 @@
   },
   {
     "page": 355,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 37,
     "ayat_akhir": 43,
@@ -2629,7 +2629,7 @@
   },
   {
     "page": 356,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 44,
     "ayat_akhir": 53,
@@ -2638,7 +2638,7 @@
   },
   {
     "page": 357,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 54,
     "ayat_akhir": 58,
@@ -2647,7 +2647,7 @@
   },
   {
     "page": 358,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 59,
     "ayat_akhir": 61,
@@ -2656,7 +2656,7 @@
   },
   {
     "page": 359,
-    "juz": null,
+    "juz": 19,
     "surah_id": 24,
     "ayat_awal": 62,
     "ayat_akhir": 64,
@@ -2665,7 +2665,7 @@
   },
   {
     "page": 359,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 1,
     "ayat_akhir": 2,
@@ -2674,7 +2674,7 @@
   },
   {
     "page": 36,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 225,
     "ayat_akhir": 230,
@@ -2683,7 +2683,7 @@
   },
   {
     "page": 360,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 3,
     "ayat_akhir": 11,
@@ -2692,7 +2692,7 @@
   },
   {
     "page": 361,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 12,
     "ayat_akhir": 20,
@@ -2701,7 +2701,7 @@
   },
   {
     "page": 362,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 21,
     "ayat_akhir": 32,
@@ -2710,7 +2710,7 @@
   },
   {
     "page": 363,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 33,
     "ayat_akhir": 43,
@@ -2719,7 +2719,7 @@
   },
   {
     "page": 364,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 44,
     "ayat_akhir": 55,
@@ -2728,7 +2728,7 @@
   },
   {
     "page": 365,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 56,
     "ayat_akhir": 67,
@@ -2737,7 +2737,7 @@
   },
   {
     "page": 366,
-    "juz": null,
+    "juz": 20,
     "surah_id": 25,
     "ayat_awal": 68,
     "ayat_akhir": 77,
@@ -2746,7 +2746,7 @@
   },
   {
     "page": 367,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 1,
     "ayat_akhir": 19,
@@ -2755,7 +2755,7 @@
   },
   {
     "page": 368,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 20,
     "ayat_akhir": 39,
@@ -2764,7 +2764,7 @@
   },
   {
     "page": 369,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 40,
     "ayat_akhir": 60,
@@ -2773,7 +2773,7 @@
   },
   {
     "page": 37,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 231,
     "ayat_akhir": 233,
@@ -2782,7 +2782,7 @@
   },
   {
     "page": 370,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 61,
     "ayat_akhir": 83,
@@ -2791,7 +2791,7 @@
   },
   {
     "page": 371,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 84,
     "ayat_akhir": 111,
@@ -2800,7 +2800,7 @@
   },
   {
     "page": 372,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 112,
     "ayat_akhir": 136,
@@ -2809,7 +2809,7 @@
   },
   {
     "page": 373,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 137,
     "ayat_akhir": 159,
@@ -2818,7 +2818,7 @@
   },
   {
     "page": 374,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 160,
     "ayat_akhir": 183,
@@ -2827,7 +2827,7 @@
   },
   {
     "page": 375,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 184,
     "ayat_akhir": 206,
@@ -2836,7 +2836,7 @@
   },
   {
     "page": 376,
-    "juz": null,
+    "juz": 20,
     "surah_id": 26,
     "ayat_awal": 207,
     "ayat_akhir": 227,
@@ -2845,7 +2845,7 @@
   },
   {
     "page": 377,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 1,
     "ayat_akhir": 13,
@@ -2854,7 +2854,7 @@
   },
   {
     "page": 378,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 14,
     "ayat_akhir": 22,
@@ -2863,7 +2863,7 @@
   },
   {
     "page": 379,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 23,
     "ayat_akhir": 35,
@@ -2872,7 +2872,7 @@
   },
   {
     "page": 38,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 234,
     "ayat_akhir": 237,
@@ -2881,7 +2881,7 @@
   },
   {
     "page": 380,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 36,
     "ayat_akhir": 44,
@@ -2890,7 +2890,7 @@
   },
   {
     "page": 381,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 45,
     "ayat_akhir": 55,
@@ -2899,7 +2899,7 @@
   },
   {
     "page": 382,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 56,
     "ayat_akhir": 63,
@@ -2908,7 +2908,7 @@
   },
   {
     "page": 383,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 64,
     "ayat_akhir": 76,
@@ -2917,7 +2917,7 @@
   },
   {
     "page": 384,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 77,
     "ayat_akhir": 88,
@@ -2926,7 +2926,7 @@
   },
   {
     "page": 385,
-    "juz": null,
+    "juz": 21,
     "surah_id": 27,
     "ayat_awal": 89,
     "ayat_akhir": 93,
@@ -2935,7 +2935,7 @@
   },
   {
     "page": 385,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -2944,7 +2944,7 @@
   },
   {
     "page": 386,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 6,
     "ayat_akhir": 13,
@@ -2953,7 +2953,7 @@
   },
   {
     "page": 387,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 14,
     "ayat_akhir": 21,
@@ -2962,7 +2962,7 @@
   },
   {
     "page": 388,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 22,
     "ayat_akhir": 28,
@@ -2971,7 +2971,7 @@
   },
   {
     "page": 389,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 29,
     "ayat_akhir": 35,
@@ -2980,7 +2980,7 @@
   },
   {
     "page": 39,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 238,
     "ayat_akhir": 245,
@@ -2989,7 +2989,7 @@
   },
   {
     "page": 390,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 36,
     "ayat_akhir": 43,
@@ -2998,7 +2998,7 @@
   },
   {
     "page": 391,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 44,
     "ayat_akhir": 50,
@@ -3007,7 +3007,7 @@
   },
   {
     "page": 392,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 51,
     "ayat_akhir": 59,
@@ -3016,7 +3016,7 @@
   },
   {
     "page": 393,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 60,
     "ayat_akhir": 70,
@@ -3025,7 +3025,7 @@
   },
   {
     "page": 394,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 71,
     "ayat_akhir": 77,
@@ -3034,7 +3034,7 @@
   },
   {
     "page": 395,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 78,
     "ayat_akhir": 84,
@@ -3043,7 +3043,7 @@
   },
   {
     "page": 396,
-    "juz": null,
+    "juz": 21,
     "surah_id": 28,
     "ayat_awal": 85,
     "ayat_akhir": 88,
@@ -3052,7 +3052,7 @@
   },
   {
     "page": 396,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -3061,7 +3061,7 @@
   },
   {
     "page": 397,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 7,
     "ayat_akhir": 14,
@@ -3070,7 +3070,7 @@
   },
   {
     "page": 398,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 15,
     "ayat_akhir": 23,
@@ -3079,7 +3079,7 @@
   },
   {
     "page": 399,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 24,
     "ayat_akhir": 30,
@@ -3088,7 +3088,7 @@
   },
   {
     "page": 4,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 17,
     "ayat_akhir": 24,
@@ -3097,7 +3097,7 @@
   },
   {
     "page": 40,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 246,
     "ayat_akhir": 248,
@@ -3106,7 +3106,7 @@
   },
   {
     "page": 400,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 31,
     "ayat_akhir": 38,
@@ -3115,7 +3115,7 @@
   },
   {
     "page": 401,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 39,
     "ayat_akhir": 45,
@@ -3124,7 +3124,7 @@
   },
   {
     "page": 402,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 46,
     "ayat_akhir": 52,
@@ -3133,7 +3133,7 @@
   },
   {
     "page": 403,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 53,
     "ayat_akhir": 63,
@@ -3142,7 +3142,7 @@
   },
   {
     "page": 404,
-    "juz": null,
+    "juz": 22,
     "surah_id": 29,
     "ayat_awal": 64,
     "ayat_akhir": 69,
@@ -3151,7 +3151,7 @@
   },
   {
     "page": 404,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -3160,7 +3160,7 @@
   },
   {
     "page": 405,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 6,
     "ayat_akhir": 15,
@@ -3169,7 +3169,7 @@
   },
   {
     "page": 406,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 16,
     "ayat_akhir": 24,
@@ -3178,7 +3178,7 @@
   },
   {
     "page": 407,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 25,
     "ayat_akhir": 32,
@@ -3187,7 +3187,7 @@
   },
   {
     "page": 408,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 33,
     "ayat_akhir": 41,
@@ -3196,7 +3196,7 @@
   },
   {
     "page": 409,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 42,
     "ayat_akhir": 50,
@@ -3205,7 +3205,7 @@
   },
   {
     "page": 41,
-    "juz": null,
+    "juz": 2,
     "surah_id": 2,
     "ayat_awal": 249,
     "ayat_akhir": 252,
@@ -3214,7 +3214,7 @@
   },
   {
     "page": 410,
-    "juz": null,
+    "juz": 22,
     "surah_id": 30,
     "ayat_awal": 51,
     "ayat_akhir": 60,
@@ -3223,7 +3223,7 @@
   },
   {
     "page": 411,
-    "juz": null,
+    "juz": 22,
     "surah_id": 31,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -3232,7 +3232,7 @@
   },
   {
     "page": 412,
-    "juz": null,
+    "juz": 22,
     "surah_id": 31,
     "ayat_awal": 12,
     "ayat_akhir": 19,
@@ -3241,7 +3241,7 @@
   },
   {
     "page": 413,
-    "juz": null,
+    "juz": 22,
     "surah_id": 31,
     "ayat_awal": 20,
     "ayat_akhir": 28,
@@ -3250,7 +3250,7 @@
   },
   {
     "page": 414,
-    "juz": null,
+    "juz": 22,
     "surah_id": 31,
     "ayat_awal": 29,
     "ayat_akhir": 34,
@@ -3259,7 +3259,7 @@
   },
   {
     "page": 415,
-    "juz": null,
+    "juz": 23,
     "surah_id": 32,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -3268,7 +3268,7 @@
   },
   {
     "page": 416,
-    "juz": null,
+    "juz": 23,
     "surah_id": 32,
     "ayat_awal": 12,
     "ayat_akhir": 20,
@@ -3277,7 +3277,7 @@
   },
   {
     "page": 417,
-    "juz": null,
+    "juz": 23,
     "surah_id": 32,
     "ayat_awal": 21,
     "ayat_akhir": 30,
@@ -3286,7 +3286,7 @@
   },
   {
     "page": 418,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -3295,7 +3295,7 @@
   },
   {
     "page": 419,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 7,
     "ayat_akhir": 15,
@@ -3304,7 +3304,7 @@
   },
   {
     "page": 42,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 253,
     "ayat_akhir": 256,
@@ -3313,7 +3313,7 @@
   },
   {
     "page": 420,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 16,
     "ayat_akhir": 22,
@@ -3322,7 +3322,7 @@
   },
   {
     "page": 421,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 23,
     "ayat_akhir": 30,
@@ -3331,7 +3331,7 @@
   },
   {
     "page": 422,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 31,
     "ayat_akhir": 35,
@@ -3340,7 +3340,7 @@
   },
   {
     "page": 423,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 36,
     "ayat_akhir": 43,
@@ -3349,7 +3349,7 @@
   },
   {
     "page": 424,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 44,
     "ayat_akhir": 50,
@@ -3358,7 +3358,7 @@
   },
   {
     "page": 425,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 51,
     "ayat_akhir": 54,
@@ -3367,7 +3367,7 @@
   },
   {
     "page": 426,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 55,
     "ayat_akhir": 62,
@@ -3376,7 +3376,7 @@
   },
   {
     "page": 427,
-    "juz": null,
+    "juz": 23,
     "surah_id": 33,
     "ayat_awal": 63,
     "ayat_akhir": 73,
@@ -3385,7 +3385,7 @@
   },
   {
     "page": 428,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -3394,7 +3394,7 @@
   },
   {
     "page": 429,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 8,
     "ayat_akhir": 14,
@@ -3403,7 +3403,7 @@
   },
   {
     "page": 43,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 257,
     "ayat_akhir": 259,
@@ -3412,7 +3412,7 @@
   },
   {
     "page": 430,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 15,
     "ayat_akhir": 22,
@@ -3421,7 +3421,7 @@
   },
   {
     "page": 431,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 23,
     "ayat_akhir": 31,
@@ -3430,7 +3430,7 @@
   },
   {
     "page": 432,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 32,
     "ayat_akhir": 39,
@@ -3439,7 +3439,7 @@
   },
   {
     "page": 433,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 40,
     "ayat_akhir": 48,
@@ -3448,7 +3448,7 @@
   },
   {
     "page": 434,
-    "juz": null,
+    "juz": 24,
     "surah_id": 34,
     "ayat_awal": 49,
     "ayat_akhir": 54,
@@ -3457,7 +3457,7 @@
   },
   {
     "page": 434,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 1,
     "ayat_akhir": 3,
@@ -3466,7 +3466,7 @@
   },
   {
     "page": 435,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 4,
     "ayat_akhir": 11,
@@ -3475,7 +3475,7 @@
   },
   {
     "page": 436,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 12,
     "ayat_akhir": 18,
@@ -3484,7 +3484,7 @@
   },
   {
     "page": 437,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 19,
     "ayat_akhir": 30,
@@ -3493,7 +3493,7 @@
   },
   {
     "page": 438,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 31,
     "ayat_akhir": 38,
@@ -3502,7 +3502,7 @@
   },
   {
     "page": 439,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 39,
     "ayat_akhir": 44,
@@ -3511,7 +3511,7 @@
   },
   {
     "page": 44,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 260,
     "ayat_akhir": 264,
@@ -3520,7 +3520,7 @@
   },
   {
     "page": 440,
-    "juz": null,
+    "juz": 24,
     "surah_id": 35,
     "ayat_awal": 45,
     "ayat_akhir": 45,
@@ -3529,7 +3529,7 @@
   },
   {
     "page": 440,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 1,
     "ayat_akhir": 12,
@@ -3538,7 +3538,7 @@
   },
   {
     "page": 441,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 13,
     "ayat_akhir": 27,
@@ -3547,7 +3547,7 @@
   },
   {
     "page": 442,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 28,
     "ayat_akhir": 40,
@@ -3556,7 +3556,7 @@
   },
   {
     "page": 443,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 41,
     "ayat_akhir": 54,
@@ -3565,7 +3565,7 @@
   },
   {
     "page": 444,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 55,
     "ayat_akhir": 70,
@@ -3574,7 +3574,7 @@
   },
   {
     "page": 445,
-    "juz": null,
+    "juz": 24,
     "surah_id": 36,
     "ayat_awal": 71,
     "ayat_akhir": 83,
@@ -3583,7 +3583,7 @@
   },
   {
     "page": 446,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 1,
     "ayat_akhir": 24,
@@ -3592,7 +3592,7 @@
   },
   {
     "page": 447,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 25,
     "ayat_akhir": 51,
@@ -3601,7 +3601,7 @@
   },
   {
     "page": 448,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 52,
     "ayat_akhir": 76,
@@ -3610,7 +3610,7 @@
   },
   {
     "page": 449,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 77,
     "ayat_akhir": 102,
@@ -3619,7 +3619,7 @@
   },
   {
     "page": 45,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 265,
     "ayat_akhir": 269,
@@ -3628,7 +3628,7 @@
   },
   {
     "page": 450,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 103,
     "ayat_akhir": 126,
@@ -3637,7 +3637,7 @@
   },
   {
     "page": 451,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 127,
     "ayat_akhir": 153,
@@ -3646,7 +3646,7 @@
   },
   {
     "page": 452,
-    "juz": null,
+    "juz": 25,
     "surah_id": 37,
     "ayat_awal": 154,
     "ayat_akhir": 182,
@@ -3655,7 +3655,7 @@
   },
   {
     "page": 453,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 1,
     "ayat_akhir": 16,
@@ -3664,7 +3664,7 @@
   },
   {
     "page": 454,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 17,
     "ayat_akhir": 26,
@@ -3673,7 +3673,7 @@
   },
   {
     "page": 455,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 27,
     "ayat_akhir": 42,
@@ -3682,7 +3682,7 @@
   },
   {
     "page": 456,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 43,
     "ayat_akhir": 61,
@@ -3691,7 +3691,7 @@
   },
   {
     "page": 457,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 62,
     "ayat_akhir": 83,
@@ -3700,7 +3700,7 @@
   },
   {
     "page": 458,
-    "juz": null,
+    "juz": 25,
     "surah_id": 38,
     "ayat_awal": 84,
     "ayat_akhir": 88,
@@ -3709,7 +3709,7 @@
   },
   {
     "page": 458,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -3718,7 +3718,7 @@
   },
   {
     "page": 459,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 6,
     "ayat_akhir": 10,
@@ -3727,7 +3727,7 @@
   },
   {
     "page": 46,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 270,
     "ayat_akhir": 274,
@@ -3736,7 +3736,7 @@
   },
   {
     "page": 460,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 11,
     "ayat_akhir": 21,
@@ -3745,7 +3745,7 @@
   },
   {
     "page": 461,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 22,
     "ayat_akhir": 31,
@@ -3754,7 +3754,7 @@
   },
   {
     "page": 462,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 32,
     "ayat_akhir": 40,
@@ -3763,7 +3763,7 @@
   },
   {
     "page": 463,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 41,
     "ayat_akhir": 47,
@@ -3772,7 +3772,7 @@
   },
   {
     "page": 464,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 48,
     "ayat_akhir": 56,
@@ -3781,7 +3781,7 @@
   },
   {
     "page": 465,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 57,
     "ayat_akhir": 67,
@@ -3790,7 +3790,7 @@
   },
   {
     "page": 466,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 68,
     "ayat_akhir": 74,
@@ -3799,7 +3799,7 @@
   },
   {
     "page": 467,
-    "juz": null,
+    "juz": 26,
     "surah_id": 39,
     "ayat_awal": 75,
     "ayat_akhir": 75,
@@ -3808,7 +3808,7 @@
   },
   {
     "page": 467,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -3817,7 +3817,7 @@
   },
   {
     "page": 468,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 8,
     "ayat_akhir": 16,
@@ -3826,7 +3826,7 @@
   },
   {
     "page": 469,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 17,
     "ayat_akhir": 25,
@@ -3835,7 +3835,7 @@
   },
   {
     "page": 47,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 275,
     "ayat_akhir": 281,
@@ -3844,7 +3844,7 @@
   },
   {
     "page": 470,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 26,
     "ayat_akhir": 33,
@@ -3853,7 +3853,7 @@
   },
   {
     "page": 471,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 34,
     "ayat_akhir": 40,
@@ -3862,7 +3862,7 @@
   },
   {
     "page": 472,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 41,
     "ayat_akhir": 49,
@@ -3871,7 +3871,7 @@
   },
   {
     "page": 473,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 50,
     "ayat_akhir": 58,
@@ -3880,7 +3880,7 @@
   },
   {
     "page": 474,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 59,
     "ayat_akhir": 66,
@@ -3889,7 +3889,7 @@
   },
   {
     "page": 475,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 67,
     "ayat_akhir": 77,
@@ -3898,7 +3898,7 @@
   },
   {
     "page": 476,
-    "juz": null,
+    "juz": 26,
     "surah_id": 40,
     "ayat_awal": 78,
     "ayat_akhir": 85,
@@ -3907,7 +3907,7 @@
   },
   {
     "page": 477,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -3916,7 +3916,7 @@
   },
   {
     "page": 478,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 12,
     "ayat_akhir": 20,
@@ -3925,7 +3925,7 @@
   },
   {
     "page": 479,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 21,
     "ayat_akhir": 29,
@@ -3934,7 +3934,7 @@
   },
   {
     "page": 48,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 282,
     "ayat_akhir": 282,
@@ -3943,7 +3943,7 @@
   },
   {
     "page": 480,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 30,
     "ayat_akhir": 38,
@@ -3952,7 +3952,7 @@
   },
   {
     "page": 481,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 39,
     "ayat_akhir": 46,
@@ -3961,7 +3961,7 @@
   },
   {
     "page": 482,
-    "juz": null,
+    "juz": 27,
     "surah_id": 41,
     "ayat_awal": 47,
     "ayat_akhir": 54,
@@ -3970,7 +3970,7 @@
   },
   {
     "page": 483,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 1,
     "ayat_akhir": 10,
@@ -3979,7 +3979,7 @@
   },
   {
     "page": 484,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 11,
     "ayat_akhir": 15,
@@ -3988,7 +3988,7 @@
   },
   {
     "page": 485,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 16,
     "ayat_akhir": 22,
@@ -3997,7 +3997,7 @@
   },
   {
     "page": 486,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 23,
     "ayat_akhir": 31,
@@ -4006,7 +4006,7 @@
   },
   {
     "page": 487,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 32,
     "ayat_akhir": 44,
@@ -4015,7 +4015,7 @@
   },
   {
     "page": 488,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 45,
     "ayat_akhir": 51,
@@ -4024,7 +4024,7 @@
   },
   {
     "page": 489,
-    "juz": null,
+    "juz": 27,
     "surah_id": 42,
     "ayat_awal": 52,
     "ayat_akhir": 53,
@@ -4033,7 +4033,7 @@
   },
   {
     "page": 489,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 1,
     "ayat_akhir": 10,
@@ -4042,7 +4042,7 @@
   },
   {
     "page": 49,
-    "juz": null,
+    "juz": 3,
     "surah_id": 2,
     "ayat_awal": 283,
     "ayat_akhir": 286,
@@ -4051,7 +4051,7 @@
   },
   {
     "page": 490,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 11,
     "ayat_akhir": 22,
@@ -4060,7 +4060,7 @@
   },
   {
     "page": 491,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 23,
     "ayat_akhir": 33,
@@ -4069,7 +4069,7 @@
   },
   {
     "page": 492,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 34,
     "ayat_akhir": 47,
@@ -4078,7 +4078,7 @@
   },
   {
     "page": 493,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 48,
     "ayat_akhir": 60,
@@ -4087,7 +4087,7 @@
   },
   {
     "page": 494,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 61,
     "ayat_akhir": 73,
@@ -4096,7 +4096,7 @@
   },
   {
     "page": 495,
-    "juz": null,
+    "juz": 28,
     "surah_id": 43,
     "ayat_awal": 74,
     "ayat_akhir": 89,
@@ -4105,7 +4105,7 @@
   },
   {
     "page": 496,
-    "juz": null,
+    "juz": 28,
     "surah_id": 44,
     "ayat_awal": 1,
     "ayat_akhir": 18,
@@ -4114,7 +4114,7 @@
   },
   {
     "page": 497,
-    "juz": null,
+    "juz": 28,
     "surah_id": 44,
     "ayat_awal": 19,
     "ayat_akhir": 39,
@@ -4123,7 +4123,7 @@
   },
   {
     "page": 498,
-    "juz": null,
+    "juz": 28,
     "surah_id": 44,
     "ayat_awal": 40,
     "ayat_akhir": 59,
@@ -4132,7 +4132,7 @@
   },
   {
     "page": 499,
-    "juz": null,
+    "juz": 28,
     "surah_id": 45,
     "ayat_awal": 1,
     "ayat_akhir": 13,
@@ -4141,7 +4141,7 @@
   },
   {
     "page": 5,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 25,
     "ayat_akhir": 29,
@@ -4150,7 +4150,7 @@
   },
   {
     "page": 50,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 1,
     "ayat_akhir": 9,
@@ -4159,7 +4159,7 @@
   },
   {
     "page": 500,
-    "juz": null,
+    "juz": 28,
     "surah_id": 45,
     "ayat_awal": 14,
     "ayat_akhir": 22,
@@ -4168,7 +4168,7 @@
   },
   {
     "page": 501,
-    "juz": null,
+    "juz": 28,
     "surah_id": 45,
     "ayat_awal": 23,
     "ayat_akhir": 32,
@@ -4177,7 +4177,7 @@
   },
   {
     "page": 502,
-    "juz": null,
+    "juz": 28,
     "surah_id": 45,
     "ayat_awal": 33,
     "ayat_akhir": 37,
@@ -4186,7 +4186,7 @@
   },
   {
     "page": 502,
-    "juz": null,
+    "juz": 29,
     "surah_id": 46,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -4195,7 +4195,7 @@
   },
   {
     "page": 503,
-    "juz": null,
+    "juz": 29,
     "surah_id": 46,
     "ayat_awal": 6,
     "ayat_akhir": 14,
@@ -4204,7 +4204,7 @@
   },
   {
     "page": 504,
-    "juz": null,
+    "juz": 29,
     "surah_id": 46,
     "ayat_awal": 15,
     "ayat_akhir": 20,
@@ -4213,7 +4213,7 @@
   },
   {
     "page": 505,
-    "juz": null,
+    "juz": 29,
     "surah_id": 46,
     "ayat_awal": 21,
     "ayat_akhir": 28,
@@ -4222,7 +4222,7 @@
   },
   {
     "page": 506,
-    "juz": null,
+    "juz": 29,
     "surah_id": 46,
     "ayat_awal": 29,
     "ayat_akhir": 35,
@@ -4231,7 +4231,7 @@
   },
   {
     "page": 507,
-    "juz": null,
+    "juz": 29,
     "surah_id": 47,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -4240,7 +4240,7 @@
   },
   {
     "page": 508,
-    "juz": null,
+    "juz": 29,
     "surah_id": 47,
     "ayat_awal": 12,
     "ayat_akhir": 19,
@@ -4249,7 +4249,7 @@
   },
   {
     "page": 509,
-    "juz": null,
+    "juz": 29,
     "surah_id": 47,
     "ayat_awal": 20,
     "ayat_akhir": 29,
@@ -4258,7 +4258,7 @@
   },
   {
     "page": 51,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 10,
     "ayat_akhir": 15,
@@ -4267,7 +4267,7 @@
   },
   {
     "page": 510,
-    "juz": null,
+    "juz": 29,
     "surah_id": 47,
     "ayat_awal": 30,
     "ayat_akhir": 38,
@@ -4276,7 +4276,7 @@
   },
   {
     "page": 511,
-    "juz": null,
+    "juz": 29,
     "surah_id": 48,
     "ayat_awal": 1,
     "ayat_akhir": 9,
@@ -4285,7 +4285,7 @@
   },
   {
     "page": 512,
-    "juz": null,
+    "juz": 29,
     "surah_id": 48,
     "ayat_awal": 10,
     "ayat_akhir": 15,
@@ -4294,7 +4294,7 @@
   },
   {
     "page": 513,
-    "juz": null,
+    "juz": 29,
     "surah_id": 48,
     "ayat_awal": 16,
     "ayat_akhir": 23,
@@ -4303,7 +4303,7 @@
   },
   {
     "page": 514,
-    "juz": null,
+    "juz": 29,
     "surah_id": 48,
     "ayat_awal": 24,
     "ayat_akhir": 28,
@@ -4312,7 +4312,7 @@
   },
   {
     "page": 515,
-    "juz": null,
+    "juz": 29,
     "surah_id": 48,
     "ayat_awal": 29,
     "ayat_akhir": 29,
@@ -4321,7 +4321,7 @@
   },
   {
     "page": 515,
-    "juz": null,
+    "juz": 29,
     "surah_id": 49,
     "ayat_awal": 1,
     "ayat_akhir": 4,
@@ -4330,7 +4330,7 @@
   },
   {
     "page": 516,
-    "juz": null,
+    "juz": 29,
     "surah_id": 49,
     "ayat_awal": 5,
     "ayat_akhir": 11,
@@ -4339,7 +4339,7 @@
   },
   {
     "page": 517,
-    "juz": null,
+    "juz": 29,
     "surah_id": 49,
     "ayat_awal": 12,
     "ayat_akhir": 18,
@@ -4348,7 +4348,7 @@
   },
   {
     "page": 518,
-    "juz": null,
+    "juz": 29,
     "surah_id": 50,
     "ayat_awal": 1,
     "ayat_akhir": 15,
@@ -4357,7 +4357,7 @@
   },
   {
     "page": 519,
-    "juz": null,
+    "juz": 29,
     "surah_id": 50,
     "ayat_awal": 16,
     "ayat_akhir": 35,
@@ -4366,7 +4366,7 @@
   },
   {
     "page": 52,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 16,
     "ayat_akhir": 22,
@@ -4375,7 +4375,7 @@
   },
   {
     "page": 520,
-    "juz": null,
+    "juz": 29,
     "surah_id": 50,
     "ayat_awal": 36,
     "ayat_akhir": 45,
@@ -4384,7 +4384,7 @@
   },
   {
     "page": 520,
-    "juz": null,
+    "juz": 29,
     "surah_id": 51,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -4393,7 +4393,7 @@
   },
   {
     "page": 521,
-    "juz": null,
+    "juz": 29,
     "surah_id": 51,
     "ayat_awal": 7,
     "ayat_akhir": 30,
@@ -4402,7 +4402,7 @@
   },
   {
     "page": 522,
-    "juz": null,
+    "juz": 29,
     "surah_id": 51,
     "ayat_awal": 31,
     "ayat_akhir": 51,
@@ -4411,7 +4411,7 @@
   },
   {
     "page": 523,
-    "juz": null,
+    "juz": 29,
     "surah_id": 51,
     "ayat_awal": 52,
     "ayat_akhir": 60,
@@ -4492,7 +4492,7 @@
   },
   {
     "page": 53,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 23,
     "ayat_akhir": 29,
@@ -4618,7 +4618,7 @@
   },
   {
     "page": 54,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 30,
     "ayat_akhir": 37,
@@ -4726,7 +4726,7 @@
   },
   {
     "page": 55,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 38,
     "ayat_akhir": 45,
@@ -4843,7 +4843,7 @@
   },
   {
     "page": 56,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 46,
     "ayat_akhir": 52,
@@ -4969,7 +4969,7 @@
   },
   {
     "page": 57,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 53,
     "ayat_akhir": 61,
@@ -5104,7 +5104,7 @@
   },
   {
     "page": 58,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 62,
     "ayat_akhir": 70,
@@ -5140,7 +5140,7 @@
   },
   {
     "page": 582,
-    "juz": null,
+    "juz": 30,
     "surah_id": 78,
     "ayat_awal": 1,
     "ayat_akhir": 30,
@@ -5149,7 +5149,7 @@
   },
   {
     "page": 583,
-    "juz": null,
+    "juz": 30,
     "surah_id": 78,
     "ayat_awal": 31,
     "ayat_akhir": 40,
@@ -5158,7 +5158,7 @@
   },
   {
     "page": 583,
-    "juz": null,
+    "juz": 30,
     "surah_id": 79,
     "ayat_awal": 1,
     "ayat_akhir": 15,
@@ -5167,7 +5167,7 @@
   },
   {
     "page": 584,
-    "juz": null,
+    "juz": 30,
     "surah_id": 79,
     "ayat_awal": 16,
     "ayat_akhir": 46,
@@ -5176,7 +5176,7 @@
   },
   {
     "page": 585,
-    "juz": null,
+    "juz": 30,
     "surah_id": 80,
     "ayat_awal": 1,
     "ayat_akhir": 42,
@@ -5185,7 +5185,7 @@
   },
   {
     "page": 586,
-    "juz": null,
+    "juz": 30,
     "surah_id": 81,
     "ayat_awal": 1,
     "ayat_akhir": 29,
@@ -5194,7 +5194,7 @@
   },
   {
     "page": 587,
-    "juz": null,
+    "juz": 30,
     "surah_id": 82,
     "ayat_awal": 1,
     "ayat_akhir": 19,
@@ -5203,7 +5203,7 @@
   },
   {
     "page": 587,
-    "juz": null,
+    "juz": 30,
     "surah_id": 83,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -5212,7 +5212,7 @@
   },
   {
     "page": 588,
-    "juz": null,
+    "juz": 30,
     "surah_id": 83,
     "ayat_awal": 7,
     "ayat_akhir": 34,
@@ -5221,7 +5221,7 @@
   },
   {
     "page": 589,
-    "juz": null,
+    "juz": 30,
     "surah_id": 83,
     "ayat_awal": 35,
     "ayat_akhir": 36,
@@ -5230,7 +5230,7 @@
   },
   {
     "page": 589,
-    "juz": null,
+    "juz": 30,
     "surah_id": 84,
     "ayat_awal": 1,
     "ayat_akhir": 25,
@@ -5239,7 +5239,7 @@
   },
   {
     "page": 59,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 71,
     "ayat_akhir": 77,
@@ -5248,7 +5248,7 @@
   },
   {
     "page": 590,
-    "juz": null,
+    "juz": 30,
     "surah_id": 85,
     "ayat_awal": 1,
     "ayat_akhir": 22,
@@ -5257,7 +5257,7 @@
   },
   {
     "page": 591,
-    "juz": null,
+    "juz": 30,
     "surah_id": 86,
     "ayat_awal": 1,
     "ayat_akhir": 17,
@@ -5266,7 +5266,7 @@
   },
   {
     "page": 591,
-    "juz": null,
+    "juz": 30,
     "surah_id": 87,
     "ayat_awal": 1,
     "ayat_akhir": 15,
@@ -5275,7 +5275,7 @@
   },
   {
     "page": 592,
-    "juz": null,
+    "juz": 30,
     "surah_id": 87,
     "ayat_awal": 16,
     "ayat_akhir": 19,
@@ -5284,7 +5284,7 @@
   },
   {
     "page": 592,
-    "juz": null,
+    "juz": 30,
     "surah_id": 88,
     "ayat_awal": 1,
     "ayat_akhir": 26,
@@ -5293,7 +5293,7 @@
   },
   {
     "page": 593,
-    "juz": null,
+    "juz": 30,
     "surah_id": 89,
     "ayat_awal": 1,
     "ayat_akhir": 23,
@@ -5302,7 +5302,7 @@
   },
   {
     "page": 594,
-    "juz": null,
+    "juz": 30,
     "surah_id": 89,
     "ayat_awal": 24,
     "ayat_akhir": 30,
@@ -5311,7 +5311,7 @@
   },
   {
     "page": 594,
-    "juz": null,
+    "juz": 30,
     "surah_id": 90,
     "ayat_awal": 1,
     "ayat_akhir": 20,
@@ -5320,7 +5320,7 @@
   },
   {
     "page": 595,
-    "juz": null,
+    "juz": 30,
     "surah_id": 91,
     "ayat_awal": 1,
     "ayat_akhir": 15,
@@ -5329,7 +5329,7 @@
   },
   {
     "page": 595,
-    "juz": null,
+    "juz": 30,
     "surah_id": 92,
     "ayat_awal": 1,
     "ayat_akhir": 14,
@@ -5338,7 +5338,7 @@
   },
   {
     "page": 596,
-    "juz": null,
+    "juz": 30,
     "surah_id": 92,
     "ayat_awal": 15,
     "ayat_akhir": 21,
@@ -5347,7 +5347,7 @@
   },
   {
     "page": 596,
-    "juz": null,
+    "juz": 30,
     "surah_id": 93,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -5356,7 +5356,7 @@
   },
   {
     "page": 596,
-    "juz": null,
+    "juz": 30,
     "surah_id": 94,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -5365,7 +5365,7 @@
   },
   {
     "page": 597,
-    "juz": null,
+    "juz": 30,
     "surah_id": 95,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -5374,7 +5374,7 @@
   },
   {
     "page": 597,
-    "juz": null,
+    "juz": 30,
     "surah_id": 96,
     "ayat_awal": 1,
     "ayat_akhir": 19,
@@ -5383,7 +5383,7 @@
   },
   {
     "page": 598,
-    "juz": null,
+    "juz": 30,
     "surah_id": 97,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -5392,7 +5392,7 @@
   },
   {
     "page": 598,
-    "juz": null,
+    "juz": 30,
     "surah_id": 98,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -5401,7 +5401,7 @@
   },
   {
     "page": 599,
-    "juz": null,
+    "juz": 30,
     "surah_id": 98,
     "ayat_awal": 8,
     "ayat_akhir": 8,
@@ -5410,7 +5410,7 @@
   },
   {
     "page": 599,
-    "juz": null,
+    "juz": 30,
     "surah_id": 99,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -5419,7 +5419,7 @@
   },
   {
     "page": 599,
-    "juz": null,
+    "juz": 30,
     "surah_id": 100,
     "ayat_awal": 1,
     "ayat_akhir": 9,
@@ -5428,7 +5428,7 @@
   },
   {
     "page": 6,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 30,
     "ayat_akhir": 37,
@@ -5437,7 +5437,7 @@
   },
   {
     "page": 60,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 78,
     "ayat_akhir": 83,
@@ -5446,7 +5446,7 @@
   },
   {
     "page": 600,
-    "juz": null,
+    "juz": 30,
     "surah_id": 100,
     "ayat_awal": 10,
     "ayat_akhir": 11,
@@ -5455,7 +5455,7 @@
   },
   {
     "page": 600,
-    "juz": null,
+    "juz": 30,
     "surah_id": 101,
     "ayat_awal": 1,
     "ayat_akhir": 11,
@@ -5464,7 +5464,7 @@
   },
   {
     "page": 600,
-    "juz": null,
+    "juz": 30,
     "surah_id": 102,
     "ayat_awal": 1,
     "ayat_akhir": 8,
@@ -5473,7 +5473,7 @@
   },
   {
     "page": 601,
-    "juz": null,
+    "juz": 30,
     "surah_id": 103,
     "ayat_awal": 1,
     "ayat_akhir": 3,
@@ -5482,7 +5482,7 @@
   },
   {
     "page": 601,
-    "juz": null,
+    "juz": 30,
     "surah_id": 104,
     "ayat_awal": 1,
     "ayat_akhir": 9,
@@ -5491,7 +5491,7 @@
   },
   {
     "page": 601,
-    "juz": null,
+    "juz": 30,
     "surah_id": 105,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -5500,7 +5500,7 @@
   },
   {
     "page": 602,
-    "juz": null,
+    "juz": 30,
     "surah_id": 106,
     "ayat_awal": 1,
     "ayat_akhir": 4,
@@ -5509,7 +5509,7 @@
   },
   {
     "page": 602,
-    "juz": null,
+    "juz": 30,
     "surah_id": 107,
     "ayat_awal": 1,
     "ayat_akhir": 7,
@@ -5518,7 +5518,7 @@
   },
   {
     "page": 602,
-    "juz": null,
+    "juz": 30,
     "surah_id": 108,
     "ayat_awal": 1,
     "ayat_akhir": 3,
@@ -5527,7 +5527,7 @@
   },
   {
     "page": 603,
-    "juz": null,
+    "juz": 30,
     "surah_id": 109,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -5536,7 +5536,7 @@
   },
   {
     "page": 603,
-    "juz": null,
+    "juz": 30,
     "surah_id": 110,
     "ayat_awal": 1,
     "ayat_akhir": 3,
@@ -5545,7 +5545,7 @@
   },
   {
     "page": 603,
-    "juz": null,
+    "juz": 30,
     "surah_id": 111,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -5554,7 +5554,7 @@
   },
   {
     "page": 604,
-    "juz": null,
+    "juz": 30,
     "surah_id": 112,
     "ayat_awal": 1,
     "ayat_akhir": 4,
@@ -5563,7 +5563,7 @@
   },
   {
     "page": 604,
-    "juz": null,
+    "juz": 30,
     "surah_id": 113,
     "ayat_awal": 1,
     "ayat_akhir": 5,
@@ -5572,7 +5572,7 @@
   },
   {
     "page": 604,
-    "juz": null,
+    "juz": 30,
     "surah_id": 114,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -5581,7 +5581,7 @@
   },
   {
     "page": 61,
-    "juz": null,
+    "juz": 3,
     "surah_id": 3,
     "ayat_awal": 84,
     "ayat_akhir": 91,
@@ -5590,7 +5590,7 @@
   },
   {
     "page": 62,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 92,
     "ayat_akhir": 100,
@@ -5599,7 +5599,7 @@
   },
   {
     "page": 63,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 101,
     "ayat_akhir": 108,
@@ -5608,7 +5608,7 @@
   },
   {
     "page": 64,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 109,
     "ayat_akhir": 115,
@@ -5617,7 +5617,7 @@
   },
   {
     "page": 65,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 116,
     "ayat_akhir": 121,
@@ -5626,7 +5626,7 @@
   },
   {
     "page": 66,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 122,
     "ayat_akhir": 132,
@@ -5635,7 +5635,7 @@
   },
   {
     "page": 67,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 133,
     "ayat_akhir": 140,
@@ -5644,7 +5644,7 @@
   },
   {
     "page": 68,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 141,
     "ayat_akhir": 148,
@@ -5653,7 +5653,7 @@
   },
   {
     "page": 69,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 149,
     "ayat_akhir": 153,
@@ -5662,7 +5662,7 @@
   },
   {
     "page": 7,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 38,
     "ayat_akhir": 48,
@@ -5671,7 +5671,7 @@
   },
   {
     "page": 70,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 154,
     "ayat_akhir": 157,
@@ -5680,7 +5680,7 @@
   },
   {
     "page": 71,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 158,
     "ayat_akhir": 165,
@@ -5689,7 +5689,7 @@
   },
   {
     "page": 72,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 166,
     "ayat_akhir": 173,
@@ -5698,7 +5698,7 @@
   },
   {
     "page": 73,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 174,
     "ayat_akhir": 180,
@@ -5707,7 +5707,7 @@
   },
   {
     "page": 74,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 181,
     "ayat_akhir": 186,
@@ -5716,7 +5716,7 @@
   },
   {
     "page": 75,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 187,
     "ayat_akhir": 194,
@@ -5725,7 +5725,7 @@
   },
   {
     "page": 76,
-    "juz": null,
+    "juz": 4,
     "surah_id": 3,
     "ayat_awal": 195,
     "ayat_akhir": 200,
@@ -5734,7 +5734,7 @@
   },
   {
     "page": 77,
-    "juz": null,
+    "juz": 4,
     "surah_id": 4,
     "ayat_awal": 1,
     "ayat_akhir": 6,
@@ -5743,7 +5743,7 @@
   },
   {
     "page": 78,
-    "juz": null,
+    "juz": 4,
     "surah_id": 4,
     "ayat_awal": 7,
     "ayat_akhir": 11,
@@ -5752,7 +5752,7 @@
   },
   {
     "page": 79,
-    "juz": null,
+    "juz": 4,
     "surah_id": 4,
     "ayat_awal": 12,
     "ayat_akhir": 14,
@@ -5761,7 +5761,7 @@
   },
   {
     "page": 8,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 49,
     "ayat_akhir": 57,
@@ -5770,7 +5770,7 @@
   },
   {
     "page": 80,
-    "juz": null,
+    "juz": 4,
     "surah_id": 4,
     "ayat_awal": 15,
     "ayat_akhir": 19,
@@ -5779,7 +5779,7 @@
   },
   {
     "page": 81,
-    "juz": null,
+    "juz": 4,
     "surah_id": 4,
     "ayat_awal": 20,
     "ayat_akhir": 23,
@@ -5788,7 +5788,7 @@
   },
   {
     "page": 82,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 24,
     "ayat_akhir": 26,
@@ -5797,7 +5797,7 @@
   },
   {
     "page": 83,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 27,
     "ayat_akhir": 33,
@@ -5806,7 +5806,7 @@
   },
   {
     "page": 84,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 34,
     "ayat_akhir": 37,
@@ -5815,7 +5815,7 @@
   },
   {
     "page": 85,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 38,
     "ayat_akhir": 44,
@@ -5824,7 +5824,7 @@
   },
   {
     "page": 86,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 45,
     "ayat_akhir": 51,
@@ -5833,7 +5833,7 @@
   },
   {
     "page": 87,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 52,
     "ayat_akhir": 59,
@@ -5842,7 +5842,7 @@
   },
   {
     "page": 88,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 60,
     "ayat_akhir": 65,
@@ -5851,7 +5851,7 @@
   },
   {
     "page": 89,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 66,
     "ayat_akhir": 74,
@@ -5860,7 +5860,7 @@
   },
   {
     "page": 9,
-    "juz": null,
+    "juz": 1,
     "surah_id": 2,
     "ayat_awal": 58,
     "ayat_akhir": 61,
@@ -5869,7 +5869,7 @@
   },
   {
     "page": 90,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 75,
     "ayat_akhir": 79,
@@ -5878,7 +5878,7 @@
   },
   {
     "page": 91,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 80,
     "ayat_akhir": 86,
@@ -5887,7 +5887,7 @@
   },
   {
     "page": 92,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 87,
     "ayat_akhir": 91,
@@ -5896,7 +5896,7 @@
   },
   {
     "page": 93,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 92,
     "ayat_akhir": 94,
@@ -5905,7 +5905,7 @@
   },
   {
     "page": 94,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 95,
     "ayat_akhir": 101,
@@ -5914,7 +5914,7 @@
   },
   {
     "page": 95,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 102,
     "ayat_akhir": 105,
@@ -5923,7 +5923,7 @@
   },
   {
     "page": 96,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 106,
     "ayat_akhir": 113,
@@ -5932,7 +5932,7 @@
   },
   {
     "page": 97,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 114,
     "ayat_akhir": 121,
@@ -5941,7 +5941,7 @@
   },
   {
     "page": 98,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 122,
     "ayat_akhir": 127,
@@ -5950,7 +5950,7 @@
   },
   {
     "page": 99,
-    "juz": null,
+    "juz": 5,
     "surah_id": 4,
     "ayat_awal": 128,
     "ayat_akhir": 134,

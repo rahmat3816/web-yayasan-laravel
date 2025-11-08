@@ -95,65 +95,6 @@ class LaporanHafalanController extends Controller
         ));
     }
 
-    public function statistik(Request $request)
-    {
-        $tahun = $request->query('tahun');
-        $bulan = $request->query('bulan');
-        $unitId = $request->query('unit_id');
-        $guruId = $request->query('guru_id');
-        $santriId = $request->query('santri_id');
-
-        $query = HafalanQuran::query()
-            ->with(['santri:id,nama,unit_id', 'guru:id,nama']);
-
-        if ($tahun) $query->whereYear('tanggal_setor', $tahun);
-        if ($bulan) $query->whereMonth('tanggal_setor', $bulan);
-        if ($unitId) $query->whereHas('santri', fn ($q) => $q->where('unit_id', $unitId));
-        if ($guruId) $query->where('guru_id', $guruId);
-        if ($santriId) $query->where('santri_id', $santriId);
-
-        $data = $query->orderBy('tanggal_setor')->get();
-
-        $rekap = [
-            'total_setoran' => $data->count(),
-            'total_santri'  => $data->unique('santri_id')->count(),
-            'total_guru'    => $data->unique('guru_id')->count(),
-            'total_halaman' => $data->sum(fn($h) => ($h->page_end && $h->page_start) ? ($h->page_end - $h->page_start + 1) : 0),
-            'total_juz'     => $data->unique('juz_start')->count(),
-            'total_surah'   => $data->unique('surah_id')->count(),
-            'total_ayat'    => $data->sum(fn($h) => max(0, ($h->ayah_end - $h->ayah_start + 1))),
-        ];
-
-        $grafikSantri = [];
-        if ($santriId) {
-            $filtered = HafalanQuran::where('santri_id', $santriId)
-                ->when($tahun, fn($q) => $q->whereYear('tanggal_setor', $tahun))
-                ->when($bulan, fn($q) => $q->whereMonth('tanggal_setor', $bulan))
-                ->orderBy('tanggal_setor')
-                ->get();
-
-            $total = 0;
-            foreach ($filtered as $row) {
-                $jumlahAyat = max(0, $row->ayah_end - $row->ayah_start + 1);
-                $total += $jumlahAyat;
-                $grafikSantri[] = [
-                    'tanggal' => \Carbon\Carbon::parse($row->tanggal_setor)->format('Y-m-d'),
-                    'total' => $total,
-                ];
-            }
-        }
-
-        $units = Unit::orderBy('nama_unit')->get(['id', 'nama_unit']);
-        $guruList = Guru::orderBy('nama')->get(['id', 'nama']);
-        $santriList = Santri::orderBy('nama')->get(['id', 'nama']);
-
-        return view('admin.laporan.statistik', compact(
-            'data', 'rekap', 'grafikSantri',
-            'units', 'guruList', 'santriList',
-            'tahun', 'bulan', 'unitId', 'guruId', 'santriId'
-        ));
-    }
-
     public function grafikSantri(int $id)
     {
         $data = HafalanQuran::where('santri_id', $id)
