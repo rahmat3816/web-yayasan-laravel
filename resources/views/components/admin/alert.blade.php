@@ -1,36 +1,59 @@
-{{-- ===========================================================
-🔔 Komponen Alert (Admin)
-Menampilkan notifikasi sukses, error, atau info
-=========================================================== --}}
+{{-- =======================================================
+📦 Komponen Notifikasi Global <x-admin.alert />
+Fungsi:
+- Menampilkan pesan sukses, error, warning dari session
+- Menampilkan error validasi Laravel ($errors)
+- Warna dan ikon otomatis
+======================================================= --}}
+@props(['dismissible' => true])
+
 @php
-    $type = $type ?? (
-        session()->has('success') ? 'success' :
-        (session()->has('error') ? 'error' :
-        (session()->has('warning') ? 'warning' : null))
-    );
+    $alerts = [];
 
-    $message = $message ?? (
-        session('success') ?? session('error') ?? session('warning') ?? ''
-    );
+    // Ambil pesan dari session (jika ada)
+    if (session('success')) $alerts[] = ['type' => 'success', 'message' => session('success')];
+    if (session('error'))   $alerts[] = ['type' => 'error',   'message' => session('error')];
+    if (session('warning')) $alerts[] = ['type' => 'warning', 'message' => session('warning')];
 
-    $colors = [
-        'success' => 'bg-green-100 border-green-400 text-green-800 dark:bg-green-900/30 dark:text-green-200 dark:border-green-600',
-        'error'   => 'bg-red-100 border-red-400 text-red-800 dark:bg-red-900/30 dark:text-red-200 dark:border-red-600',
-        'warning' => 'bg-yellow-100 border-yellow-400 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200 dark:border-yellow-600',
-        'info'    => 'bg-blue-100 border-blue-400 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-600',
+    // Jika ada error validasi
+    if ($errors->any()) {
+        $msg = '<ul class="list-disc list-inside space-y-1 mt-1">';
+        foreach ($errors->all() as $err) {
+            $msg .= "<li>{$err}</li>";
+        }
+        $msg .= '</ul>';
+        $alerts[] = ['type' => 'error', 'message' => $msg];
+    }
+
+    // Mapping warna & ikon
+    $styles = [
+        'success' => ['bg' => 'bg-green-100 dark:bg-green-900/30', 'text' => 'text-green-800 dark:text-green-300', 'icon' => '✅'],
+        'error'   => ['bg' => 'bg-red-100 dark:bg-red-900/30',     'text' => 'text-red-800 dark:text-red-300',     'icon' => '❌'],
+        'warning' => ['bg' => 'bg-yellow-100 dark:bg-yellow-900/30','text' => 'text-yellow-800 dark:text-yellow-300','icon' => '⚠️'],
     ];
 @endphp
 
-@if($type && $message)
-    <div class="mb-5 px-4 py-3 border-l-4 rounded-lg shadow-sm {{ $colors[$type] ?? $colors['info'] }}">
-        <div class="flex items-center gap-2">
-            @switch($type)
-                @case('success') <span>✅</span> @break
-                @case('error')   <span>❌</span> @break
-                @case('warning') <span>⚠️</span> @break
-                @default         <span>ℹ️</span>
-            @endswitch
-            <p class="font-medium">{{ $message }}</p>
-        </div>
+@if(!empty($alerts))
+    <div class="space-y-3 mb-6">
+        @foreach($alerts as $alert)
+            @php
+                $s = $styles[$alert['type']] ?? $styles['success'];
+            @endphp
+            <div class="p-4 rounded-xl shadow-sm border {{ $s['bg'] }} {{ $s['text'] }} relative">
+                <div class="flex items-start gap-3">
+                    <span class="text-xl">{{ $s['icon'] }}</span>
+                    <div class="flex-1 prose-sm max-w-none">
+                        {!! $alert['message'] !!}
+                    </div>
+                    @if($dismissible)
+                        <button type="button"
+                            onclick="this.closest('div[role=alert]').remove()"
+                            class="ml-3 text-sm font-bold opacity-60 hover:opacity-100 transition">
+                            ✖
+                        </button>
+                    @endif
+                </div>
+            </div>
+        @endforeach
     </div>
 @endif

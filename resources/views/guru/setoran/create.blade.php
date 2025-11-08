@@ -10,19 +10,9 @@ Berbasis data_quran.json (tanpa mode halaman)
 <div class="max-w-3xl mx-auto">
     <h1 class="text-2xl font-bold mb-6">➕ Tambah Setoran Hafalan Quran</h1>
 
-    {{-- ⚠️ Pesan error --}}
-    @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-            <strong class="font-semibold">Terjadi kesalahan:</strong>
-            <ul class="mt-2 list-disc list-inside text-sm">
-                @foreach ($errors->all() as $e)
-                    <li>{{ $e }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+    {{-- PESAN SUKSES ERROR ATAU VALIDASI --}}
     <x-admin.alert />
+
     <form method="POST" action="{{ route('guru.setoran.store', ['santriId' => $santri->id]) }}" class="space-y-4">
         @csrf
 
