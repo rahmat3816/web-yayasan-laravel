@@ -4,7 +4,7 @@ Usage:
 <x-admin.info-card title="Peringatan" message="Belum ada setoran bulan ini" color="yellow" />
 ============================== --}}
 @props([
-    'title' => 'Info',
+    'label' => 'Info',
     'message' => 'Keterangan belum diisi.',
     'color' => 'blue',
 ])
@@ -20,6 +20,6 @@ Usage:
 @endphp
 
 <div class="{{ $colorClass }} p-4 rounded-lg shadow-sm mb-4">
-    <p class="font-semibold">{{ $title }}</p>
+    <p class="font-semibold">{{ $label }}</p>
     <p class="text-sm mt-1">{{ $message }}</p>
 </div>

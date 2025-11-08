@@ -94,12 +94,6 @@
                                 📖 Laporan Hafalan Qur’an
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.laporan.hafalan') }}?mode=statistik"
-                               class="{{ $linkBase }} {{ $is('admin/laporan/hafalan/statistik*') ? $active : $hover }}">
-                                📈 Statistik Hafalan Santri
-                            </a>
-                        </li>
                     </ul>
                 </li>
             @endrole

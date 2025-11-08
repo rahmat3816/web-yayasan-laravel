@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Dashboard Admin')
+@section('label', 'Dashboard Admin')
 
 @section('content')
 <x-admin.alert />
-<x-breadcrumb title="📚 Dashboard Admin" />
+<x-breadcrumb label="📚 Dashboard Admin" />
 
-<x-admin.card title="📊 Ringkasan Data Yayasan">
+<x-admin.card label="📊 Ringkasan Data Yayasan">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
         <x-admin.stat label="Santri" :value="$stats['totalSantri'] ?? 0" color="emerald" icon="👨‍🎓" />
         <x-admin.stat label="Guru" :value="$stats['totalGuru'] ?? 0" color="fuchsia" icon="👩‍🏫" />
