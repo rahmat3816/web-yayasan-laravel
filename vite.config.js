@@ -22,10 +22,10 @@ export default defineConfig({
 
     // ⚙️ Optimasi tambahan
     server: {
-        host: '127.0.0.1', // pastikan cocok dengan laragon atau localhost kamu
+        host: '0.0.0.0', // pastikan cocok dengan laragon atau localhost kamu
         port: 5173,
         hmr: {
-            host: '127.0.0.1',
+            host: '192.168.243.212',
         },
     },
 

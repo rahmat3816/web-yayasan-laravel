@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->foreign('guru_id')->references('id')->on('guru')->onDelete('set null');
-            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('set null');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
         });
     }
 

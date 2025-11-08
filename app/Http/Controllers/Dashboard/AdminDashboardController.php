@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class AdminDashboardController extends Controller
 {
@@ -56,13 +57,15 @@ class AdminDashboardController extends Controller
 
         // ==== Statistik per-unit (admin/operator) ====
         $unitId = (int) ($me->unit_id ?? 0);
+        $cacheKey = 'dashboard:stats:' . ($unitId ?: 'all');
 
-        $stats = [
-            'totalSantri'  => DB::table('santri')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
-            'totalGuru'    => DB::table('guru')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
-            'totalHalaqoh' => DB::table('halaqoh')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
-            // untuk admin/operator kita tidak tampilkan "totalUnits" & "totalUsers"
-        ];
+        $stats = Cache::remember($cacheKey, now()->addSeconds(60), function () use ($unitId) {
+            return [
+                'totalSantri'  => DB::table('santri')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
+                'totalGuru'    => DB::table('guru')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
+                'totalHalaqoh' => DB::table('halaqoh')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
+            ];
+        });
 
         return view('admin.dashboard', [
             'isSuperadmin' => false,

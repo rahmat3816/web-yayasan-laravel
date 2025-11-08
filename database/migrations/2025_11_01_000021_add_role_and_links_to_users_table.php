@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('linked_santri_id')->nullable()->after('linked_guru_id');
 
             // index & relasi opsional
-            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('set null');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
         });
     }
 

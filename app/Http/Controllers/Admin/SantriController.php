@@ -62,7 +62,7 @@ class SantriController extends Controller
         // Tentukan unit_id otomatis bila bukan superadmin
         if (strtolower($user->role) === 'superadmin') {
             $validated['unit_id'] = $request->validate([
-                'unit_id' => 'required|exists:unit,id',
+                'unit_id' => 'required|exists:units,id',
             ])['unit_id'];
         } else {
             $validated['unit_id'] = $user->unit_id;

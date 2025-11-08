@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('alamat')->nullable();
             $table->timestamps();
 
-            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('set null');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');
         });
     }
 

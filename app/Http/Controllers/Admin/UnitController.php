@@ -46,7 +46,7 @@ class UnitController extends Controller
     public function show($id)
     {
         $unit = Unit::findOrFail($id);
-        return view('admin.unit.show', compact('unit'));
+        return view('admin.unit.show', compact('units'));
     }
 
     /**
@@ -55,7 +55,7 @@ class UnitController extends Controller
     public function edit($id)
     {
         $unit = Unit::findOrFail($id);
-        return view('admin.unit.edit', compact('unit'));
+        return view('admin.unit.edit', compact('units'));
     }
 
     /**
