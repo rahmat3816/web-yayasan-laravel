@@ -67,10 +67,7 @@
 {{-- ==============================
 📈 Statistik Ringkas
 ============================== --}}
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-    <x-admin.stat label="Total Setoran" :value="$rekap['total_setoran'] ?? 0" color="bg-blue-100 dark:bg-blue-900" />
-    <x-admin.stat label="Total Santri" :value="$rekap['total_santri'] ?? 0" color="bg-teal-100 dark:bg-teal-900" />
-    <x-admin.stat label="Total Guru" :value="$rekap['total_guru'] ?? 0" color="bg-yellow-100 dark:bg-yellow-900" />
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-8">
     <x-admin.stat label="Total Halaman" :value="$rekap['total_halaman'] ?? 0" color="bg-green-100 dark:bg-green-900" />
     <x-admin.stat label="Total Juz" :value="$rekap['total_juz'] ?? 0" color="bg-indigo-100 dark:bg-indigo-900" />
     <x-admin.stat label="Total Surah" :value="$rekap['total_surah'] ?? 0" color="bg-pink-100 dark:bg-pink-900" />
