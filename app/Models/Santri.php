@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\WaliSantri;
+use App\Models\AbsensiMapel;
+use App\Models\SakitSantri;
+use App\Models\PelanggaranSantri;
+use App\Models\Nilai;
 
 class Santri extends Model
 {
@@ -67,8 +72,15 @@ class Santri extends Model
 
     public function user()
     {
-        // Tautan via users.linked_santri_id (jika dipakai)
-        return $this->hasOne(User::class, 'linked_santri_id', 'id');
+        // Tautan via wali_santri.user (bila anak memiliki wali yang login)
+        return $this->hasOneThrough(
+            User::class,
+            WaliSantri::class,
+            'santri_id',   // foreign key on wali_santri
+            'id',          // foreign key on users
+            'id',          // local key on santri
+            'user_id'      // local key on wali_santri
+        );
     }
 
     /* =========================
@@ -93,5 +105,42 @@ class Santri extends Model
     public function getJenisKelaminLabelAttribute(): string
     {
         return $this->jenis_kelamin === 'P' ? 'Perempuan' : 'Laki-laki';
+    }
+
+    public function generateWaliUsername(): string
+    {
+        $firstName = strtolower(explode(' ', $this->nama)[0] ?? 'wali');
+        $random = rand(100, 999);
+        return $firstName . $random;
+    }
+
+    public function hafalan()
+    {
+        return $this->hasMany(\App\Models\HafalanQuran::class, 'santri_id');
+    }
+
+    public function wali()
+    {
+        return $this->hasMany(WaliSantri::class, 'santri_id');
+    }
+
+    public function absensi_mapel()
+    {
+        return $this->hasMany(AbsensiMapel::class, 'santri_id');
+    }
+
+    public function sakit()
+    {
+        return $this->hasMany(SakitSantri::class, 'santri_id');
+    }
+
+    public function pelanggaran()
+    {
+        return $this->hasMany(PelanggaranSantri::class, 'santri_id');
+    }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'santri_id');
     }
 }

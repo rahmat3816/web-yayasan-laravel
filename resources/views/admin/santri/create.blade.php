@@ -1,27 +1,24 @@
-{{-- ==============================
-📘 Tambah Santri – Admin & Operator
-============================== --}}
 @extends('layouts.admin')
-
 @section('title', 'Tambah Santri')
 
 @section('content')
-<x-breadcrumb title="Tambah Santri" />
+<x-breadcrumb label="Tambah Santri" />
 
-<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">➕ Tambah Data Santri</h1>
-
-    {{-- 🔁 Kembali ke Data Santri --}}
-    <div class="mb-4">
-        <a href="{{ route('admin.santri.index') }}" class="text-blue-600 hover:underline">
-            ← Kembali ke Data Santri
-        </a>
+<section class="glass-card max-w-4xl mx-auto p-8 space-y-6">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+        <div>
+            <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Formulir</p>
+            <h1 class="text-2xl font-semibold text-slate-800 dark:text-white">Tambah Data Santri</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-300 mt-1">
+                NISY akan dibuat otomatis berdasarkan tahun masuk. Lengkapi data sesuai unit pendidikan.
+            </p>
+        </div>
+        <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
     </div>
 
-    {{-- ⚠️ Pesan Error Validasi --}}
     @if ($errors->any())
-        <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4 dark:bg-red-900 dark:text-red-100">
-            <ul class="list-disc pl-5 space-y-1">
+        <div class="alert alert-error shadow-lg">
+            <ul class="list-disc ml-5 text-sm">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -29,71 +26,49 @@
         </div>
     @endif
 
-    {{-- 📝 Form Input --}}
-    <form action="{{ route('admin.santri.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('admin.santri.store') }}" method="POST" class="space-y-6">
         @csrf
-
-        {{-- Nama --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Nama Santri</label>
-            <input type="text" name="nama" value="{{ old('nama') }}"
-                class="w-full border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 rounded px-3 py-2 focus:ring focus:ring-blue-300"
-                required>
-        </div>
-
-        {{-- NISN --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">
-                NISN (Nomor Induk Santri Nasional)
+        <div class="grid md:grid-cols-2 gap-5">
+            <label class="form-control">
+                <span class="label-text">Nama Santri</span>
+                <input type="text" name="nama" value="{{ old('nama') }}" class="input input-bordered" required>
             </label>
-            <input type="text" name="nisn" value="{{ old('nisn') }}"
-                class="w-full border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 rounded px-3 py-2 focus:ring focus:ring-blue-300">
-            <p class="text-xs text-gray-500 mt-1">
-                Isi jika santri sudah memiliki NISN resmi dari pemerintah.
-            </p>
+
+            <label class="form-control">
+                <span class="label-text">NISN (opsional)</span>
+                <input type="text" name="nisn" value="{{ old('nisn') }}" class="input input-bordered">
+            </label>
+
+            <label class="form-control">
+                <span class="label-text">Jenis Kelamin</span>
+                <select name="jenis_kelamin" class="select select-bordered" required>
+                    <option value="">Pilih jenis kelamin</option>
+                    <option value="L" @selected(old('jenis_kelamin')==='L')>Laki-laki</option>
+                    <option value="P" @selected(old('jenis_kelamin')==='P')>Perempuan</option>
+                </select>
+            </label>
+
+            @role('superadmin')
+                <label class="form-control">
+                    <span class="label-text">Unit Pendidikan</span>
+                    <select name="unit_id" class="select select-bordered" required>
+                        <option value="">Pilih unit</option>
+                        @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}" @selected(old('unit_id') == $unit->id)>{{ $unit->nama_unit }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            @endrole
+
+            <label class="form-control">
+                <span class="label-text">Tahun Masuk</span>
+                <input type="number" name="tahun_masuk" value="{{ old('tahun_masuk', date('Y')) }}" class="input input-bordered">
+            </label>
         </div>
 
-        {{-- Jenis Kelamin --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Jenis Kelamin</label>
-            <select name="jenis_kelamin"
-                class="w-full border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 rounded px-3 py-2" required>
-                <option value="">-- Pilih Jenis Kelamin --</option>
-                <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-laki</option>
-                <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
-            </select>
-        </div>
-
-        {{-- Unit hanya tampil untuk superadmin --}}
-        @role('superadmin')
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Unit Pendidikan</label>
-            <select name="unit_id"
-                class="w-full border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 rounded px-3 py-2" required>
-                <option value="">-- Pilih Unit --</option>
-                @foreach ($units as $unit)
-                    <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>
-                        {{ $unit->nama_unit }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        @endrole
-
-        {{-- Tahun Masuk --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Tahun Masuk</label>
-            <input type="number" name="tahun_masuk" value="{{ old('tahun_masuk', date('Y')) }}"
-                class="w-full border dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 rounded px-3 py-2 focus:ring focus:ring-blue-300">
-        </div>
-
-        {{-- Tombol Simpan --}}
-        <div class="pt-4">
-            <button type="submit"
-                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-                💾 Simpan Data
-            </button>
+        <div class="flex justify-end">
+            <button type="submit" class="btn btn-primary rounded-full px-6">Simpan Santri</button>
         </div>
     </form>
-</div>
+</section>
 @endsection

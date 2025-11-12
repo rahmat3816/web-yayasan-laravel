@@ -13,7 +13,7 @@ class GuruDashboardController extends Controller
     public function index(Request $request)
     {
         $user   = Auth::user();
-        $guruId = $user->linked_guru_id;
+        $guruId = $user->linked_guru_id ?: $user->ensureLinkedGuruId();
 
         // 🗓️ Filter bulan & tahun
         $bulan = (int) $request->input('bulan', date('n'));

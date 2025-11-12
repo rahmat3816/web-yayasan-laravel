@@ -18,7 +18,8 @@ class HafalanQuran extends Model
     protected $fillable = [
         'unit_id','halaqoh_id','guru_id','santri_id','tanggal_setor',
         'mode','page_start','page_end','surah_id','ayah_start','ayah_end',
-        'juz_start','juz_end','status','catatan'
+        'juz_start','juz_end','status','catatan',
+        'penilaian_tajwid','penilaian_mutqin','penilaian_adab'
     ];
 
     protected $casts = [

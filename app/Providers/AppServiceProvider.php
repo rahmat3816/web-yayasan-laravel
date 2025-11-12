@@ -11,7 +11,11 @@ use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 
 // Observer & Model
 use App\Models\Guru;
+use App\Models\Santri;
+use App\Models\GuruJabatan;
 use App\Observers\GuruObserver;
+use App\Observers\SantriObserver;
+use App\Observers\GuruJabatanObserver;
 
 // Quran services
 use App\Services\QuranMapService;
@@ -42,7 +46,8 @@ class AppServiceProvider extends ServiceProvider
             return view('auth.login');
         });
 
-        // Observer: saat Guru dibuat, otomatis buat akun user (username, linked_guru_id, dst)
         Guru::observe(GuruObserver::class);
+        Santri::observe(SantriObserver::class);
+        GuruJabatan::observe(GuruJabatanObserver::class);
     }
 }

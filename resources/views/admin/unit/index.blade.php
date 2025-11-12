@@ -11,7 +11,7 @@
     <div class="flex justify-between items-center mb-6 mt-4">
         <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100">🏫 Data Unit</h1>
 
-        @if (in_array(strtolower(auth()->user()->role), ['superadmin', 'admin', 'operator']))
+        @if (strtolower(auth()->user()->role) === 'superadmin')
             <a href="{{ route('admin.unit.create') }}"
                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
                 ➕ Tambah Unit
@@ -46,7 +46,7 @@
                                 <a href="{{ route('admin.unit.show', $unit->id) }}"
                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">Detail</a>
 
-                                @if (in_array(strtolower(auth()->user()->role), ['superadmin', 'admin', 'operator']))
+                                @if (strtolower(auth()->user()->role) === 'superadmin')
                                     <a href="{{ route('admin.unit.edit', $unit->id) }}"
                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded transition">Edit</a>
                                     <form action="{{ route('admin.unit.destroy', $unit->id) }}" method="POST"

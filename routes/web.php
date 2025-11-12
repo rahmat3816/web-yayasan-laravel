@@ -14,8 +14,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\AdminDashboardController;
 use App\Http\Controllers\Dashboard\GuruDashboardController;
 use App\Http\Controllers\Dashboard\WaliDashboardController;
+use App\Http\Controllers\WaliController;
 use App\Http\Controllers\Dashboard\PimpinanDashboardController;
 use App\Http\Controllers\Dashboard\TahfizhDashboardController;
+use App\Http\Controllers\Modules\KesantrianTahfizhController;
 
 // ===============================
 // 📚 MASTER DATA CONTROLLERS
@@ -28,6 +30,13 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\GuruRoleController;
 use App\Http\Controllers\Admin\LaporanHafalanController;
 
+use Filament\Pages\Dashboard;
+
+// Route untuk halaman utama (biar gak 404)
+Route::get('/', function () {
+    return redirect('/filament');
+    // atau return view('welcome');
+});
 
 // ===============================
 // 🧾 SETORAN HAFALAN (GURU)
@@ -62,11 +71,59 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
         $role = strtolower($user->role ?? '');
+        $adminRoles = [
+            'superadmin',
+            'admin',
+            'admin_unit',
+            'kepala_madrasah',
+            'wakamad_kurikulum',
+            'wakamad_kesiswaan',
+            'wakamad_sarpras',
+            'bendahara',
+        ];
+
+        $pondokLeadership = [
+            'pimpinan',
+            'mudir_pondok',
+            'naibul_mudir',
+            'naibatul_mudir',
+            'kabag_kesantrian_putra',
+            'kabag_kesantrian_putri',
+            'kabag_umum',
+            'koor_kesehatan_putra',
+            'koor_kesehatan_putri',
+            'koor_kebersihan_putra',
+            'koor_kebersihan_putri',
+            'koor_keamanan_putra',
+            'koor_keamanan_putri',
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
+            'koor_lughoh_putra',
+            'koor_lughoh_putri',
+            'koor_kepegawaian',
+            'koor_sarpras',
+            'koor_dapur',
+            'koor_logistik',
+        ];
+
+        if (in_array($role, $adminRoles, true)) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if (in_array($role, ['guru', 'wali_kelas'], true)) {
+            return redirect()->route('guru.dashboard');
+        }
+
+        if (in_array($role, ['koordinator_tahfizh_putra', 'koordinator_tahfizh_putri'], true)) {
+            return redirect()->route('tahfizh.dashboard');
+        }
+
+        if (in_array($role, $pondokLeadership, true)) {
+            return redirect()->route('pimpinan.dashboard');
+        }
+
         return match ($role) {
-            'superadmin', 'admin', 'operator' => redirect()->route('admin.dashboard'),
-            'guru', 'koordinator_tahfizh_putra', 'koordinator_tahfizh_putri' => redirect()->route('guru.dashboard'),
             'wali_santri' => redirect()->route('wali.dashboard'),
-            'pimpinan' => redirect()->route('pimpinan.dashboard'),
             default => view('dashboard'),
         };
     })->name('dashboard');
@@ -75,7 +132,7 @@ Route::middleware('auth')->group(function () {
     // 👨‍💼 ADMIN & OPERATOR
     // =====================================================
     Route::prefix('admin')
-        ->middleware('role:superadmin|admin|operator')
+        ->middleware('role:superadmin|admin|admin_unit|kepala_madrasah|wakamad_kurikulum|wakamad_kesiswaan|wakamad_sarpras|bendahara|mudir_pondok|naibul_mudir|naibatul_mudir|kabag_kesantrian_putra|kabag_kesantrian_putri|kabag_umum')
         ->group(function () {
 
             Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
@@ -186,18 +243,19 @@ Route::middleware('auth')->group(function () {
     // 👨‍👩‍👧‍👦 WALI SANTRI
     // =====================================================
     Route::prefix('wali')
-        ->middleware('role:wali_santri')
+        ->middleware('role:wali_santri|superadmin')
         ->group(function () {
             Route::get('/dashboard', [WaliDashboardController::class, 'index'])->name('wali.dashboard');
-            Route::view('/profil', 'wali.profil')->name('wali.profil');
-            Route::view('/hafalan', 'wali.hafalan')->name('wali.hafalan');
+            Route::get('/profil', [WaliController::class, 'profil'])->name('wali.profil');
+            Route::get('/progres', [WaliController::class, 'progres'])->name('wali.progres');
+            Route::get('/hafalan', [WaliController::class, 'hafalan'])->name('wali.hafalan');
         });
 
     // =====================================================
     // 🧕 PIMPINAN
     // =====================================================
     Route::prefix('pimpinan')
-        ->middleware('role:pimpinan')
+        ->middleware('role:pimpinan|mudir_pondok|naibul_mudir|naibatul_mudir|kabag_kesantrian_putra|kabag_kesantrian_putri|kabag_umum|koor_kesehatan_putra|koor_kesehatan_putri|koor_kebersihan_putra|koor_kebersihan_putri|koor_keamanan_putra|koor_keamanan_putri|koor_tahfizh_putra|koor_tahfizh_putri|koor_lughoh_putra|koor_lughoh_putri|koor_kepegawaian|koor_sarpras|koor_dapur|koor_logistik|superadmin')
         ->group(function () {
             Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])->name('pimpinan.dashboard');
         });
@@ -207,10 +265,11 @@ Route::middleware('auth')->group(function () {
     // =====================================================
     Route::prefix('tahfizh')
         ->middleware([
-            'role:koordinator_tahfizh_putra|koordinator_tahfizh_putri|admin|superadmin',
+            'role:koordinator_tahfizh_putra|koordinator_tahfizh_putri|admin|admin_unit|superadmin',
         ])
         ->group(function () {
             Route::get('/dashboard', [TahfizhDashboardController::class, 'index'])->name('tahfizh.dashboard');
+            Route::get('/dashboard/timeline', [TahfizhDashboardController::class, 'timeline'])->name('tahfizh.dashboard.timeline');
 
             Route::controller(PengampuController::class)->group(function () {
                 Route::get('/halaqoh', 'index')->name('tahfizh.halaqoh.index');
@@ -227,4 +286,85 @@ Route::middleware('auth')->group(function () {
             });
         });
 
+});
+
+// =====================================================
+// FILAMENT v3.3 ADMIN PANEL (WAJIB ADA!)
+// =====================================================
+require __DIR__.'/../vendor/filament/filament/routes/web.php';
+
+Route::middleware('auth')->group(function () {
+    Route::view('/modul/kepala-madrasah', 'modules.kepala-madrasah')
+        ->middleware('role:kepala_madrasah|superadmin')
+        ->name('module.kepala');
+
+    Route::view('/modul/wakamad-kurikulum', 'modules.wakamad-kurikulum')
+        ->middleware('role:wakamad_kurikulum|superadmin')
+        ->name('module.wakamad.kurikulum');
+
+    Route::view('/modul/wakamad-kesiswaan', 'modules.wakamad-kesiswaan')
+        ->middleware('role:wakamad_kesiswaan|superadmin')
+        ->name('module.wakamad.kesiswaan');
+
+    Route::view('/modul/wakamad-sarpras', 'modules.wakamad-sarpras')
+        ->middleware('role:wakamad_sarpras|superadmin')
+        ->name('module.wakamad.sarpras');
+
+    Route::view('/modul/bendahara', 'modules.bendahara')
+        ->middleware('role:bendahara|superadmin')
+        ->name('module.bendahara');
+
+    Route::view('/modul/wali-kelas', 'modules.wali-kelas')
+        ->middleware('role:wali_kelas|superadmin')
+        ->name('module.wali-kelas');
+
+    Route::view('/modul/guru-mapel', 'modules.guru-mapel')
+        ->middleware('role:guru_mapel_umum|guru_mapel_syari|superadmin')
+        ->name('module.guru-mapel');
+
+    Route::view('/modul/mudir-pondok', 'modules.mudir')
+        ->middleware('role:mudir_pondok|naibul_mudir|naibatul_mudir|superadmin')
+        ->name('module.mudir');
+
+    Route::view('/modul/kesantrian-putra', 'modules.kesantrian-putra')
+        ->middleware('role:kabag_kesantrian_putra|superadmin')
+        ->name('module.kesantrian.putra');
+
+    Route::view('/modul/kesantrian-putri', 'modules.kesantrian-putri')
+        ->middleware('role:kabag_kesantrian_putri|superadmin')
+        ->name('module.kesantrian.putri');
+
+    Route::view('/modul/kabag-umum', 'modules.kabag-umum')
+        ->middleware('role:kabag_umum|superadmin')
+        ->name('module.kabag-umum');
+
+    Route::view('/modul/koor-kesehatan', 'modules.koor-kesehatan')
+        ->middleware('role:koor_kesehatan_putra|koor_kesehatan_putri|superadmin')
+        ->name('module.koor-kesehatan');
+
+    Route::view('/modul/koor-kebersihan', 'modules.koor-kebersihan')
+        ->middleware('role:koor_kebersihan_putra|koor_kebersihan_putri|superadmin')
+        ->name('module.koor-kebersihan');
+
+    Route::view('/modul/koor-keamanan', 'modules.koor-keamanan')
+        ->middleware('role:koor_keamanan_putra|koor_keamanan_putri|superadmin')
+        ->name('module.koor-keamanan');
+
+    Route::get('/modul/kesantrian/{segment}/tahfizh', [KesantrianTahfizhController::class, 'show'])
+        ->whereIn('segment', ['putra', 'putri'])
+        ->middleware('role:kabag_kesantrian_putra|kabag_kesantrian_putri|koor_tahfizh_putra|koor_tahfizh_putri|superadmin')
+        ->name('module.kesantrian.tahfizh');
+
+    Route::view('/program/tahfizh-quran', 'programs.tahfizh-quran')
+        ->middleware('role:superadmin|admin|admin_unit|koordinator_tahfizh_putra|koordinator_tahfizh_putri|guru|wali_kelas')
+        ->name('program.tahfizh-quran');
+});
+
+Route::fallback(function () {
+    if (auth()->check()) {
+        return response()
+            ->view('errors.under-development', [], 200);
+    }
+
+    return redirect()->route('dashboard');
 });

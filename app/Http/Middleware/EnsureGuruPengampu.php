@@ -18,6 +18,10 @@ class EnsureGuruPengampu
         $user = Auth::user();
         $linkedGuruId = (int) ($user->linked_guru_id ?? 0);
 
+        if (!$linkedGuruId && method_exists($user, 'ensureLinkedGuruId')) {
+            $linkedGuruId = (int) ($user->ensureLinkedGuruId() ?? 0);
+        }
+
         // 🟢 Superadmin tetap diizinkan
         if ($user->role === 'superadmin') {
             return $next($request);

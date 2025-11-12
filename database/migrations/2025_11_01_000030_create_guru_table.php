@@ -12,9 +12,10 @@ return new class extends Migration {
             $table->string('nama');
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->default('L');
-            $table->string('nip')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('alamat')->nullable();
+            $table->date('tanggal_bergabung')->nullable();
+            $table->string('nipy')->nullable()->unique();
             $table->timestamps();
 
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('set null');

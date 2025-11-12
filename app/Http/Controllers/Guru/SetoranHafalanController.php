@@ -24,15 +24,19 @@ class SetoranHafalanController extends Controller
         if ($user->role === 'superadmin') {
             $halaqohId = (int) $request->query('halaqoh_id', 0);
             $halaqoh = $halaqohId
-                ? Halaqoh::with(['santri:id,nama'])->findOrFail($halaqohId)
-                : Halaqoh::with(['santri:id,nama'])->first();
+                ? Halaqoh::with(['santri:id,nama,jenis_kelamin'])->findOrFail($halaqohId)
+                : Halaqoh::with(['santri:id,nama,jenis_kelamin'])->first();
 
             $allHalaqoh = Halaqoh::with('guru:id,nama')
                 ->orderBy('id')
                 ->get(['id', 'unit_id', 'guru_id']);
         } else {
-            $linkedGuruId = (int) $user->linked_guru_id;
-            $halaqoh = Halaqoh::with(['santri:id,nama'])
+            $linkedGuruId = $user->ensureLinkedGuruId();
+            if (!$linkedGuruId) {
+                return redirect()->route('dashboard')
+                    ->with('error', 'Akun Anda belum ditautkan sebagai guru pengampu.');
+            }
+            $halaqoh = Halaqoh::with(['santri:id,nama,jenis_kelamin'])
                 ->where('guru_id', $linkedGuruId)
                 ->firstOrFail();
             $allHalaqoh = collect();
@@ -71,7 +75,11 @@ class SetoranHafalanController extends Controller
     public function create(int $santriId)
     {
         $user = Auth::user();
-        $linkedGuruId = (int) $user->linked_guru_id;
+        $linkedGuruId = $user->ensureLinkedGuruId();
+        if (!$linkedGuruId) {
+            return redirect()->route('guru.dashboard')
+                ->with('error', 'Akun Anda belum ditautkan ke data guru pengampu.');
+        }
 
         $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->firstOrFail();
         $santri  = $halaqoh->santri()->where('santri.id', $santriId)->firstOrFail();
@@ -85,18 +93,24 @@ class SetoranHafalanController extends Controller
     public function store(Request $request, int $santriId)
     {
         $user = Auth::user();
-        $linkedGuruId = (int) $user->linked_guru_id;
+        $linkedGuruId = $user->ensureLinkedGuruId();
+        if (!$linkedGuruId) {
+            return redirect()->route('guru.dashboard')
+                ->with('error', 'Akun Anda belum ditautkan ke data guru pengampu.');
+        }
         $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->firstOrFail();
         $santri  = $halaqoh->santri()->where('santri.id', $santriId)->firstOrFail();
 
         $data = $request->validate([
-            'tanggal_setor' => ['required', 'date'],
-            'status'        => ['nullable', Rule::in(['lulus', 'ulang'])],
-            'catatan'       => ['nullable', 'string'],
-            'juz_start'     => ['required', 'integer', 'between:1,30'],
-            'surah_id'      => ['required', 'integer', 'between:1,114'],
-            'ayah_start'    => ['required', 'integer', 'min:1'],
-            'ayah_end'      => ['required', 'integer', 'gte:ayah_start'],
+            'tanggal_setor'    => ['required', 'date'],
+            'penilaian_tajwid' => ['required', 'integer', 'between:1,5'],
+            'penilaian_mutqin' => ['required', 'integer', 'between:1,10'],
+            'penilaian_adab'   => ['required', 'integer', 'between:1,5'],
+            'catatan'          => ['nullable', 'string'],
+            'juz_start'        => ['required', 'integer', 'between:1,30'],
+            'surah_id'         => ['required', 'integer', 'between:1,114'],
+            'ayah_start'       => ['required', 'integer', 'min:1'],
+            'ayah_end'         => ['required', 'integer', 'gte:ayah_start'],
         ]);
 
         // 🧠 Validasi progres dan overlap
@@ -128,20 +142,29 @@ class SetoranHafalanController extends Controller
         }
 
         // Simpan data
+        $status = $this->deriveStatusFromPenilaian(
+            (int) $data['penilaian_tajwid'],
+            (int) $data['penilaian_mutqin'],
+            (int) $data['penilaian_adab']
+        );
+
         HafalanQuran::create([
-            'unit_id'       => $halaqoh->unit_id,
-            'halaqoh_id'    => $halaqoh->id,
-            'guru_id'       => $linkedGuruId,
-            'santri_id'     => $santri->id,
-            'tanggal_setor' => $data['tanggal_setor'],
-            'mode'          => 'ayat',
-            'surah_id'      => $data['surah_id'],
-            'ayah_start'    => $data['ayah_start'],
-            'ayah_end'      => $data['ayah_end'],
-            'juz_start'     => $data['juz_start'],
-            'juz_end'       => $data['juz_start'],
-            'status'        => $data['status'] ?? 'lulus',
-            'catatan'       => $data['catatan'] ?? null,
+            'unit_id'            => $halaqoh->unit_id,
+            'halaqoh_id'         => $halaqoh->id,
+            'guru_id'            => $linkedGuruId,
+            'santri_id'          => $santri->id,
+            'tanggal_setor'      => $data['tanggal_setor'],
+            'mode'               => 'ayat',
+            'surah_id'           => $data['surah_id'],
+            'ayah_start'         => $data['ayah_start'],
+            'ayah_end'           => $data['ayah_end'],
+            'juz_start'          => $data['juz_start'],
+            'juz_end'            => $data['juz_start'],
+            'status'             => $status,
+            'penilaian_tajwid'   => $data['penilaian_tajwid'],
+            'penilaian_mutqin'   => $data['penilaian_mutqin'],
+            'penilaian_adab'     => $data['penilaian_adab'],
+            'catatan'            => $data['catatan'] ?? null,
         ]);
 
         return redirect()->route('guru.setoran.index')
@@ -154,16 +177,23 @@ class SetoranHafalanController extends Controller
     public function rekap(Request $request)
     {
         $user = Auth::user();
-        $halaqoh = $user->role === 'superadmin'
-            ? Halaqoh::findOrFail((int) $request->query('halaqoh_id', 1))
-            : Halaqoh::where('guru_id', (int) $user->linked_guru_id)->firstOrFail();
+        if ($user->role === 'superadmin') {
+            $halaqoh = Halaqoh::findOrFail((int) $request->query('halaqoh_id', 1));
+        } else {
+            $linkedGuruId = $user->ensureLinkedGuruId();
+            if (!$linkedGuruId) {
+                return redirect()->route('guru.dashboard')
+                    ->with('error', 'Akun Anda belum ditautkan ke data guru pengampu.');
+            }
+            $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->firstOrFail();
+        }
 
-        $data = HafalanQuran::where('halaqoh_id', $halaqoh->id)
+        $query = HafalanQuran::where('halaqoh_id', $halaqoh->id)
             ->with(['santri:id,nama'])
-            ->orderByDesc('tanggal_setor')
-            ->get();
+            ->orderByDesc('tanggal_setor');
 
-        $rekap = $this->hitungRekapHafalan($data);
+        $rekap = $this->hitungRekapHafalan((clone $query)->get());
+        $data = $query->paginate(10)->withQueryString();
 
         return view('guru.setoran.rekap', compact('data', 'rekap', 'halaqoh'));
     }
@@ -246,6 +276,7 @@ class SetoranHafalanController extends Controller
         $totalHalaman = $halamanSetor->pluck('page')->unique()->count();
         $totalAyatDisetor = 0;
         $totalAyatSurah = 0;
+        $jumlahSurahTersentuh = count($ayatDisetor);
 
         foreach ($ayatDisetor as $surahId => $ayats) {
             $jumlahAyatSurah = Cache::rememberForever("quran_surah_$surahId", fn() =>
@@ -271,7 +302,7 @@ class SetoranHafalanController extends Controller
         return [
             'total_halaman'      => $totalHalaman,
             'total_juz'          => round($totalHalaman / 20, 2),
-            'total_surah'        => $totalAyatSurah,
+            'total_surah'        => $jumlahSurahTersentuh,
             'progress_surah'     => $progressSurah,
             'progress_juz'       => $rataRataJuz,
             'total_ayat_disetor' => $totalAyatDisetor,
@@ -299,4 +330,14 @@ class SetoranHafalanController extends Controller
             DB::table('quran_juz_map')->get()->groupBy('juz')
         );
     }
+
+    protected function deriveStatusFromPenilaian(int $tajwid, int $mutqin, int $adab): string
+    {
+        if ($tajwid >= 3 && $adab >= 3 && $mutqin >= 7) {
+            return 'lulus';
+        }
+
+        return 'ulang';
+    }
+
 }

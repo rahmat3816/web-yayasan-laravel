@@ -55,15 +55,32 @@ class AdminDashboardController extends Controller
             ]);
         }
 
-        // ==== Statistik per-unit (admin/operator) ====
         $unitId = (int) ($me->unit_id ?? 0);
-        $cacheKey = 'dashboard:stats:' . ($unitId ?: 'all');
+        $unitScopedRoles = [
+            'admin',
+            'admin_unit',
+            'kepala_madrasah',
+            'wakamad_kurikulum',
+            'wakamad_kesiswaan',
+            'wakamad_sarpras',
+            'bendahara',
+        ];
 
-        $stats = Cache::remember($cacheKey, now()->addSeconds(60), function () use ($unitId) {
+        $hasUnitScope = $unitId > 0 && (
+            in_array($role, $unitScopedRoles, true) ||
+            ($me->hasRole && $me->hasRole($unitScopedRoles)) ||
+            ($me->hasJabatan && $me->hasJabatan($unitScopedRoles))
+        );
+
+        $cacheKey = 'dashboard:stats:' . ($hasUnitScope ? $unitId : 'all');
+
+        $stats = Cache::remember($cacheKey, now()->addSeconds(60), function () use ($hasUnitScope, $unitId) {
+            $filterId = $hasUnitScope ? $unitId : null;
+
             return [
-                'totalSantri'  => DB::table('santri')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
-                'totalGuru'    => DB::table('guru')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
-                'totalHalaqoh' => DB::table('halaqoh')->when($unitId, fn($q) => $q->where('unit_id', $unitId))->count(),
+                'totalSantri'  => DB::table('santri')->when($filterId, fn($q) => $q->where('unit_id', $filterId))->count(),
+                'totalGuru'    => DB::table('guru')->when($filterId, fn($q) => $q->where('unit_id', $filterId))->count(),
+                'totalHalaqoh' => DB::table('halaqoh')->when($filterId, fn($q) => $q->where('unit_id', $filterId))->count(),
             ];
         });
 

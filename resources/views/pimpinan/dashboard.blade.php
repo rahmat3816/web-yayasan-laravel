@@ -11,6 +11,26 @@ resources/views/pimpinan/dashboard.blade.php
 @extends('layouts.admin')
 @section('content')
 <x-breadcrumb />
+
+@php
+    $cards = [
+        [
+            'title' => 'Ringkasan Yayasan',
+            'description' => 'Statistik santri, guru, dan unit.',
+            'url' => route('pimpinan.dashboard'),
+            'icon' => '📊',
+        ],
+        [
+            'title' => 'Koordinasi Admin',
+            'description' => 'Kirim permintaan laporan atau pembaruan data.',
+            'url' => 'mailto:admin@yayasan.local',
+            'icon' => '✉️',
+        ],
+    ];
+@endphp
+
+@include('dashboard.partials.action-cards', ['cards' => $cards])
+
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
     <div class="p-4 bg-blue-100 dark:bg-blue-900 rounded-2xl shadow">
         <h3 class="text-lg font-semibold">Total Santri</h3>

@@ -19,8 +19,8 @@ class SantriController extends Controller
         $user = Auth::user();
         $query = Santri::with('unit:id,nama_unit');
 
-        // Jika admin/operator, hanya tampilkan santri unit-nya
-        if (in_array(strtolower($user->role), ['admin', 'operator'])) {
+        // Jika admin unit atau kepala madrasah, batasi pada unit mereka
+        if (in_array(strtolower($user->role), ['admin', 'admin_unit', 'kepala_madrasah'], true)) {
             $query->where('unit_id', $user->unit_id);
         }
 
