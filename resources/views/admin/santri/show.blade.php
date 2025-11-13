@@ -14,7 +14,7 @@
             </p>
         </div>
         <div class="flex gap-3">
-            <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+            <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
             @if (in_array(strtolower(auth()->user()->role), ['superadmin','admin','admin_unit','kepala_madrasah','wakamad_kurikulum','wakamad_kesiswaan','wakamad_sarpras','bendahara']))
                 <a href="{{ route('admin.santri.edit', $santri->id) }}" class="btn btn-sm btn-warning rounded-full">Edit</a>
             @endif
@@ -28,7 +28,7 @@
         </div>
         <div class="glass-card p-4">
             <p class="text-xs text-slate-500 uppercase tracking-wide">Unit Pendidikan</p>
-            <p class="text-lg font-semibold">{{ $santri->unit->nama_unit ?? '—' }}</p>
+            <p class="text-lg font-semibold">{{ $santri->unit->nama_unit ?? '-' }}</p>
         </div>
         <div class="glass-card p-4">
             <p class="text-xs text-slate-500 uppercase tracking-wide">Tahun Masuk</p>

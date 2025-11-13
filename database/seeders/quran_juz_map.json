@@ -1,162 +1,737 @@
 {
-  "1": [
-    {"surah": 1, "ayat_mulai": 1, "ayat_akhir": 7},
-    {"surah": 2, "ayat_mulai": 1, "ayat_akhir": 141}
-  ],
-  "2": [
-    {"surah": 2, "ayat_mulai": 142, "ayat_akhir": 252}
-  ],
-  "3": [
-    {"surah": 2, "ayat_mulai": 253, "ayat_akhir": 286},
-    {"surah": 3, "ayat_mulai": 1, "ayat_akhir": 91}
-  ],
-  "4": [
-    {"surah": 3, "ayat_mulai": 92, "ayat_akhir": 200}
-  ],
-  "5": [
-    {"surah": 4, "ayat_mulai": 1, "ayat_akhir": 147}
-  ],
-  "6": [
-    {"surah": 4, "ayat_mulai": 148, "ayat_akhir": 176},
-    {"surah": 5, "ayat_mulai": 1, "ayat_akhir": 81}
-  ],
-  "7": [
-    {"surah": 5, "ayat_mulai": 82, "ayat_akhir": 120},
-    {"surah": 6, "ayat_mulai": 1, "ayat_akhir": 110}
-  ],
-  "8": [
-    {"surah": 6, "ayat_mulai": 111, "ayat_akhir": 165},
-    {"surah": 7, "ayat_mulai": 1, "ayat_akhir": 87}
-  ],
-  "9": [
-    {"surah": 7, "ayat_mulai": 88, "ayat_akhir": 206}
-  ],
-  "10": [
-    {"surah": 8, "ayat_mulai": 1, "ayat_akhir": 75},
-    {"surah": 9, "ayat_mulai": 1, "ayat_akhir": 92}
-  ],
-  "11": [
-    {"surah": 9, "ayat_mulai": 93, "ayat_akhir": 129},
-    {"surah": 10, "ayat_mulai": 1, "ayat_akhir": 40}
-  ],
-  "12": [
-    {"surah": 10, "ayat_mulai": 41, "ayat_akhir": 109},
-    {"surah": 11, "ayat_mulai": 1, "ayat_akhir": 5}
-  ],
-  "13": [
-    {"surah": 11, "ayat_mulai": 6, "ayat_akhir": 123},
-    {"surah": 12, "ayat_mulai": 1, "ayat_akhir": 52}
-  ],
-  "14": [
-    {"surah": 12, "ayat_mulai": 53, "ayat_akhir": 111},
-    {"surah": 13, "ayat_mulai": 1, "ayat_akhir": 43},
-    {"surah": 14, "ayat_mulai": 1, "ayat_akhir": 52}
-  ],
-  "15": [
-    {"surah": 15, "ayat_mulai": 1, "ayat_akhir": 99},
-    {"surah": 16, "ayat_mulai": 1, "ayat_akhir": 128}
-  ],
-  "16": [
-    {"surah": 17, "ayat_mulai": 1, "ayat_akhir": 111},
-    {"surah": 18, "ayat_mulai": 1, "ayat_akhir": 74}
-  ],
-  "17": [
-    {"surah": 18, "ayat_mulai": 75, "ayat_akhir": 110},
-    {"surah": 19, "ayat_mulai": 1, "ayat_akhir": 98},
-    {"surah": 20, "ayat_mulai": 1, "ayat_akhir": 135}
-  ],
-  "18": [
-    {"surah": 21, "ayat_mulai": 1, "ayat_akhir": 112},
-    {"surah": 22, "ayat_mulai": 1, "ayat_akhir": 78}
-  ],
-  "19": [
-    {"surah": 23, "ayat_mulai": 1, "ayat_akhir": 118},
-    {"surah": 24, "ayat_mulai": 1, "ayat_akhir": 64}
-  ],
-  "20": [
-    {"surah": 25, "ayat_mulai": 1, "ayat_akhir": 77},
-    {"surah": 26, "ayat_mulai": 1, "ayat_akhir": 227}
-  ],
-  "21": [
-    {"surah": 27, "ayat_mulai": 1, "ayat_akhir": 93},
-    {"surah": 28, "ayat_mulai": 1, "ayat_akhir": 88}
-  ],
-  "22": [
-    {"surah": 29, "ayat_mulai": 1, "ayat_akhir": 69},
-    {"surah": 30, "ayat_mulai": 1, "ayat_akhir": 60},
-    {"surah": 31, "ayat_mulai": 1, "ayat_akhir": 34}
-  ],
-  "23": [
-    {"surah": 32, "ayat_mulai": 1, "ayat_akhir": 30},
-    {"surah": 33, "ayat_mulai": 1, "ayat_akhir": 73}
-  ],
-  "24": [
-    {"surah": 34, "ayat_mulai": 1, "ayat_akhir": 54},
-    {"surah": 35, "ayat_mulai": 1, "ayat_akhir": 45},
-    {"surah": 36, "ayat_mulai": 1, "ayat_akhir": 83}
-  ],
-  "25": [
-    {"surah": 37, "ayat_mulai": 1, "ayat_akhir": 182},
-    {"surah": 38, "ayat_mulai": 1, "ayat_akhir": 88}
-  ],
-  "26": [
-    {"surah": 39, "ayat_mulai": 1, "ayat_akhir": 75},
-    {"surah": 40, "ayat_mulai": 1, "ayat_akhir": 85}
-  ],
-  "27": [
-    {"surah": 41, "ayat_mulai": 1, "ayat_akhir": 54},
-    {"surah": 42, "ayat_mulai": 1, "ayat_akhir": 53}
-  ],
-  "28": [
-    {"surah": 43, "ayat_mulai": 1, "ayat_akhir": 89},
-    {"surah": 44, "ayat_mulai": 1, "ayat_akhir": 59},
-    {"surah": 45, "ayat_mulai": 1, "ayat_akhir": 37}
-  ],
-  "29": [
-    {"surah": 46, "ayat_mulai": 1, "ayat_akhir": 35},
-    {"surah": 47, "ayat_mulai": 1, "ayat_akhir": 38},
-    {"surah": 48, "ayat_mulai": 1, "ayat_akhir": 29},
-    {"surah": 49, "ayat_mulai": 1, "ayat_akhir": 18},
-    {"surah": 50, "ayat_mulai": 1, "ayat_akhir": 45},
-    {"surah": 51, "ayat_mulai": 1, "ayat_akhir": 60}
-  ],
-  "30": [
-    {"surah": 78, "ayat_mulai": 1, "ayat_akhir": 40},
-    {"surah": 79, "ayat_mulai": 1, "ayat_akhir": 46},
-    {"surah": 80, "ayat_mulai": 1, "ayat_akhir": 42},
-    {"surah": 81, "ayat_mulai": 1, "ayat_akhir": 29},
-    {"surah": 82, "ayat_mulai": 1, "ayat_akhir": 19},
-    {"surah": 83, "ayat_mulai": 1, "ayat_akhir": 36},
-    {"surah": 84, "ayat_mulai": 1, "ayat_akhir": 25},
-    {"surah": 85, "ayat_mulai": 1, "ayat_akhir": 22},
-    {"surah": 86, "ayat_mulai": 1, "ayat_akhir": 17},
-    {"surah": 87, "ayat_mulai": 1, "ayat_akhir": 19},
-    {"surah": 88, "ayat_mulai": 1, "ayat_akhir": 26},
-    {"surah": 89, "ayat_mulai": 1, "ayat_akhir": 30},
-    {"surah": 90, "ayat_mulai": 1, "ayat_akhir": 20},
-    {"surah": 91, "ayat_mulai": 1, "ayat_akhir": 15},
-    {"surah": 92, "ayat_mulai": 1, "ayat_akhir": 21},
-    {"surah": 93, "ayat_mulai": 1, "ayat_akhir": 11},
-    {"surah": 94, "ayat_mulai": 1, "ayat_akhir": 8},
-    {"surah": 95, "ayat_mulai": 1, "ayat_akhir": 8},
-    {"surah": 96, "ayat_mulai": 1, "ayat_akhir": 19},
-    {"surah": 97, "ayat_mulai": 1, "ayat_akhir": 5},
-    {"surah": 98, "ayat_mulai": 1, "ayat_akhir": 8},
-    {"surah": 99, "ayat_mulai": 1, "ayat_akhir": 8},
-    {"surah": 100, "ayat_mulai": 1, "ayat_akhir": 11},
-    {"surah": 101, "ayat_mulai": 1, "ayat_akhir": 11},
-    {"surah": 102, "ayat_mulai": 1, "ayat_akhir": 8},
-    {"surah": 103, "ayat_mulai": 1, "ayat_akhir": 3},
-    {"surah": 104, "ayat_mulai": 1, "ayat_akhir": 9},
-    {"surah": 105, "ayat_mulai": 1, "ayat_akhir": 5},
-    {"surah": 106, "ayat_mulai": 1, "ayat_akhir": 4},
-    {"surah": 107, "ayat_mulai": 1, "ayat_akhir": 7},
-    {"surah": 108, "ayat_mulai": 1, "ayat_akhir": 3},
-    {"surah": 109, "ayat_mulai": 1, "ayat_akhir": 6},
-    {"surah": 110, "ayat_mulai": 1, "ayat_akhir": 3},
-    {"surah": 111, "ayat_mulai": 1, "ayat_akhir": 5},
-    {"surah": 112, "ayat_mulai": 1, "ayat_akhir": 4},
-    {"surah": 113, "ayat_mulai": 1, "ayat_akhir": 5},
-    {"surah": 114, "ayat_mulai": 1, "ayat_akhir": 6}
-  ]
+    "1": [
+        {
+            "surah": 1,
+            "ayat_mulai": 1,
+            "ayat_akhir": 7
+        },
+        {
+            "surah": 2,
+            "ayat_mulai": 1,
+            "ayat_akhir": 141
+        }
+    ],
+    "2": [
+        {
+            "surah": 2,
+            "ayat_mulai": 142,
+            "ayat_akhir": 252
+        }
+    ],
+    "3": [
+        {
+            "surah": 2,
+            "ayat_mulai": 253,
+            "ayat_akhir": 286
+        },
+        {
+            "surah": 3,
+            "ayat_mulai": 1,
+            "ayat_akhir": 91
+        }
+    ],
+    "4": [
+        {
+            "surah": 3,
+            "ayat_mulai": 92,
+            "ayat_akhir": 200
+        },
+        {
+            "surah": 4,
+            "ayat_mulai": 1,
+            "ayat_akhir": 23
+        }
+    ],
+    "5": [
+        {
+            "surah": 4,
+            "ayat_mulai": 24,
+            "ayat_akhir": 147
+        }
+    ],
+    "6": [
+        {
+            "surah": 4,
+            "ayat_mulai": 148,
+            "ayat_akhir": 176
+        },
+        {
+            "surah": 5,
+            "ayat_mulai": 1,
+            "ayat_akhir": 81
+        }
+    ],
+    "7": [
+        {
+            "surah": 5,
+            "ayat_mulai": 82,
+            "ayat_akhir": 120
+        },
+        {
+            "surah": 6,
+            "ayat_mulai": 1,
+            "ayat_akhir": 110
+        }
+    ],
+    "8": [
+        {
+            "surah": 6,
+            "ayat_mulai": 111,
+            "ayat_akhir": 165
+        },
+        {
+            "surah": 7,
+            "ayat_mulai": 1,
+            "ayat_akhir": 87
+        }
+    ],
+    "9": [
+        {
+            "surah": 7,
+            "ayat_mulai": 88,
+            "ayat_akhir": 206
+        },
+        {
+            "surah": 8,
+            "ayat_mulai": 1,
+            "ayat_akhir": 40
+        }
+    ],
+    "10": [
+        {
+            "surah": 8,
+            "ayat_mulai": 41,
+            "ayat_akhir": 75
+        },
+        {
+            "surah": 9,
+            "ayat_mulai": 1,
+            "ayat_akhir": 93
+        }
+    ],
+    "11": [
+        {
+            "surah": 9,
+            "ayat_mulai": 94,
+            "ayat_akhir": 129
+        },
+        {
+            "surah": 10,
+            "ayat_mulai": 1,
+            "ayat_akhir": 109
+        },
+        {
+            "surah": 11,
+            "ayat_mulai": 1,
+            "ayat_akhir": 5
+        }
+    ],
+    "12": [
+        {
+            "surah": 11,
+            "ayat_mulai": 6,
+            "ayat_akhir": 123
+        },
+        {
+            "surah": 12,
+            "ayat_mulai": 1,
+            "ayat_akhir": 52
+        }
+    ],
+    "13": [
+        {
+            "surah": 12,
+            "ayat_mulai": 53,
+            "ayat_akhir": 111
+        },
+        {
+            "surah": 13,
+            "ayat_mulai": 1,
+            "ayat_akhir": 43
+        },
+        {
+            "surah": 14,
+            "ayat_mulai": 1,
+            "ayat_akhir": 52
+        }
+    ],
+    "14": [
+        {
+            "surah": 15,
+            "ayat_mulai": 1,
+            "ayat_akhir": 99
+        },
+        {
+            "surah": 16,
+            "ayat_mulai": 1,
+            "ayat_akhir": 128
+        }
+    ],
+    "15": [
+        {
+            "surah": 17,
+            "ayat_mulai": 1,
+            "ayat_akhir": 111
+        },
+        {
+            "surah": 18,
+            "ayat_mulai": 1,
+            "ayat_akhir": 74
+        }
+    ],
+    "16": [
+        {
+            "surah": 18,
+            "ayat_mulai": 75,
+            "ayat_akhir": 110
+        },
+        {
+            "surah": 19,
+            "ayat_mulai": 1,
+            "ayat_akhir": 98
+        },
+        {
+            "surah": 20,
+            "ayat_mulai": 1,
+            "ayat_akhir": 135
+        }
+    ],
+    "17": [
+        {
+            "surah": 21,
+            "ayat_mulai": 1,
+            "ayat_akhir": 112
+        },
+        {
+            "surah": 22,
+            "ayat_mulai": 1,
+            "ayat_akhir": 78
+        }
+    ],
+    "18": [
+        {
+            "surah": 23,
+            "ayat_mulai": 1,
+            "ayat_akhir": 118
+        },
+        {
+            "surah": 24,
+            "ayat_mulai": 1,
+            "ayat_akhir": 64
+        },
+        {
+            "surah": 25,
+            "ayat_mulai": 1,
+            "ayat_akhir": 20
+        }
+    ],
+    "19": [
+        {
+            "surah": 25,
+            "ayat_mulai": 21,
+            "ayat_akhir": 77
+        },
+        {
+            "surah": 26,
+            "ayat_mulai": 1,
+            "ayat_akhir": 227
+        },
+        {
+            "surah": 27,
+            "ayat_mulai": 1,
+            "ayat_akhir": 55
+        }
+    ],
+    "20": [
+        {
+            "surah": 27,
+            "ayat_mulai": 56,
+            "ayat_akhir": 93
+        },
+        {
+            "surah": 28,
+            "ayat_mulai": 1,
+            "ayat_akhir": 88
+        },
+        {
+            "surah": 29,
+            "ayat_mulai": 1,
+            "ayat_akhir": 45
+        }
+    ],
+    "21": [
+        {
+            "surah": 29,
+            "ayat_mulai": 46,
+            "ayat_akhir": 69
+        },
+        {
+            "surah": 30,
+            "ayat_mulai": 1,
+            "ayat_akhir": 60
+        },
+        {
+            "surah": 31,
+            "ayat_mulai": 1,
+            "ayat_akhir": 34
+        },
+        {
+            "surah": 32,
+            "ayat_mulai": 1,
+            "ayat_akhir": 30
+        },
+        {
+            "surah": 33,
+            "ayat_mulai": 1,
+            "ayat_akhir": 30
+        }
+    ],
+    "22": [
+        {
+            "surah": 33,
+            "ayat_mulai": 31,
+            "ayat_akhir": 73
+        },
+        {
+            "surah": 34,
+            "ayat_mulai": 1,
+            "ayat_akhir": 54
+        },
+        {
+            "surah": 35,
+            "ayat_mulai": 1,
+            "ayat_akhir": 45
+        },
+        {
+            "surah": 36,
+            "ayat_mulai": 1,
+            "ayat_akhir": 27
+        }
+    ],
+    "23": [
+        {
+            "surah": 36,
+            "ayat_mulai": 28,
+            "ayat_akhir": 83
+        },
+        {
+            "surah": 37,
+            "ayat_mulai": 1,
+            "ayat_akhir": 182
+        },
+        {
+            "surah": 38,
+            "ayat_mulai": 1,
+            "ayat_akhir": 88
+        },
+        {
+            "surah": 39,
+            "ayat_mulai": 1,
+            "ayat_akhir": 31
+        }
+    ],
+    "24": [
+        {
+            "surah": 39,
+            "ayat_mulai": 32,
+            "ayat_akhir": 75
+        },
+        {
+            "surah": 40,
+            "ayat_mulai": 1,
+            "ayat_akhir": 85
+        },
+        {
+            "surah": 41,
+            "ayat_mulai": 1,
+            "ayat_akhir": 46
+        }
+    ],
+    "25": [
+        {
+            "surah": 41,
+            "ayat_mulai": 47,
+            "ayat_akhir": 54
+        },
+        {
+            "surah": 42,
+            "ayat_mulai": 1,
+            "ayat_akhir": 53
+        },
+        {
+            "surah": 43,
+            "ayat_mulai": 1,
+            "ayat_akhir": 89
+        },
+        {
+            "surah": 44,
+            "ayat_mulai": 1,
+            "ayat_akhir": 59
+        },
+        {
+            "surah": 45,
+            "ayat_mulai": 1,
+            "ayat_akhir": 37
+        }
+    ],
+    "26": [
+        {
+            "surah": 46,
+            "ayat_mulai": 1,
+            "ayat_akhir": 35
+        },
+        {
+            "surah": 47,
+            "ayat_mulai": 1,
+            "ayat_akhir": 38
+        },
+        {
+            "surah": 48,
+            "ayat_mulai": 1,
+            "ayat_akhir": 29
+        },
+        {
+            "surah": 49,
+            "ayat_mulai": 1,
+            "ayat_akhir": 18
+        },
+        {
+            "surah": 50,
+            "ayat_mulai": 1,
+            "ayat_akhir": 45
+        },
+        {
+            "surah": 51,
+            "ayat_mulai": 1,
+            "ayat_akhir": 30
+        }
+    ],
+    "27": [
+        {
+            "surah": 51,
+            "ayat_mulai": 31,
+            "ayat_akhir": 60
+        },
+        {
+            "surah": 52,
+            "ayat_mulai": 1,
+            "ayat_akhir": 49
+        },
+        {
+            "surah": 53,
+            "ayat_mulai": 1,
+            "ayat_akhir": 62
+        },
+        {
+            "surah": 54,
+            "ayat_mulai": 1,
+            "ayat_akhir": 55
+        },
+        {
+            "surah": 55,
+            "ayat_mulai": 1,
+            "ayat_akhir": 78
+        },
+        {
+            "surah": 56,
+            "ayat_mulai": 1,
+            "ayat_akhir": 96
+        },
+        {
+            "surah": 57,
+            "ayat_mulai": 1,
+            "ayat_akhir": 29
+        }
+    ],
+    "28": [
+        {
+            "surah": 58,
+            "ayat_mulai": 1,
+            "ayat_akhir": 22
+        },
+        {
+            "surah": 59,
+            "ayat_mulai": 1,
+            "ayat_akhir": 24
+        },
+        {
+            "surah": 60,
+            "ayat_mulai": 1,
+            "ayat_akhir": 13
+        },
+        {
+            "surah": 61,
+            "ayat_mulai": 1,
+            "ayat_akhir": 14
+        },
+        {
+            "surah": 62,
+            "ayat_mulai": 1,
+            "ayat_akhir": 11
+        },
+        {
+            "surah": 63,
+            "ayat_mulai": 1,
+            "ayat_akhir": 11
+        },
+        {
+            "surah": 64,
+            "ayat_mulai": 1,
+            "ayat_akhir": 18
+        },
+        {
+            "surah": 65,
+            "ayat_mulai": 1,
+            "ayat_akhir": 12
+        },
+        {
+            "surah": 66,
+            "ayat_mulai": 1,
+            "ayat_akhir": 12
+        }
+    ],
+    "29": [
+        {
+            "surah": 67,
+            "ayat_mulai": 1,
+            "ayat_akhir": 30
+        },
+        {
+            "surah": 68,
+            "ayat_mulai": 1,
+            "ayat_akhir": 52
+        },
+        {
+            "surah": 69,
+            "ayat_mulai": 1,
+            "ayat_akhir": 52
+        },
+        {
+            "surah": 70,
+            "ayat_mulai": 1,
+            "ayat_akhir": 44
+        },
+        {
+            "surah": 71,
+            "ayat_mulai": 1,
+            "ayat_akhir": 28
+        },
+        {
+            "surah": 72,
+            "ayat_mulai": 1,
+            "ayat_akhir": 28
+        },
+        {
+            "surah": 73,
+            "ayat_mulai": 1,
+            "ayat_akhir": 20
+        },
+        {
+            "surah": 74,
+            "ayat_mulai": 1,
+            "ayat_akhir": 56
+        },
+        {
+            "surah": 75,
+            "ayat_mulai": 1,
+            "ayat_akhir": 40
+        },
+        {
+            "surah": 76,
+            "ayat_mulai": 1,
+            "ayat_akhir": 31
+        },
+        {
+            "surah": 77,
+            "ayat_mulai": 1,
+            "ayat_akhir": 50
+        }
+    ],
+    "30": [
+        {
+            "surah": 78,
+            "ayat_mulai": 1,
+            "ayat_akhir": 40
+        },
+        {
+            "surah": 79,
+            "ayat_mulai": 1,
+            "ayat_akhir": 46
+        },
+        {
+            "surah": 80,
+            "ayat_mulai": 1,
+            "ayat_akhir": 42
+        },
+        {
+            "surah": 81,
+            "ayat_mulai": 1,
+            "ayat_akhir": 29
+        },
+        {
+            "surah": 82,
+            "ayat_mulai": 1,
+            "ayat_akhir": 19
+        },
+        {
+            "surah": 83,
+            "ayat_mulai": 1,
+            "ayat_akhir": 36
+        },
+        {
+            "surah": 84,
+            "ayat_mulai": 1,
+            "ayat_akhir": 25
+        },
+        {
+            "surah": 85,
+            "ayat_mulai": 1,
+            "ayat_akhir": 22
+        },
+        {
+            "surah": 86,
+            "ayat_mulai": 1,
+            "ayat_akhir": 17
+        },
+        {
+            "surah": 87,
+            "ayat_mulai": 1,
+            "ayat_akhir": 19
+        },
+        {
+            "surah": 88,
+            "ayat_mulai": 1,
+            "ayat_akhir": 26
+        },
+        {
+            "surah": 89,
+            "ayat_mulai": 1,
+            "ayat_akhir": 30
+        },
+        {
+            "surah": 90,
+            "ayat_mulai": 1,
+            "ayat_akhir": 20
+        },
+        {
+            "surah": 91,
+            "ayat_mulai": 1,
+            "ayat_akhir": 15
+        },
+        {
+            "surah": 92,
+            "ayat_mulai": 1,
+            "ayat_akhir": 21
+        },
+        {
+            "surah": 93,
+            "ayat_mulai": 1,
+            "ayat_akhir": 11
+        },
+        {
+            "surah": 94,
+            "ayat_mulai": 1,
+            "ayat_akhir": 8
+        },
+        {
+            "surah": 95,
+            "ayat_mulai": 1,
+            "ayat_akhir": 8
+        },
+        {
+            "surah": 96,
+            "ayat_mulai": 1,
+            "ayat_akhir": 19
+        },
+        {
+            "surah": 97,
+            "ayat_mulai": 1,
+            "ayat_akhir": 5
+        },
+        {
+            "surah": 98,
+            "ayat_mulai": 1,
+            "ayat_akhir": 8
+        },
+        {
+            "surah": 99,
+            "ayat_mulai": 1,
+            "ayat_akhir": 8
+        },
+        {
+            "surah": 100,
+            "ayat_mulai": 1,
+            "ayat_akhir": 11
+        },
+        {
+            "surah": 101,
+            "ayat_mulai": 1,
+            "ayat_akhir": 11
+        },
+        {
+            "surah": 102,
+            "ayat_mulai": 1,
+            "ayat_akhir": 8
+        },
+        {
+            "surah": 103,
+            "ayat_mulai": 1,
+            "ayat_akhir": 3
+        },
+        {
+            "surah": 104,
+            "ayat_mulai": 1,
+            "ayat_akhir": 9
+        },
+        {
+            "surah": 105,
+            "ayat_mulai": 1,
+            "ayat_akhir": 5
+        },
+        {
+            "surah": 106,
+            "ayat_mulai": 1,
+            "ayat_akhir": 4
+        },
+        {
+            "surah": 107,
+            "ayat_mulai": 1,
+            "ayat_akhir": 7
+        },
+        {
+            "surah": 108,
+            "ayat_mulai": 1,
+            "ayat_akhir": 3
+        },
+        {
+            "surah": 109,
+            "ayat_mulai": 1,
+            "ayat_akhir": 6
+        },
+        {
+            "surah": 110,
+            "ayat_mulai": 1,
+            "ayat_akhir": 3
+        },
+        {
+            "surah": 111,
+            "ayat_mulai": 1,
+            "ayat_akhir": 5
+        },
+        {
+            "surah": 112,
+            "ayat_mulai": 1,
+            "ayat_akhir": 4
+        },
+        {
+            "surah": 113,
+            "ayat_mulai": 1,
+            "ayat_akhir": 5
+        },
+        {
+            "surah": 114,
+            "ayat_mulai": 1,
+            "ayat_akhir": 6
+        }
+    ]
 }

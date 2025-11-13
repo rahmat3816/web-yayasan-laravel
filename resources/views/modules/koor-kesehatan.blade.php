@@ -9,13 +9,13 @@
             Catat laporan pemeriksaan, keluhan santri, dan tindak lanjut medis.
         </p>
         <div class="mt-4 text-sm text-gray-600 dark:text-gray-300">
-            <p>✅ Form keluhan santri segera menyusul.</p>
-            <p>🕒 Untuk sementara gunakan buku kontrol manual dan unggah saat modul siap.</p>
+            <p> Form keluhan santri segera menyusul.</p>
+            <p> Untuk sementara gunakan buku kontrol manual dan unggah saat modul siap.</p>
         </div>
     </section>
 
     <section class="bg-white dark:bg-gray-900 rounded-3xl border border-dashed border-amber-400 dark:border-amber-300 p-6 text-center shadow">
-        <p class="text-5xl mb-3">🩺</p>
+        <p class="text-5xl mb-3"></p>
         <p class="text-lg font-semibold text-gray-800 dark:text-gray-100">Modul kesehatan sedang dikembangkan</p>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
             Tim IT menyiapkan pencatatan riwayat kesehatan, stok obat, dan jadwal kontrol berkala.

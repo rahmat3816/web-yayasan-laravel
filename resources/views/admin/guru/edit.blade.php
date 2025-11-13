@@ -13,7 +13,7 @@
                 Perubahan akan tersinkron otomatis dengan penugasan jabatan dan dashboard guru terkait.
             </p>
         </div>
-        <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+        <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
     </div>
 
     @if ($errors->any())

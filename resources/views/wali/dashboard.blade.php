@@ -9,19 +9,19 @@
                 'title' => 'Progres Hafalan',
                 'description' => 'Lihat perkembangan hafalan setiap anak.',
                 'url' => route('wali.progres'),
-                'icon' => '📈',
+                'icon' => '',
             ],
             [
                 'title' => 'Ringkasan Hafalan',
                 'description' => 'Pantau hafalan dan catatan kesehatan terbaru.',
                 'url' => route('wali.hafalan'),
-                'icon' => '📘',
+                'icon' => '',
             ],
             [
                 'title' => 'Perbarui Profil',
                 'description' => 'Perbarui data wali dan kontak darurat.',
                 'url' => route('wali.profil'),
-                'icon' => '🧾',
+                'icon' => '',
             ],
         ];
     @endphp

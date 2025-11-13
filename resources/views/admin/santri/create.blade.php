@@ -13,7 +13,7 @@
                 NISY akan dibuat otomatis berdasarkan tahun masuk. Lengkapi data sesuai unit pendidikan.
             </p>
         </div>
-        <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+        <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
     </div>
 
     @if ($errors->any())

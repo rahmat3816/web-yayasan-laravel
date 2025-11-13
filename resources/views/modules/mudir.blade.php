@@ -9,13 +9,13 @@
             'title' => 'Dashboard Pondok/MTS/MA',
             'description' => 'Lihat statistik gabungan unit pondok, MTS, dan MA.',
             'url' => route('pimpinan.dashboard'),
-            'icon' => '🏫',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Kesantrian',
             'description' => 'Bimbing kabag kesantrian dan modul kesantrian.',
             'url' => route('module.kesantrian.putra'),
-            'icon' => '🕌',
+            'icon' => '',
         ],
     ];
 @endphp

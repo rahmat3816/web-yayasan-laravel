@@ -14,13 +14,13 @@
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <button class="join-item btn btn-ghost btn-sm text-gray-400" disabled>
-                    <span aria-hidden="true">‹</span>
+                    <span aria-hidden="true"><</span>
                 </button>
             @else
                 <a href="{{ $paginator->previousPageUrl() }}"
                    class="join-item btn btn-ghost btn-sm text-gray-600 hover:bg-gray-100"
                    rel="prev">
-                    ‹
+                    <
                 </a>
             @endif
 
@@ -48,11 +48,11 @@
                 <a href="{{ $paginator->nextPageUrl() }}"
                    class="join-item btn btn-ghost btn-sm text-gray-600 hover:bg-gray-100"
                    rel="next">
-                    ›
+                    >
                 </a>
             @else
                 <button class="join-item btn btn-ghost btn-sm text-gray-400" disabled>
-                    <span aria-hidden="true">›</span>
+                    <span aria-hidden="true">></span>
                 </button>
             @endif
         </div>

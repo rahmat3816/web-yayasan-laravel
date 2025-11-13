@@ -1,5 +1,5 @@
 {{-- ===========================================================
-📋 Komponen Table (Admin)
+ Komponen Table (Admin)
 Versi props modern (tanpa $head/$body).
 =========================================================== --}}
 @props(['headers' => []])

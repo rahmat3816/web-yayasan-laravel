@@ -9,31 +9,31 @@
             'title' => 'Koordinasi Tahfizh Putri',
             'description' => 'Atur halaqoh tahfizh, guru pengampu, dan progres setoran santri putri.',
             'url' => route('module.kesantrian.tahfizh', ['segment' => 'putri']),
-            'icon' => '📖',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Lughoh Putri',
             'description' => 'Sinkronkan jadwal pembinaan lughoh dan evaluasi bahasa santri putri.',
             'url' => route('tahfizh.halaqoh.index'),
-            'icon' => '📚',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Kesehatan Putri',
             'description' => 'Pantau laporan kesehatan, kontrol rutin, dan tindak lanjut santri putri.',
             'url' => route('module.koor-kesehatan'),
-            'icon' => '🩺',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Kebersihan Putri',
             'description' => 'Atur jadwal piket dan inspeksi kebersihan asrama serta kelas putri.',
             'url' => route('module.koor-kebersihan'),
-            'icon' => '🧹',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Keamanan Putri',
             'description' => 'Kelola jadwal keamanan, laporan insiden, dan kesiapsiagaan santri putri.',
             'url' => route('module.koor-keamanan'),
-            'icon' => '🛡️',
+            'icon' => '',
         ],
     ];
 @endphp

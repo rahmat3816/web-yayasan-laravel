@@ -11,33 +11,33 @@
     };
 
     if ($user->hasRole(['guru', 'wali_kelas'])) {
-        $pushCard('Input Setoran Hafalan', 'Catat setoran terbaru untuk santri binaan Anda.', route('guru.setoran.index'), '📝');
-        $pushCard('Rekap Hafalan', 'Lihat progres santri per halaqoh.', route('guru.setoran.rekap'), '📊');
+        $pushCard('Input Setoran Hafalan', 'Catat setoran terbaru untuk santri binaan Anda.', route('guru.setoran.index'), '');
+        $pushCard('Rekap Hafalan', 'Lihat progres santri per halaqoh.', route('guru.setoran.rekap'), '');
     }
 
     if ($user->hasRole(['koordinator_tahfizh_putra', 'koordinator_tahfizh_putri']) || $user->hasJabatan(['koor_tahfizh_putra', 'koor_tahfizh_putri'])) {
-        $pushCard('Kelola Halaqoh', 'Atur pengampu dan santri pada halaqoh tahfizh.', route('tahfizh.halaqoh.index'), '👥');
+        $pushCard('Kelola Halaqoh', 'Atur pengampu dan santri pada halaqoh tahfizh.', route('tahfizh.halaqoh.index'), '');
     }
 
     if ($user->hasRole(['wakamad_kurikulum', 'wakamad_kesiswaan', 'wakamad_sarpras'])) {
-        $pushCard('Kalender Pendidikan', 'Susun agenda akademik unit Anda.', route('filament.admin.resources.kalender-pendidikan.index'), '🗓️');
+        $pushCard('Kalender Pendidikan', 'Susun agenda akademik unit Anda.', route('filament.admin.resources.kalender-pendidikan.index'), '');
     }
 
     if ($user->hasRole('bendahara')) {
-        $pushCard('Input Laporan Keuangan', 'Lengkapi administrasi keuangan dan laporan rutin.', route('admin.laporan.index'), '💰');
+        $pushCard('Input Laporan Keuangan', 'Lengkapi administrasi keuangan dan laporan rutin.', route('admin.laporan.index'), '');
     }
 
     if ($user->hasRole('wali_santri')) {
-        $pushCard('Pantau Hafalan Anak', 'Lihat progres hafalan dan catatan kesehatan.', route('wali.progres'), '❤️');
-        $pushCard('Perbarui Profil Wali', 'Perbarui data kontak wali & santri.', route('wali.profil'), '🧾');
+        $pushCard('Pantau Hafalan Anak', 'Lihat progres hafalan dan catatan kesehatan.', route('wali.progres'), '');
+        $pushCard('Perbarui Profil Wali', 'Perbarui data kontak wali & santri.', route('wali.profil'), '');
     }
 
     if ($user->hasRole(['pimpinan', 'mudir_pondok', 'naibul_mudir', 'naibatul_mudir', 'kabag_kesantrian_putra', 'kabag_kesantrian_putri', 'kabag_umum'])) {
-        $pushCard('Dashboard Pimpinan', 'Akses ringkasan unit dan pondok.', route('pimpinan.dashboard'), '📈');
+        $pushCard('Dashboard Pimpinan', 'Akses ringkasan unit dan pondok.', route('pimpinan.dashboard'), '');
     }
 
     if ($user->hasRole(['superadmin', 'admin', 'admin_unit']) || $user->hasJabatan(['admin_unit'])) {
-        $pushCard('Masuk Control Panel (Filament)', 'Kelola data guru, santri, dan jabatan di control panel.', url('/filament'), '⚙️');
+        $pushCard('Masuk Control Panel (Filament)', 'Kelola data guru, santri, dan jabatan di control panel.', url('/filament'), '');
     }
 
     $panelCatalog = config('jabatan.panels', []);
@@ -91,7 +91,7 @@
     <div class="relative z-10 grid gap-8 md:grid-cols-2">
         <div class="space-y-4">
             <span class="stat-badge">Hyper-vision Panel</span>
-            <h1 class="text-3xl md:text-4xl font-semibold leading-tight font-display">Selamat datang kembali, {{ $user->name }} 👋</h1>
+            <h1 class="text-3xl md:text-4xl font-semibold leading-tight font-display">Selamat datang kembali, {{ $user->name }} </h1>
             <p class="text-sm md:text-base text-white/80 max-w-xl">
                 Pantau progres unit pendidikan, kelola tugas lintas jabatan, dan kolaborasikan laporan real-time langsung dari satu command center.
             </p>
@@ -165,7 +165,7 @@
                                class="block glass-border rounded-2xl px-4 py-3 hover:bg-white/60 dark:hover:bg-slate-800/60 transition">
                                 <p class="text-sm font-semibold text-slate-800 dark:text-white">{{ $panel['title'] }}</p>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ $panel['description'] }}</p>
-                                <span class="text-xs text-primary mt-2 inline-flex items-center gap-1">Buka modul →
+                                <span class="text-xs text-primary mt-2 inline-flex items-center gap-1">Buka modul ->
                                 </span>
                             </a>
                         @endforeach

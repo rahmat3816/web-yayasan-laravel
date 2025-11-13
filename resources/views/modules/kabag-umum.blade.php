@@ -9,19 +9,19 @@
             'title' => 'Kepegawaian',
             'description' => 'Koordinasi tugas staf pondok dan shift jaga.',
             'url' => '#',
-            'icon' => '🧑‍💼',
+            'icon' => '',
         ],
         [
             'title' => 'Sarpras & Dapur',
             'description' => 'Pantau logistik dapur dan sarpras umum.',
             'url' => route('module.wakamad.sarpras'),
-            'icon' => '🍽️',
+            'icon' => '',
         ],
         [
             'title' => 'Logistik',
             'description' => 'Catat permintaan barang dan persediaan gudang.',
             'url' => '#',
-            'icon' => '📦',
+            'icon' => '',
         ],
     ];
 @endphp

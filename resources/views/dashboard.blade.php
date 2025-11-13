@@ -11,13 +11,13 @@
                 'title' => 'Masuk Control Panel',
                 'description' => 'Kelola data melalui Filament.',
                 'url' => url('/filament'),
-                'icon' => '⚙️',
+                'icon' => '',
             ],
             [
                 'title' => 'Pantau Hafalan',
                 'description' => 'Arahkan ke modul setoran hafalan.',
                 'url' => route('guru.setoran.index'),
-                'icon' => '📝',
+                'icon' => '',
             ],
         ];
     @endphp

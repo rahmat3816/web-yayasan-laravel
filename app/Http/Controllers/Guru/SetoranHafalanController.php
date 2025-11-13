@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -219,7 +220,17 @@ class SetoranHafalanController extends Controller
      */
     public function getSuratByJuz(int $juz)
     {
-        return Cache::rememberForever("quran.juz.$juz.surah", function () use ($juz) {
+        $signature = Cache::remember('quran.juz_map.signature', now()->addMinutes(5), function () {
+            $latest = DB::table('quran_juz_map')->max('updated_at');
+            if ($latest) {
+                return Carbon::parse($latest)->format('YmdHis');
+            }
+            return (string) DB::table('quran_juz_map')->max('id');
+        });
+
+        $cacheKey = "quran.juz.$juz.surah.$signature";
+
+        return Cache::remember($cacheKey, now()->addDay(), function () use ($juz) {
             $rows = DB::table('quran_juz_map as jm')
                 ->join('quran_surah as s', 's.id', '=', 'jm.surah_id')
                 ->where('jm.juz', $juz)
@@ -233,7 +244,7 @@ class SetoranHafalanController extends Controller
                 ])
                 ->get();
 
-            return $rows->map(fn($r) => [
+            return $rows->map(fn ($r) => [
                 'surah_id'    => $r->surah_id,
                 'nama_latin'  => $r->nama_latin,
                 'jumlah_ayat' => $r->jumlah_ayat,

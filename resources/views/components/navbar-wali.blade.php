@@ -16,8 +16,8 @@
             @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode); document.documentElement.classList.toggle('dark', darkMode)"
             class="text-xl focus:outline-none transition"
             :title="darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-            <template x-if="darkMode">🌙</template>
-            <template x-if="!darkMode">☀️</template>
+            <template x-if="darkMode"></template>
+            <template x-if="!darkMode"></template>
         </button>
 
         <form method="POST" action="{{ route('logout') }}">

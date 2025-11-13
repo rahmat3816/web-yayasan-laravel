@@ -152,15 +152,18 @@
         <div class="card glass shadow-lg bg-white/90">
             <div class="card-body">
                 <p class="text-sm text-gray-500">Target Bulanan</p>
-                <p class="text-3xl font-semibold text-gray-900">{{ $targetBulanan }}</p>
-                <p class="text-xs text-gray-500">Target setoran berdasarkan ketentuan unit.</p>
+                <p class="text-3xl font-semibold text-gray-900">
+                    {{ number_format($targetBulanan) }}
+                    <span class="text-sm font-normal text-gray-500">ayat</span>
+                </p>
+                <p class="text-xs text-gray-500">Target ayat mengacu pada perencanaan tahfizh tahun {{ $tahun }}.</p>
             </div>
         </div>
         <div class="card glass shadow-lg bg-white/90">
             <div class="card-body">
                 <p class="text-sm text-gray-500">Progress</p>
-                <p class="text-3xl font-semibold text-gray-900">{{ $progressPersen }}%</p>
-                <p class="text-xs text-gray-500">Persentase pencapaian target bulan ini.</p>
+                <p class="text-3xl font-semibold text-gray-900">{{ number_format($progressPersen, 1) }}%</p>
+                <p class="text-xs text-gray-500">Persentase capaian ayat bulan {{ $monthName }}.</p>
             </div>
         </div>
     </div>
@@ -175,16 +178,20 @@
                         Pencapaian Hafalan {{ $monthName }} {{ $tahun }}
                     </h3>
                 </div>
-                <span class="badge badge-primary badge-lg text-white">{{ $progressPersen }}% tercapai</span>
+                <span class="badge badge-primary badge-lg text-white">{{ number_format($progressPersen, 1) }}% tercapai</span>
             </div>
             <div class="h-3 w-full rounded-full bg-base-200">
                 <div class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 transition-all duration-700" style="width: {{ min(100, $progressPersen) }}%"></div>
             </div>
             <div class="flex flex-wrap items-center justify-between text-sm text-gray-500">
-                <span>{{ $totalHafalan }} dari {{ $targetBulanan }} setoran tercapai</span>
+                @if ($targetBulanan > 0)
+                    <span>{{ number_format($totalAyatBulanan) }} dari {{ number_format($targetBulanan) }} ayat bulan ini</span>
+                @else
+                    <span>Belum ada target tahfizh untuk tahun {{ $tahun }}.</span>
+                @endif
                 <span>
                     @if($progressPersen >= 100)
-                        Target sudah terpenuhi 🎉
+                        Target sudah terpenuhi
                     @elseif($progressPersen >= 70)
                         Hampir sampai, pertahankan ritme!
                     @else

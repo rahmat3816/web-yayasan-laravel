@@ -79,13 +79,13 @@
                 <tr>
                     <td>{{ $rowNumber }}</td>
                     <td class="font-semibold">{{ $g->nama }}</td>
-                    <td>{{ $g->nipy ?? '—' }}</td>
+                    <td>{{ $g->nipy ?? '-' }}</td>
                     <td>
                         <span class="badge badge-sm {{ $g->jenis_kelamin === 'L' ? 'badge-primary' : 'badge-secondary' }}">
                             {{ $g->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}
                         </span>
                     </td>
-                    <td>{{ $g->unit->nama_unit ?? '—' }}</td>
+                    <td>{{ $g->unit->nama_unit ?? '-' }}</td>
                     <td>
                         <span class="badge badge-sm {{ $g->status_aktif === 'aktif' ? 'badge-success' : 'badge-ghost text-red-500' }}">
                             {{ ucfirst($g->status_aktif) }}

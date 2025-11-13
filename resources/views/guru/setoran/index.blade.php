@@ -33,7 +33,7 @@
                         <select name="halaqoh_id" class="select select-bordered w-full bg-white/90 text-gray-900">
                             @foreach($allHalaqoh as $h)
                                 <option value="{{ $h->id }}" @selected(request('halaqoh_id', $halaqoh->id ?? 0) == $h->id)>
-                                    H{{ $h->id }} — {{ $h->guru->nama ?? 'Belum Ada Guru' }} ({{ $h->unit->nama_unit ?? 'Unit '.$h->unit_id }})
+                                    H{{ $h->id }} - {{ $h->guru->nama ?? 'Belum Ada Guru' }} ({{ $h->unit->nama_unit ?? 'Unit '.$h->unit_id }})
                                 </option>
                             @endforeach
                         </select>

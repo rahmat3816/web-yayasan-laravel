@@ -18,6 +18,7 @@ use App\Http\Controllers\WaliController;
 use App\Http\Controllers\Dashboard\PimpinanDashboardController;
 use App\Http\Controllers\Dashboard\TahfizhDashboardController;
 use App\Http\Controllers\Modules\KesantrianTahfizhController;
+use App\Http\Controllers\Program\TahfizhQuranProgramController;
 
 // ===============================
 // 📚 MASTER DATA CONTROLLERS
@@ -270,6 +271,10 @@ Route::middleware('auth')->group(function () {
         ->group(function () {
             Route::get('/dashboard', [TahfizhDashboardController::class, 'index'])->name('tahfizh.dashboard');
             Route::get('/dashboard/timeline', [TahfizhDashboardController::class, 'timeline'])->name('tahfizh.dashboard.timeline');
+            Route::post('/target', [TahfizhDashboardController::class, 'storeTarget'])->name('tahfizh.target.store');
+            Route::get('/ajax/surat-by-juz/{juz}', [SetoranHafalanController::class, 'getSuratByJuz'])->name('tahfizh.ajax.suratByJuz');
+            Route::get('/target/preview', [TahfizhDashboardController::class, 'previewTarget'])->name('tahfizh.target.preview');
+            Route::get('/coverage/{santri}', [TahfizhDashboardController::class, 'coverageDetail'])->name('tahfizh.coverage.detail');
 
             Route::controller(PengampuController::class)->group(function () {
                 Route::get('/halaqoh', 'index')->name('tahfizh.halaqoh.index');
@@ -355,7 +360,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:kabag_kesantrian_putra|kabag_kesantrian_putri|koor_tahfizh_putra|koor_tahfizh_putri|superadmin')
         ->name('module.kesantrian.tahfizh');
 
-    Route::view('/program/tahfizh-quran', 'programs.tahfizh-quran')
+    Route::get('/program/tahfizh-quran', [TahfizhQuranProgramController::class, 'index'])
         ->middleware('role:superadmin|admin|admin_unit|koordinator_tahfizh_putra|koordinator_tahfizh_putri|guru|wali_kelas')
         ->name('program.tahfizh-quran');
 });

@@ -5,11 +5,11 @@
 <x-breadcrumb title="Data Halaqoh" />
 
 <div class="flex justify-between items-center mb-6 mt-4">
-    <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100">📖 Data Halaqoh</h1>
+    <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100"> Data Halaqoh</h1>
 
     @if (in_array(strtolower(auth()->user()->role), ['superadmin','admin','admin_unit','kepala_madrasah','wakamad_kurikulum','wakamad_kesiswaan','wakamad_sarpras','bendahara']))
         <a href="{{ route('admin.halaqoh.create') }}"
-           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">➕ Tambah Halaqoh</a>
+           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">+ Tambah Halaqoh</a>
     @endif
 </div>
 

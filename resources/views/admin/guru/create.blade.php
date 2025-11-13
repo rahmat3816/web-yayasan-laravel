@@ -13,7 +13,7 @@
                 Lengkapi identitas guru. NIPY akan digenerate otomatis berdasarkan tanggal bergabung.
             </p>
         </div>
-        <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+        <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
     </div>
 
     @if ($errors->any())

@@ -1,5 +1,5 @@
 {{-- ==============================
-📘 Tahap 10.3 – View Dashboard Dinamis
+ Tahap 10.3 - View Dashboard Dinamis
 Tujuan: Menampilkan data nyata dari database dalam tampilan rapi per role
 Folder: resources/views/
 ============================== --}}
@@ -18,13 +18,13 @@ resources/views/pimpinan/dashboard.blade.php
             'title' => 'Ringkasan Yayasan',
             'description' => 'Statistik santri, guru, dan unit.',
             'url' => route('pimpinan.dashboard'),
-            'icon' => '📊',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Admin',
             'description' => 'Kirim permintaan laporan atau pembaruan data.',
             'url' => 'mailto:admin@yayasan.local',
-            'icon' => '✉️',
+            'icon' => '',
         ],
     ];
 @endphp

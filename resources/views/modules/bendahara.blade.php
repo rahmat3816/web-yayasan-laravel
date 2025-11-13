@@ -9,13 +9,13 @@
             'title' => 'Input Laporan Keuangan',
             'description' => 'Catat pemasukan & pengeluaran unit.',
             'url' => route('admin.laporan.index'),
-            'icon' => '💰',
+            'icon' => '',
         ],
         [
             'title' => 'Laporan Yayasan',
             'description' => 'Koordinasi laporan bulanan dengan pimpinan.',
             'url' => route('pimpinan.dashboard'),
-            'icon' => '📊',
+            'icon' => '',
         ],
     ];
 @endphp

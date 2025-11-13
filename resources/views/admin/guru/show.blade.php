@@ -14,7 +14,7 @@
             </p>
         </div>
         <div class="flex gap-3">
-            <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+            <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
             <a href="{{ route('admin.guru.edit', $guru->id) }}" class="btn btn-sm btn-warning rounded-full">Edit</a>
         </div>
     </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="glass-card p-4">
             <p class="text-xs text-slate-500 uppercase tracking-wide">Unit Pendidikan</p>
-            <p class="text-lg font-semibold">{{ $guru->unit->nama_unit ?? '—' }}</p>
+            <p class="text-lg font-semibold">{{ $guru->unit->nama_unit ?? '-' }}</p>
         </div>
         <div class="glass-card p-4">
             <p class="text-xs text-slate-500 uppercase tracking-wide">Status</p>
@@ -37,7 +37,7 @@
         <div class="glass-card p-4">
             <p class="text-xs text-slate-500 uppercase tracking-wide">Tanggal Bergabung</p>
             <p class="text-lg font-semibold">
-                {{ optional($guru->tanggal_bergabung)->translatedFormat('d F Y') ?? '—' }}
+                {{ optional($guru->tanggal_bergabung)->translatedFormat('d F Y') ?? '-' }}
             </p>
         </div>
         <div class="glass-card p-4">

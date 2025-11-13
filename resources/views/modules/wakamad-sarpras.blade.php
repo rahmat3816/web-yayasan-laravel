@@ -9,13 +9,13 @@
             'title' => 'Inventaris Sarpras',
             'description' => 'Catat dan pantau kebutuhan sarana prasarana.',
             'url' => '#',
-            'icon' => '🏗️',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi Logistics',
             'description' => 'Arahkan kebutuhan peralatan melalui admin unit.',
             'url' => route('admin.unit.index'),
-            'icon' => '📦',
+            'icon' => '',
         ],
     ];
 @endphp

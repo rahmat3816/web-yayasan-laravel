@@ -7,15 +7,15 @@
     $cards = [
         [
             'title' => 'Nilai Mapel',
-            'description' => 'Input nilai mapel umum maupun syar’i.',
+            'description' => 'Input nilai mapel umum maupun syar'i.',
             'url' => route('guru.dashboard'),
-            'icon' => '📘',
+            'icon' => '',
         ],
         [
             'title' => 'Absensi Mapel',
             'description' => 'Catat kehadiran santri setiap pertemuan.',
             'url' => route('filament.admin.resources.absensi-mapel.index'),
-            'icon' => '📋',
+            'icon' => '',
         ],
     ];
 @endphp

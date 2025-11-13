@@ -9,13 +9,13 @@
             'title' => 'Kelola Nilai & Raport',
             'description' => 'Isi nilai harian, ujian, dan finalisasi raport.',
             'url' => route('guru.dashboard'),
-            'icon' => '🧾',
+            'icon' => '',
         ],
         [
             'title' => 'Koordinasi dengan Wakamad',
             'description' => 'Kirim laporan nilai ke wakamad kurikulum.',
             'url' => route('module.wakamad.kurikulum'),
-            'icon' => '📤',
+            'icon' => '',
         ],
     ];
 @endphp

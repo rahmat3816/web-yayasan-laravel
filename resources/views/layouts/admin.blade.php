@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ trim($__env->yieldContent('title', 'Panel Admin').' · ') }}{{ config('app.name', 'Yayasan As-Sunnah') }}</title>
+    <title>{{ trim($__env->yieldContent('title', 'Panel Admin').' - ') }}{{ config('app.name', 'Yayasan As-Sunnah') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @stack('styles')

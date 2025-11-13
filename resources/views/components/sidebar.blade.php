@@ -1,5 +1,5 @@
 {{-- ==============================
-📗 Sidebar - Optimized Version
+ Sidebar - Optimized Version
 ============================== --}}
 @php
     $is = fn(string $pattern) => request()->is($pattern);
@@ -62,7 +62,7 @@
                         'label' => 'Setoran Hafalan',
                         'url' => route('guru.setoran.index'),
                         'pattern' => 'guru/setoran*',
-                        'icon' => '🕌',
+                        'icon' => '',
                     ];
                 }
 
@@ -70,7 +70,7 @@
                     'label' => 'Rekap Setoran',
                     'url' => route('guru.setoran.rekap'),
                     'pattern' => 'guru/setoran/rekap',
-                    'icon' => '📑',
+                    'icon' => '',
                 ];
                 $shouldAppendSetoranEntries = false;
             }
@@ -99,7 +99,7 @@
             <li>
                 <a href="{{ route('dashboard') }}"
                    class="{{ $linkBase }} {{ $is('dashboard') ? $active : $hover }}">
-                    🏠 Dashboard Utama
+                     Dashboard Utama
                 </a>
             </li>
 
@@ -107,7 +107,7 @@
             <li>
                 <a href="{{ url('/profile') }}"
                    class="{{ $linkBase }} {{ $is('profile') ? $active : $hover }}">
-                    👤 Profil Pengguna
+                     Profil Pengguna
                 </a>
             </li>
 
@@ -150,13 +150,13 @@
                 <li>
                     <a href="{{ route('wali.dashboard') }}"
                        class="{{ $linkBase }} {{ $is('wali/dashboard') ? $active : $hover }}">
-                        👨‍👩‍👧 Data Anak
+                         Data Anak
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('wali.hafalan') }}"
                        class="{{ $linkBase }} {{ $is('wali/hafalan') ? $active : $hover }}">
-                        📖 Progres Hafalan
+                         Progres Hafalan
                     </a>
                 </li>
             @endrole

@@ -33,7 +33,7 @@
                 @forelse ($guru as $g)
                     <tr>
                         <td class="font-semibold">{{ $g->nama }}</td>
-                        <td>{{ $g->unit->nama_unit ?? '—' }}</td>
+                        <td>{{ $g->unit->nama_unit ?? '-' }}</td>
                         <td>
                             @if ($g->user?->jabatans->count())
                                 <div class="flex flex-wrap gap-2">

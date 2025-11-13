@@ -1,5 +1,5 @@
 {{-- ==============================
-📘 Data Unit – Admin & Operator
+ Data Unit - Admin & Operator
 ============================== --}}
 @extends('layouts.admin')
 
@@ -9,24 +9,24 @@
     <x-breadcrumb title="Data Unit" />
 
     <div class="flex justify-between items-center mb-6 mt-4">
-        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100">🏫 Data Unit</h1>
+        <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100"> Data Unit</h1>
 
         @if (strtolower(auth()->user()->role) === 'superadmin')
             <a href="{{ route('admin.unit.create') }}"
                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
-                ➕ Tambah Unit
+                + Tambah Unit
             </a>
         @endif
     </div>
 
-    {{-- ✅ Notifikasi Sukses --}}
+    {{--  Notifikasi Sukses --}}
     @if (session('success'))
         <div class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded mb-4 dark:bg-green-800 dark:text-green-100">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- 📋 Tabel Data Unit --}}
+    {{--  Tabel Data Unit --}}
     <div class="overflow-x-auto bg-white dark:bg-gray-800 shadow rounded-lg">
         <table class="min-w-full border border-gray-200 dark:border-gray-700 text-sm">
             <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">

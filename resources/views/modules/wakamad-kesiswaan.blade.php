@@ -9,13 +9,13 @@
             'title' => 'Data Santri & Absensi',
             'description' => 'Pantau aktivitas santri, absensi, dan catatan kedisiplinan.',
             'url' => route('admin.santri.index'),
-            'icon' => '👦',
+            'icon' => '',
         ],
         [
             'title' => 'Laporan Kesiswaan',
             'description' => 'Susun laporan kegiatan ekstrakurikuler & pembinaan.',
             'url' => route('admin.laporan.index'),
-            'icon' => '📄',
+            'icon' => '',
         ],
     ];
 @endphp

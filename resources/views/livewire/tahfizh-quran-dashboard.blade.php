@@ -1,9 +1,9 @@
 @php
     $cards = [
-        ['label' => 'Total Setoran', 'value' => number_format($stats['totalSetoran'] ?? 0), 'icon' => '📚', 'gradient' => 'from-indigo-500/90 via-violet-500/80 to-purple-500/70'],
-        ['label' => 'Setoran Hari Ini', 'value' => number_format($stats['setoranHariIni'] ?? 0), 'icon' => '🌅', 'gradient' => 'from-amber-500/90 via-orange-400/80 to-yellow-400/70'],
-        ['label' => 'Santri Aktif', 'value' => number_format($stats['santriAktif'] ?? 0), 'icon' => '👨‍🎓', 'gradient' => 'from-sky-500/90 via-cyan-400/80 to-teal-400/70'],
-        ['label' => 'Guru Pengampu', 'value' => number_format($stats['guruAktif'] ?? 0), 'icon' => '🧑‍🏫', 'gradient' => 'from-emerald-500/90 via-green-400/80 to-lime-400/70'],
+        ['label' => 'Total Setoran', 'value' => number_format($stats['totalSetoran'] ?? 0), 'icon' => '', 'gradient' => 'from-indigo-500/90 via-violet-500/80 to-purple-500/70'],
+        ['label' => 'Setoran Hari Ini', 'value' => number_format($stats['setoranHariIni'] ?? 0), 'icon' => '', 'gradient' => 'from-amber-500/90 via-orange-400/80 to-yellow-400/70'],
+        ['label' => 'Santri Aktif', 'value' => number_format($stats['santriAktif'] ?? 0), 'icon' => '', 'gradient' => 'from-sky-500/90 via-cyan-400/80 to-teal-400/70'],
+        ['label' => 'Guru Pengampu', 'value' => number_format($stats['guruAktif'] ?? 0), 'icon' => '', 'gradient' => 'from-emerald-500/90 via-green-400/80 to-lime-400/70'],
     ];
 @endphp
 
@@ -110,7 +110,7 @@
         <div>
             <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Rekap Halaman</p>
             <h3 class="text-2xl font-semibold">{{ $rekap['total_halaman'] ?? 0 }} halaman</h3>
-            <p class="text-sm text-slate-500">≈ {{ $rekap['total_juz'] ?? 0 }} juz</p>
+            <p class="text-sm text-slate-500">~ {{ $rekap['total_juz'] ?? 0 }} juz</p>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div>

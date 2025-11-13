@@ -5,7 +5,7 @@
                class="glass-card p-5 flex flex-col justify-between hover:-translate-y-1 hover:shadow-2xl transition duration-300 group">
                 <div class="flex items-start gap-4">
                     <div class="p-3 rounded-2xl bg-gradient-to-br from-amber-500/90 to-orange-400/80 text-white text-xl shadow-lg">
-                        {{ $card['icon'] ?? '🧭' }}
+                        {{ $card['icon'] ?? '' }}
                     </div>
                     <div>
                         <p class="font-semibold text-slate-900 dark:text-white">{{ $card['title'] ?? 'Tugas' }}</p>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <span class="mt-6 text-sm font-semibold text-primary inline-flex items-center gap-1 group-hover:gap-2 transition">
-                    Mulai Tugas →
+                    Mulai Tugas ->
                 </span>
             </a>
         @endforeach

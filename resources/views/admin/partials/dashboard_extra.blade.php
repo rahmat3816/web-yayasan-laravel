@@ -12,7 +12,7 @@
     --}}
 
     @if(isset($users) && $users instanceof \Illuminate\Contracts\Pagination\Paginator)
-        <x-admin.card title="👤 Pengguna Terbaru">
+        <x-admin.card title=" Pengguna Terbaru">
             <x-admin.table :headers="['Nama', 'Email', 'Role', 'Dibuat']">
                 @foreach($users as $u)
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -28,7 +28,7 @@
     @endif
 
     @if(isset($units) && count($units))
-        <x-admin.card title="🏫 Daftar Unit">
+        <x-admin.card title=" Daftar Unit">
             <x-admin.table :headers="['Unit', 'Kode', 'Keterangan']">
                 @foreach($units as $unit)
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">

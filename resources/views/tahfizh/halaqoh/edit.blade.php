@@ -6,13 +6,13 @@
 <x-breadcrumb title="Edit Halaqoh" />
 
 <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">✏️ Edit Data Halaqoh</h1>
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4"> Edit Data Halaqoh</h1>
 
     <div class="mb-4">
-        <a href="{{ route('tahfizh.halaqoh.index') }}" class="text-blue-600 hover:underline">← Kembali ke Data Halaqoh</a>
+        <a href="{{ route('tahfizh.halaqoh.index') }}" class="text-blue-600 hover:underline"><- Kembali ke Data Halaqoh</a>
     </div>
 
-    {{-- 🔺 Error Handling --}}
+    {{--  Error Handling --}}
     @if ($errors->any())
         <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4 dark:bg-red-900 dark:text-red-100">
             <ul class="list-disc pl-5 space-y-1">
@@ -23,12 +23,12 @@
         </div>
     @endif
 
-    {{-- ✏️ Form Edit --}}
+    {{--  Form Edit --}}
     <form action="{{ route('tahfizh.halaqoh.pengampu.update', $halaqoh->id) }}" method="POST" class="space-y-5">
         @csrf
         @method('PUT')
 
-        {{-- 🔹 Nama Halaqoh --}}
+        {{--  Nama Halaqoh --}}
         <div>
             <label class="block text-sm font-semibold">Nama Halaqoh</label>
             <input type="text" name="nama_halaqoh"
@@ -37,7 +37,7 @@
                 placeholder="Nama halaqoh" required>
         </div>
 
-        {{-- 🔹 Guru Pembimbing --}}
+        {{--  Guru Pembimbing --}}
         <div>
             <label class="block text-sm font-semibold">Guru Pembimbing</label>
             <select id="guru_id" name="guru_id"
@@ -56,10 +56,10 @@
             </p>
         </div>
 
-        {{-- 🔒 Unit Pendidikan (hidden untuk koordinator) --}}
+        {{--  Unit Pendidikan (hidden untuk koordinator) --}}
         <input type="hidden" name="unit_id" value="{{ auth()->user()->unit_id }}">
 
-        {{-- 🔹 Daftar Santri --}}
+        {{--  Daftar Santri --}}
         <div>
             <label class="block text-sm font-semibold mb-2">Pilih Santri</label>
             <div id="santri-container" class="border rounded p-3 bg-gray-50 dark:bg-gray-900 h-56 overflow-y-auto">
@@ -70,7 +70,7 @@
             </p>
         </div>
 
-        {{-- 🔹 Keterangan --}}
+        {{--  Keterangan --}}
         <div>
             <label class="block text-sm font-semibold">Keterangan</label>
             <textarea name="keterangan"
@@ -78,10 +78,10 @@
                 placeholder="Catatan tambahan (opsional)">{{ old('keterangan', $halaqoh->keterangan) }}</textarea>
         </div>
 
-        {{-- 🔘 Tombol --}}
+        {{--  Tombol --}}
         <div class="pt-4">
             <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow">
-                💾 Simpan Perubahan
+                 Simpan Perubahan
             </button>
         </div>
     </form>
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedSantri = @json($halaqoh->santri->pluck('id')->toArray());
 
     function loadSantri(guruId) {
-        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse">🔄 Memuat daftar santri...</p>';
+        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse"> Memuat daftar santri...</p>';
         fetch(`${baseUrl}/tahfizh/halaqoh/santri-by-guru/${encodeURIComponent(guruId)}?halaqoh_id=${halaqohId}`)
             .then(r => r.json())
             .then(data => {
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadSantri(initialGuru);
     }
 
-    // Ganti guru → reload santri
+    // Ganti guru -> reload santri
     guruSelect.addEventListener('change', function() {
         const guruId = this.value;
         if (!guruId) {

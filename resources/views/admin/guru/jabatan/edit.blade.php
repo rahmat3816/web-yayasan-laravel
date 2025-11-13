@@ -10,10 +10,10 @@
             <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Penugasan</p>
             <h1 class="text-2xl font-semibold text-slate-800 dark:text-white">{{ $guru->nama }}</h1>
             <p class="text-sm text-slate-500 dark:text-slate-300 mt-1">
-                Unit: <strong>{{ $guru->unit->nama_unit ?? '—' }}</strong>. Pilih jabatan yang relevan untuk guru ini.
+                Unit: <strong>{{ $guru->unit->nama_unit ?? '-' }}</strong>. Pilih jabatan yang relevan untuk guru ini.
             </p>
         </div>
-        <a href="{{ route('admin.guru.jabatan.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+        <a href="{{ route('admin.guru.jabatan.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
     </div>
 
     @if ($errors->any())

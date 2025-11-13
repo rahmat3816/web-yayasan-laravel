@@ -75,14 +75,14 @@
                 <tr>
                     <td>{{ $rowNumber }}</td>
                     <td class="font-semibold">{{ $s->nama }}</td>
-                    <td>{{ $s->nisn ?? '—' }}</td>
+                    <td>{{ $s->nisn ?? '-' }}</td>
                     <td>{{ $s->nisy }}</td>
                     <td>
                         <span class="badge badge-sm {{ $s->jenis_kelamin === 'L' ? 'badge-primary' : 'badge-secondary' }}">
                             {{ $s->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}
                         </span>
                     </td>
-                    <td>{{ $s->unit->nama_unit ?? '—' }}</td>
+                    <td>{{ $s->unit->nama_unit ?? '-' }}</td>
                     <td>
                         <div class="flex justify-end gap-2">
                             <a href="{{ route('admin.santri.show', $s->id) }}" class="btn btn-xs btn-outline btn-info">Detail</a>

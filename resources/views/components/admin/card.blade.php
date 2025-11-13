@@ -1,5 +1,5 @@
 {{-- ===========================================================
-🪶 Komponen Card (Admin)
+ Komponen Card (Admin)
 Pembungkus konten utama atau section data.
 =========================================================== --}}
 @props(['label' => null, 'class' => ''])

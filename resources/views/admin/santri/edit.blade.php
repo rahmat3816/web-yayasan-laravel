@@ -13,7 +13,7 @@
                 Perubahan akan terhubung ke akun wali santri serta progres hafalan secara otomatis.
             </p>
         </div>
-        <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full">← Kembali</a>
+        <a href="{{ route('admin.santri.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
     </div>
 
     @if ($errors->any())

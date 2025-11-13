@@ -1,5 +1,5 @@
 <!-- ==============================
-📘 Navbar (resources/views/components/navbar.blade.php)
+ Navbar (resources/views/components/navbar.blade.php)
 ============================== -->
 <header 
     x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }"
@@ -8,7 +8,7 @@
     class="bg-white dark:bg-gray-900 dark:text-gray-100 shadow px-6 py-3 flex justify-between items-center fixed top-0 left-0 right-0 z-30 transition-colors duration-300"
 >
     <!-- Tombol Sidebar (Mobile) -->
-    <button @click="$dispatch('toggle-sidebar')" class="md:hidden text-gray-700 dark:text-gray-300 text-2xl focus:outline-none">☰</button>
+    <button @click="$dispatch('toggle-sidebar')" class="md:hidden text-gray-700 dark:text-gray-300 text-2xl focus:outline-none"></button>
 
     <!-- Judul Halaman -->
     <h1 class="text-lg md:text-xl font-semibold">@yield('title', 'Dashboard')</h1>
@@ -17,8 +17,8 @@
     <div class="flex items-center space-x-4">
         <!-- Dark Mode -->
         <button @click="$dispatch('toggle-dark')" class="text-xl focus:outline-none transition" :title="darkMode ? 'Light Mode' : 'Dark Mode'">
-            <template x-if="darkMode">☀️</template>
-            <template x-if="!darkMode">🌙</template>
+            <template x-if="darkMode"></template>
+            <template x-if="!darkMode"></template>
         </button>
 
         <!-- Nama & Role -->

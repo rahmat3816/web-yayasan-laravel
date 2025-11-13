@@ -6,10 +6,10 @@
 <x-breadcrumb title="Tambah Halaqoh" />
 
 <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">➕ Tambah Data Halaqoh</h1>
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">+ Tambah Data Halaqoh</h1>
 
     <div class="mb-4">
-        <a href="{{ route('admin.halaqoh.index') }}" class="text-blue-600 hover:underline">← Kembali ke Data Halaqoh</a>
+        <a href="{{ route('admin.halaqoh.index') }}" class="text-blue-600 hover:underline"><- Kembali ke Data Halaqoh</a>
     </div>
 
     @if ($errors->any())
@@ -69,7 +69,7 @@
         </div>
 
         <div class="pt-4">
-            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow">💾 Simpan Data</button>
+            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow"> Simpan Data</button>
         </div>
     </form>
 </div>
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse">🔄 Memuat daftar santri...</p>';
+        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse"> Memuat daftar santri...</p>';
 
         fetch(`${baseUrl}/admin/halaqoh/santri-by-guru/${encodeURIComponent(guruId)}`)
             .then(r => r.json())
