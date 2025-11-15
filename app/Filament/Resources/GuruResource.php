@@ -19,6 +19,7 @@ class GuruResource extends Resource
     protected static ?string $navigationLabel = 'Guru';
     protected static ?string $navigationGroup = 'Data Pokok';
     protected static ?int $navigationSort = 2;
+    protected const NAV_ROLES = ['superadmin', 'admin_unit'];
 
     protected const MANAGER_ROLES = [
         'superadmin',
@@ -34,6 +35,16 @@ class GuruResource extends Resource
         return $user && method_exists($user, 'hasAnyRole')
             ? $user->hasAnyRole(self::MANAGER_ROLES)
             : false;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasAnyRole(self::NAV_ROLES) ?? false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canViewAny();
     }
 
     public static function canCreate(): bool

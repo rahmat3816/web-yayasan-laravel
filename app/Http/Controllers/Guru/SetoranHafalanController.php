@@ -16,7 +16,7 @@ use App\Models\HafalanQuran;
 class SetoranHafalanController extends Controller
 {
     // ===============================
-    // 📋 Daftar santri + rekap ringkas
+    // Ã°Å¸â€œâ€¹ Daftar santri + rekap ringkas
     // ===============================
     public function index(Request $request)
     {
@@ -44,22 +44,12 @@ class SetoranHafalanController extends Controller
         }
 
         // ===============================
-        // 🧮 Rekap Data Hafalan
+        // Ã°Å¸Â§Â® Rekap Data Hafalan
         // ===============================
         $dataAll = HafalanQuran::where('halaqoh_id', $halaqoh->id)->get();
         $rekap = $this->hitungRekapHafalan($dataAll);
 
-        if ($dataAll->count() > 0) {
-            $rekap['total_halaman'] = $dataAll->sum(function ($h) {
-                if ($h->mode === 'page' && $h->page_start && $h->page_end) {
-                    return ($h->page_end - $h->page_start) + 1;
-                }
-                return 0;
-            });
 
-            $rekap['total_juz'] = round(($rekap['total_halaman'] ?? 0) / 20, 2); // ✅ tambahkan proporsional
-            $rekap['total_surah'] = $dataAll->whereNotNull('surah_id')->unique('surah_id')->count();
-        }
 
         return view('guru.setoran.index', [
             'halaqoh'    => $halaqoh,
@@ -71,7 +61,7 @@ class SetoranHafalanController extends Controller
     }
 
     // ===============================
-    // ✍️ Form tambah hafalan
+    // Ã¢Å“ÂÃ¯Â¸Â Form tambah hafalan
     // ===============================
     public function create(int $santriId)
     {
@@ -89,7 +79,7 @@ class SetoranHafalanController extends Controller
     }
 
     // ===============================
-    // 💾 Simpan hafalan
+    // Ã°Å¸â€™Â¾ Simpan hafalan
     // ===============================
     public function store(Request $request, int $santriId)
     {
@@ -114,7 +104,7 @@ class SetoranHafalanController extends Controller
             'ayah_end'         => ['required', 'integer', 'gte:ayah_start'],
         ]);
 
-        // 🧠 Validasi progres dan overlap
+        // Ã°Å¸Â§Â  Validasi progres dan overlap
         $lastOverall = HafalanQuran::where('santri_id', $santriId)
             ->where('juz_start', $data['juz_start'])
             ->orderByDesc('surah_id')
@@ -168,12 +158,12 @@ class SetoranHafalanController extends Controller
             'catatan'            => $data['catatan'] ?? null,
         ]);
 
-        return redirect()->route('guru.setoran.index')
-            ->with('success', '✅ Setoran hafalan berhasil disimpan.');
+        return redirect()->route('filament.admin.pages.tahfizh.setoran-hafalan')
+            ->with('success', 'Ã¢Å“â€¦ Setoran hafalan berhasil disimpan.');
     }
 
     // ===============================
-    // 📊 Rekap detail
+    // Ã°Å¸â€œÅ  Rekap detail
     // ===============================
     public function rekap(Request $request)
     {
@@ -189,18 +179,197 @@ class SetoranHafalanController extends Controller
             $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->firstOrFail();
         }
 
+        $selectedSantriId = $request->query('santri_id');
+
         $query = HafalanQuran::where('halaqoh_id', $halaqoh->id)
             ->with(['santri:id,nama'])
             ->orderByDesc('tanggal_setor');
 
-        $rekap = $this->hitungRekapHafalan((clone $query)->get());
-        $data = $query->paginate(10)->withQueryString();
+        if (! empty($selectedSantriId) && $selectedSantriId !== 'all') {
+            $query->where('santri_id', (int) $selectedSantriId);
+        }
 
-        return view('guru.setoran.rekap', compact('data', 'rekap', 'halaqoh'));
+        $collection = $query->get();
+        $isFilteringSantri = ! empty($selectedSantriId) && $selectedSantriId !== 'all';
+        $rekap = $isFilteringSantri
+            ? $this->hitungRekapHafalan($collection)
+            : $this->hitungRekapHafalanGabungan($collection);
+
+        $scoreSummary = $this->buildAverageScoreSummary($collection);
+        $santriOptions = $halaqoh->santri()
+            ->select(['id', 'nama'])
+            ->orderBy('nama')
+            ->get();
+
+        return view('guru.setoran.rekap', [
+            'data' => $collection,
+            'rekap' => $rekap,
+            'halaqoh' => $halaqoh,
+            'totalSetoran' => $collection->count(),
+            'santriOptions' => $santriOptions,
+            'selectedSantriId' => $selectedSantriId ?: 'all',
+            'scoreSummary' => $scoreSummary,
+        ]);
+    }
+
+    private function hitungRekapHafalanGabungan($hafalan): array
+    {
+        $grouped = collect($hafalan)->groupBy(fn($item) => $item->santri_id ?? 'unknown');
+
+        if ($grouped->isEmpty()) {
+            return $this->hitungRekapHafalan($hafalan);
+        }
+
+        $totals = [
+            'total_halaman'      => 0,
+            'total_juz'          => 0,
+            'total_surah'        => 0,
+            'progress_surah'     => 0,
+            'progress_juz'       => 0,
+            'total_ayat_disetor' => 0,
+            'total_ayat_target'  => 0,
+        ];
+
+        foreach ($grouped as $santriData) {
+            $partial = $this->hitungRekapHafalan($santriData);
+
+            foreach (['total_halaman', 'total_juz', 'total_surah', 'total_ayat_disetor', 'total_ayat_target'] as $key) {
+                $totals[$key] += $partial[$key] ?? 0;
+            }
+
+            $totals['progress_surah'] += $partial['progress_surah'] ?? 0;
+            $totals['progress_juz'] += $partial['progress_juz'] ?? 0;
+        }
+
+        $groupCount = max($grouped->count(), 1);
+        $totals['progress_surah'] = round($totals['progress_surah'] / $groupCount, 2);
+        $totals['progress_juz'] = round($totals['progress_juz'] / $groupCount, 2);
+
+        return $totals;
+    }
+
+    private function buildAverageScoreSummary($collection): array
+    {
+        $avgTajwid = $this->calculateAverageScore($collection, 'penilaian_tajwid');
+        $avgMutqin = $this->calculateAverageScore($collection, 'penilaian_mutqin');
+        $avgAdab = $this->calculateAverageScore($collection, 'penilaian_adab');
+
+        return [
+            'tajwid' => [
+                'average' => $avgTajwid,
+                'grade' => $this->mapTajwidGrade($avgTajwid),
+            ],
+            'mutqin' => [
+                'average' => $avgMutqin,
+                'grade' => $this->mapMutqinGrade($avgMutqin),
+            ],
+            'adab' => [
+                'average' => $avgAdab,
+                'grade' => $this->mapAdabGrade($avgAdab),
+            ],
+        ];
+    }
+
+    private function calculateAverageScore($collection, string $field): float
+    {
+        $values = collect($collection)->pluck($field)->filter(fn ($value) => $value !== null);
+
+        if ($values->isEmpty()) {
+            return 0;
+        }
+
+        return round((float) $values->avg(), 2);
+    }
+
+    private function mapTajwidGrade(float $score): string
+    {
+        if ($score >= 5) {
+            return 'A+';
+        }
+
+        if ($score >= 4) {
+            return 'A';
+        }
+
+        if ($score > 3) {
+            return 'B';
+        }
+
+        if ($score > 2) {
+            return 'C';
+        }
+
+        if ($score > 1) {
+            return 'D';
+        }
+
+        if ($score > 0) {
+            return 'E';
+        }
+
+        return '-';
+    }
+
+    private function mapMutqinGrade(float $score): string
+    {
+        if ($score >= 10) {
+            return 'A+';
+        }
+
+        if ($score > 8) {
+            return 'A';
+        }
+
+        if ($score > 7) {
+            return 'B';
+        }
+
+        if ($score > 5) {
+            return 'C';
+        }
+
+        if ($score > 2) {
+            return 'D';
+        }
+
+        if ($score > 0) {
+            return 'E';
+        }
+
+        return '-';
+    }
+
+    private function mapAdabGrade(float $score): string
+    {
+        if ($score >= 5) {
+            return 'A+';
+        }
+
+        if ($score > 4) {
+            return 'A';
+        }
+
+        if ($score > 3) {
+            return 'B';
+        }
+
+        if ($score > 2) {
+            return 'C';
+        }
+
+        if ($score > 1) {
+            return 'D';
+        }
+
+        if ($score > 0) {
+            return 'E';
+        }
+
+        return '-';
     }
 
     // ===============================
-    // 🔄 AJAX
+    // Ã°Å¸â€â€ž AJAX
     // ===============================
     public function getSetoranSantri(int $santriId)
     {
@@ -216,7 +385,7 @@ class SetoranHafalanController extends Controller
     }
 
     /**
-     * 🔎 Ambil daftar surah berdasarkan Juz langsung dari database
+     * Ã°Å¸â€Å½ Ambil daftar surah berdasarkan Juz langsung dari database
      */
     public function getSuratByJuz(int $juz)
     {
@@ -255,7 +424,7 @@ class SetoranHafalanController extends Controller
     }
 
     // ===============================
-    // 🧮 Hitung rekap hafalan
+    // Ã°Å¸Â§Â® Hitung rekap hafalan
     // ===============================
     private function hitungRekapHafalan($hafalan): array
     {
@@ -322,7 +491,7 @@ class SetoranHafalanController extends Controller
     }
 
     /**
-     * 🚀 Refresh cache Quran (opsional)
+     * Ã°Å¸Å¡â‚¬ Refresh cache Quran (opsional)
      */
     private function refreshQuranCache(): void
     {
@@ -352,3 +521,5 @@ class SetoranHafalanController extends Controller
     }
 
 }
+
+

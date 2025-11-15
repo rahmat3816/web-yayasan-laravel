@@ -18,6 +18,17 @@ class SantriResource extends Resource
     protected static ?string $navigationLabel = 'Santri';
     protected static ?string $navigationGroup = 'Data Pokok';
     protected static ?int $navigationSort = 3;
+    protected const NAV_ROLES = ['superadmin', 'admin_unit'];
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasAnyRole(self::NAV_ROLES) ?? false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canViewAny();
+    }
 
     public static function form(Form $form): Form
     {

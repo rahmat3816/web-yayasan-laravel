@@ -269,7 +269,9 @@ Route::middleware('auth')->group(function () {
             'role:koordinator_tahfizh_putra|koordinator_tahfizh_putri|admin|admin_unit|superadmin',
         ])
         ->group(function () {
-            Route::get('/dashboard', [TahfizhDashboardController::class, 'index'])->name('tahfizh.dashboard');
+            Route::get('/dashboard', function () {
+                return redirect()->to('/filament/tahfizh-dashboard');
+            })->name('tahfizh.dashboard');
             Route::get('/dashboard/timeline', [TahfizhDashboardController::class, 'timeline'])->name('tahfizh.dashboard.timeline');
             Route::post('/target', [TahfizhDashboardController::class, 'storeTarget'])->name('tahfizh.target.store');
             Route::get('/ajax/surat-by-juz/{juz}', [SetoranHafalanController::class, 'getSuratByJuz'])->name('tahfizh.ajax.suratByJuz');

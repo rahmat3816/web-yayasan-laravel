@@ -673,7 +673,7 @@ class TahfizhDashboardController extends Controller
             ->join('santri as s', 's.id', '=', 'h.santri_id')
             ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
             ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
-            ->select('h.santri_id', 's.nama', 's.unit_id', 's.jenis_kelamin', 'h.surah_id', 'h.ayah_start', 'h.ayah_end')
+            ->select('h.santri_id', 's.nama', 's.unit_id', 's.jenis_kelamin', 'h.surah_id', 'h.ayah_start', 'h.ayah_end', 'h.halaqoh_id')
             ->orderBy('s.nama')
             ->get()
             ->groupBy('santri_id');
@@ -750,6 +750,7 @@ class TahfizhDashboardController extends Controller
             $summaries[] = [
                 'santri_id' => $santriId,
                 'santri' => $segments->first()->nama ?? 'Santri #' . $santriId,
+                'halaqoh_id' => $segments->first()->halaqoh_id ?? null,
                 'total_juz' => $totalJuz,
                 'total_halaman' => $totalHalaman,
                 'total_surah' => $totalSurah,

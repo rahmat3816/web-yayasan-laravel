@@ -1,5 +1,5 @@
 @if (!empty($cards))
-    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3 my-8">
+    <div class="action-card-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3 my-8">
         @foreach ($cards as $card)
             <a href="{{ $card['url'] ?? '#' }}"
                class="glass-card p-5 flex flex-col justify-between hover:-translate-y-1 hover:shadow-2xl transition duration-300 group">

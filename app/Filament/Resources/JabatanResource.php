@@ -17,6 +17,17 @@ class JabatanResource extends Resource
     protected static ?string $navigationLabel = 'Jabatan';
     protected static ?string $navigationGroup = 'Penugasan & Jabatan';
     protected static ?int $navigationSort = 1;
+    protected const NAV_ROLES = ['superadmin', 'admin_unit', 'kepala_madrasah'];
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasAnyRole(self::NAV_ROLES) ?? false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canViewAny();
+    }
 
     public static function form(Form $form): Form
     {

@@ -17,6 +17,17 @@ class MapelResource extends Resource
     protected static ?string $navigationLabel = 'Mata Pelajaran';
     protected static ?string $navigationGroup = 'Akademik & Kurikulum';
     protected static ?int $navigationSort = 1;
+    protected const NAV_ROLES = ['superadmin', 'admin', 'kepala_madrasah', 'wakamad_kurikulum'];
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasAnyRole(self::NAV_ROLES) ?? false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return static::canViewAny();
+    }
 
     public static function form(Form $form): Form
     {

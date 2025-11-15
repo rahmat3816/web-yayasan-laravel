@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\GuruJabatan;
 use App\Models\Jabatan;
 use App\Models\Santri;
+use App\Models\Unit;
 use App\Models\WaliSantri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -124,6 +125,11 @@ class User extends Authenticatable
     public function guru(): BelongsTo
     {
         return $this->belongsTo(Guru::class, 'linked_guru_id');
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 
     public function ensureLinkedGuruId(?string $fallbackName = null): ?int
