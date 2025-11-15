@@ -111,7 +111,7 @@ class Guru extends Model
         }
 
         $maxSequence = (int) ($query
-            ->selectRaw("MAX(CAST(SUBSTR(nipy, -4) AS INTEGER)) as max_seq")
+            ->selectRaw("MAX(CAST(SUBSTRING(nipy, -4) AS UNSIGNED)) as max_seq")
             ->value('max_seq') ?? 0);
 
         $sequence = $maxSequence + 1;

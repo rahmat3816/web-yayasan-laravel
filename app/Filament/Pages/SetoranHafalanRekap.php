@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Http\Controllers\Guru\SetoranHafalanController;
+use App\Models\Halaqoh;
 use Filament\Pages\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class SetoranHafalanRekap extends Page
     protected static ?string $slug = 'tahfizh/setoran-hafalan/rekap';
 
     protected static string $view = 'filament.pages.setoran-hafalan-rekap';
-    protected const NAV_ROLES = [
+    protected const PRIVILEGED_ROLES = [
         'superadmin',
         'kabag_kesantrian_putra',
         'kabag_kesantrian_putri',
@@ -66,6 +67,29 @@ class SetoranHafalanRekap extends Page
             return false;
         }
 
-        return $user->hasAnyRole(self::NAV_ROLES);
+        if ($user->hasAnyRole(self::PRIVILEGED_ROLES)) {
+            return true;
+        }
+
+        return static::guruIsPengampu($user);
+    }
+
+    protected static function guruIsPengampu($user): bool
+    {
+        if (! $user?->hasRole('guru')) {
+            return false;
+        }
+
+        $guruId = $user->linked_guru_id ?? $user->guru?->id;
+
+        if (! $guruId && method_exists($user, 'ensureLinkedGuruId')) {
+            $guruId = $user->ensureLinkedGuruId($user->name);
+        }
+
+        if (! $guruId) {
+            return false;
+        }
+
+        return Halaqoh::where('guru_id', $guruId)->exists();
     }
 }
