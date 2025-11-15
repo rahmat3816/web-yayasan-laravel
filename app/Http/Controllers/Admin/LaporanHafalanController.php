@@ -43,7 +43,7 @@ class LaporanHafalanController extends Controller
         $data = $query->orderByDesc('tanggal_setor')->get();
 
         // 🔹 Rekap proporsional (halaman, surah %, juz %)
-        $rekap = $this->hitungRekapHafalan($data);
+        $rekap = self::hitungRekapHafalan($data);
 
         // 🔹 Grafik per hari
         $grafikPerHari = $data->groupBy(fn($r) => Carbon::parse($r->tanggal_setor)->format('d M'))
@@ -114,7 +114,7 @@ class LaporanHafalanController extends Controller
      * 🧮 Hitung rekap hafalan (proporsional)
      * Menghitung total halaman, progress surah (%), progress juz (%)
      */
-    private function hitungRekapHafalan($hafalan): array
+    public static function hitungRekapHafalan($hafalan): array
     {
         // ⚡️ Tambahkan caching otomatis
         $pageMap = Cache::rememberForever('quran_page_map_all', function () {

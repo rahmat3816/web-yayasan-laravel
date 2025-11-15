@@ -1,5 +1,5 @@
 {{-- ==============================
-📘 Edit Data Halaqoh – Admin & Operator
+ Edit Data Halaqoh - Admin & Operator
 ============================== --}}
 @extends('layouts.admin')
 
@@ -9,16 +9,16 @@
 <x-breadcrumb title="Edit Halaqoh" />
 
 <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">✏️ Edit Data Halaqoh</h1>
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4"> Edit Data Halaqoh</h1>
 
-    {{-- 🔁 Kembali ke Data Halaqoh --}}
+    {{--  Kembali ke Data Halaqoh --}}
     <div class="mb-4">
         <a href="{{ route('admin.halaqoh.index') }}" class="text-blue-600 hover:underline">
-            ← Kembali ke Data Halaqoh
+            <- Kembali ke Data Halaqoh
         </a>
     </div>
 
-    {{-- ⚠️ Pesan Error Validasi --}}
+    {{--  Pesan Error Validasi --}}
     @if ($errors->any())
         <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4 dark:bg-red-900 dark:text-red-100">
             <ul class="list-disc pl-5 space-y-1">
@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    {{-- 📝 Form Edit --}}
+    {{--  Form Edit --}}
     <form action="{{ route('admin.halaqoh.update', $halaqoh->id) }}" method="POST" class="space-y-5">
         @csrf
         @method('PUT')
@@ -95,14 +95,14 @@
         <div class="pt-4">
             <button type="submit"
                 class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow transition">
-                💾 Simpan Perubahan
+                 Simpan Perubahan
             </button>
         </div>
     </form>
 </div>
 
 {{-- ==============================
-📡 AJAX: Ambil Santri Berdasarkan Guru
+ AJAX: Ambil Santri Berdasarkan Guru
 ============================== --}}
 @push('scripts')
 <script>
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse">🔄 Memuat daftar santri...</p>';
+        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse"> Memuat daftar santri...</p>';
 
         fetch(`/admin/halaqoh/santri-by-guru/${guruId}?halaqoh_id=${halaqohId}`)
             .then(response => response.json())

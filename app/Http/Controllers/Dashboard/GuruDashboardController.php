@@ -13,13 +13,13 @@ class GuruDashboardController extends Controller
     public function index(Request $request)
     {
         $user   = Auth::user();
-        $guruId = $user->linked_guru_id;
+        $guruId = $user->linked_guru_id ?: $user->ensureLinkedGuruId();
 
-        // 🗓️ Filter bulan & tahun
+        // Filter bulan & tahun
         $bulan = (int) $request->input('bulan', date('n'));
         $tahun = (int) $request->input('tahun', date('Y'));
 
-        // 🚫 Jika akun belum terhubung dengan guru
+        // Jika akun belum terhubung dengan guru
         if (!$guruId) {
             return view('guru.dashboard', [
                 'errorMessage'     => 'Akun ini belum terhubung ke data guru. Silakan hubungi admin unit.',
@@ -34,6 +34,7 @@ class GuruDashboardController extends Controller
                 'totalBerjalan'    => 0,
                 'totalSelesai'     => 0,
                 'targetBulanan'    => 0,
+                'totalAyatBulanan' => 0,
                 'progressPersen'   => 0,
                 'bulan'            => $bulan,
                 'tahun'            => $tahun,
@@ -41,16 +42,19 @@ class GuruDashboardController extends Controller
         }
 
         // ===============================
-        // 📊 Total Santri
+        // Total santri
         // ===============================
-        $totalSantri = DB::table('halaqoh_santri as hs')
+        $santriIds = DB::table('halaqoh_santri as hs')
             ->join('halaqoh as h', 'h.id', '=', 'hs.halaqoh_id')
             ->where('h.guru_id', $guruId)
-            ->distinct('hs.santri_id')
-            ->count('hs.santri_id');
+            ->pluck('hs.santri_id')
+            ->unique()
+            ->values();
+
+        $totalSantri = $santriIds->count();
 
         // ===============================
-        // 📖 Total Hafalan (bulan berjalan)
+        // Total hafalan (bulan berjalan)
         // ===============================
         $totalHafalan = DB::table('hafalan_quran as hq')
             ->join('halaqoh as h', 'h.id', '=', 'hq.halaqoh_id')
@@ -59,12 +63,30 @@ class GuruDashboardController extends Controller
             ->whereYear('hq.tanggal_setor', $tahun)
             ->count('hq.id');
 
-        // 🎯 Target Hafalan Bulanan (sementara fixed)
-        $targetBulanan  = 100; // TODO: ambil dari tabel target_hafalan jika sudah ada
-        $progressPersen = $targetBulanan > 0 ? min(100, round(($totalHafalan / $targetBulanan) * 100, 2)) : 0;
+        // Target dan progres bulanan mengikuti perencanaan tahfizh
+        $totalAyatBulanan = 0;
+        $targetBulanan = 0;
+
+        if ($santriIds->isNotEmpty()) {
+            $totalAyatBulanan = (int) DB::table('hafalan_quran as hq')
+                ->whereIn('hq.santri_id', $santriIds)
+                ->whereMonth('hq.tanggal_setor', $bulan)
+                ->whereYear('hq.tanggal_setor', $tahun)
+                ->sum(DB::raw('GREATEST(0, (hq.ayah_end - hq.ayah_start + 1))'));
+
+            $targetBulanan = (int) DB::table('hafalan_targets as ht')
+                ->whereIn('ht.santri_id', $santriIds)
+                ->where('ht.tahun', $tahun)
+                ->sum(DB::raw('COALESCE(ht.target_per_bulan, CEIL(ht.total_ayat / 12))'));
+        }
+
+        $progressPersen = $targetBulanan > 0
+            ? round(min(100, ($totalAyatBulanan / $targetBulanan) * 100), 1)
+            : 0;
+
 
         // ===============================
-        // 📅 Hafalan Per Minggu
+        // Hafalan per minggu
         // ===============================
         $hafalanPerMinggu = DB::table('hafalan_quran as hq')
             ->join('halaqoh as h', 'h.id', '=', 'hq.halaqoh_id')
@@ -77,7 +99,7 @@ class GuruDashboardController extends Controller
             ->pluck('total', 'minggu');
 
         // ===============================
-        // 🏫 Santri per Unit (pakai `units.nama_unit`)
+        // Santri per unit (pakai units.nama_unit)
         // ===============================
         $santriPerUnit = DB::table('halaqoh_santri as hs')
             ->join('halaqoh as h', 'h.id', '=', 'hs.halaqoh_id')
@@ -90,7 +112,7 @@ class GuruDashboardController extends Controller
             ->pluck('total', 'unit');
 
         // ===============================
-        // 🧾 Daftar Santri Detail
+        // Daftar santri detail
         // ===============================
         $daftarSantri = DB::table('halaqoh_santri as hs')
             ->join('halaqoh as h', 'h.id', '=', 'hs.halaqoh_id')
@@ -114,9 +136,9 @@ class GuruDashboardController extends Controller
             ->get();
 
         // ===============================
-        // 🧮 Rekapan Progres Hafalan (tanpa kolom `mode`)
-        //   - Jika ada kolom page_start/page_end → hitung total halaman.
-        //   - Jika tidak ada → fallback jumlah entri (≥1 = berjalan, 0 = belum).
+        // Rekap progres hafalan (tanpa kolom mode)
+        //   - Jika ada kolom page_start/page_end ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ hitung total halaman.
+        //   - Jika tidak ada ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ fallback jumlah entri (ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥1 = berjalan, 0 = belum).
         // ===============================
         $hasPageStart = Schema::hasColumn('hafalan_quran', 'page_start');
         $hasPageEnd   = Schema::hasColumn('hafalan_quran', 'page_end');
@@ -173,7 +195,7 @@ class GuruDashboardController extends Controller
         }
 
         // ===============================
-        // 📊 Rekap Hafalan per Juz (opsional, hanya jika kolomnya ada)
+        // Rekap hafalan per juz (opsional, hanya jika kolom tersedia)
         // ===============================
         $rekapPerJuz = collect();
         $hasJuzStart = Schema::hasColumn('hafalan_quran', 'juz_start');
@@ -191,7 +213,7 @@ class GuruDashboardController extends Controller
         }
 
         // ===============================
-        // 🕋 Rekap Surat Paling Disetorkan
+        // Rekap surat paling sering disetorkan
         // ===============================
         $rekapSurat = DB::table('hafalan_quran as hq')
             ->join('halaqoh as h', 'h.id', '=', 'hq.halaqoh_id')
@@ -205,7 +227,7 @@ class GuruDashboardController extends Controller
             ->pluck('total', 'surat');
 
         // ===============================
-        // ✅ Kirim ke View
+        // Kirim ke view
         // ===============================
         return view('guru.dashboard', [
             'errorMessage'     => null,
@@ -220,6 +242,7 @@ class GuruDashboardController extends Controller
             'totalBerjalan'    => $totalBerjalan,
             'totalSelesai'     => $totalSelesai,
             'targetBulanan'    => $targetBulanan,
+            'totalAyatBulanan' => $totalAyatBulanan,
             'progressPersen'   => $progressPersen,
             'bulan'            => $bulan,
             'tahun'            => $tahun,

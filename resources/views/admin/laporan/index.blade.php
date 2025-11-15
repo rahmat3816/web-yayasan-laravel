@@ -1,20 +1,20 @@
 @extends('layouts.admin')
-@section('title', '📊 Laporan Data Yayasan')
+@section('title', ' Laporan Data Yayasan')
 
 @section('content')
-<x-breadcrumb title="📊 Laporan Data Yayasan" />
+<x-breadcrumb title=" Laporan Data Yayasan" />
 <x-admin.alert />
 
-<x-admin.card title="📈 Statistik Data Yayasan">
+<x-admin.card title=" Statistik Data Yayasan">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-        <x-admin.stat label="Total Santri" :value="$totalSantri" color="indigo" icon="👨‍🎓" />
-        <x-admin.stat label="Total Guru" :value="$totalGuru" color="teal" icon="👩‍🏫" />
-        <x-admin.stat label="Total Unit" :value="$totalUnit" color="amber" icon="🏫" />
-        <x-admin.stat label="Total Halaqoh" :value="$totalHalaqoh" color="pink" icon="📖" />
+        <x-admin.stat label="Total Santri" :value="$totalSantri" color="indigo" icon="" />
+        <x-admin.stat label="Total Guru" :value="$totalGuru" color="teal" icon="" />
+        <x-admin.stat label="Total Unit" :value="$totalUnit" color="amber" icon="" />
+        <x-admin.stat label="Total Halaqoh" :value="$totalHalaqoh" color="pink" icon="" />
     </div>
 </x-admin.card>
 
-<x-admin.card title="📊 Jumlah Santri per Unit">
+<x-admin.card title=" Jumlah Santri per Unit">
     <canvas id="santriChart" height="100"></canvas>
 </x-admin.card>
 

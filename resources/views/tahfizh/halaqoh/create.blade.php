@@ -6,10 +6,10 @@
 <x-breadcrumb title="Tambah Halaqoh" />
 
 <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">➕ Tambah Data Halaqoh</h1>
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">+ Tambah Data Halaqoh</h1>
 
     <div class="mb-4">
-        <a href="{{ route('tahfizh.halaqoh.index') }}" class="text-blue-600 hover:underline">← Kembali ke Data Halaqoh</a>
+        <a href="{{ route('tahfizh.halaqoh.index') }}" class="text-blue-600 hover:underline"><- Kembali ke Data Halaqoh</a>
     </div>
 
     {{-- Error alert --}}
@@ -27,7 +27,7 @@
     <form action="{{ route('tahfizh.halaqoh.store') }}" method="POST" class="space-y-5">
         @csrf
 
-        {{-- 🔹 Nama Halaqoh --}}
+        {{--  Nama Halaqoh --}}
         <div>
             <label class="block text-sm font-semibold">Nama Halaqoh</label>
             <input type="text" name="nama_halaqoh" value="{{ old('nama_halaqoh') }}"
@@ -36,7 +36,7 @@
                 required>
         </div>
 
-        {{-- 🔹 Guru Pembimbing --}}
+        {{--  Guru Pembimbing --}}
         <div>
             <label class="block text-sm font-semibold">Guru Pembimbing</label>
             <select id="guru_id" name="guru_id"
@@ -54,10 +54,10 @@
             </p>
         </div>
 
-        {{-- 🔒 Unit Pendidikan (Dikunci Otomatis) --}}
+        {{--  Unit Pendidikan (Dikunci Otomatis) --}}
         <input type="hidden" name="unit_id" value="{{ auth()->user()->unit_id }}">
 
-        {{-- 🔹 Daftar Santri --}}
+        {{--  Daftar Santri --}}
         <div>
             <label class="block text-sm font-semibold mb-2">Pilih Santri</label>
             <div id="santri-container" class="border rounded p-3 bg-gray-50 dark:bg-gray-900 h-56 overflow-y-auto">
@@ -70,7 +70,7 @@
             </p>
         </div>
 
-        {{-- 🔹 Keterangan --}}
+        {{--  Keterangan --}}
         <div>
             <label class="block text-sm font-semibold">Keterangan</label>
             <textarea name="keterangan"
@@ -78,11 +78,11 @@
                 placeholder="Catatan tambahan (opsional)">{{ old('keterangan') }}</textarea>
         </div>
 
-        {{-- 🔘 Tombol Simpan --}}
+        {{--  Tombol Simpan --}}
         <div class="pt-4">
             <button type="submit"
                 class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow">
-                💾 Simpan Data
+                 Simpan Data
             </button>
         </div>
     </form>
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse">🔄 Memuat daftar santri...</p>';
+        santriContainer.innerHTML = '<p class="text-blue-500 text-sm animate-pulse"> Memuat daftar santri...</p>';
 
         fetch(`${baseUrl}/tahfizh/halaqoh/santri-by-guru/${encodeURIComponent(guruId)}`)
             .then(r => r.json())

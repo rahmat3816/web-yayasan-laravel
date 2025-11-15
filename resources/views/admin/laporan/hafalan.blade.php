@@ -1,14 +1,14 @@
 {{-- ==============================
-📊 Laporan Hafalan Qur’an (Admin)
+ Laporan Hafalan Qur'an (Admin)
 ============================== --}}
 @extends('layouts.admin')
 
-@section('label', 'Laporan Hafalan Qur’an')
+@section('label', 'Laporan Hafalan Qur'an')
 
 @section('content')
-<x-breadcrumb label="📖 Laporan Hafalan Qur’an" />
+<x-breadcrumb label=" Laporan Hafalan Qur'an" />
 
-{{-- 🎛️ Filter --}}
+{{--  Filter --}}
 <form method="GET" class="flex flex-wrap gap-3 mb-6">
     <div>
         <label class="block text-sm font-semibold">Tahun</label>
@@ -59,13 +59,13 @@
     </div>
     <div class="flex items-end">
         <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
-            🔍 Tampilkan
+             Tampilkan
         </button>
     </div>
 </form>
 
 {{-- ==============================
-📈 Statistik Ringkas
+ Statistik Ringkas
 ============================== --}}
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-8">
     <x-admin.stat label="Total Halaman" :value="$rekap['total_halaman'] ?? 0" color="bg-green-100 dark:bg-green-900" />
@@ -74,26 +74,26 @@
 </div>
 
 {{-- ==============================
-📅 Grafik Capaian Harian
+ Grafik Capaian Harian
 ============================== --}}
 <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-10 shadow">
-    <h2 class="text-xl font-semibold mb-4">📅 Capaian Setoran Harian</h2>
+    <h2 class="text-xl font-semibold mb-4"> Capaian Setoran Harian</h2>
     <canvas id="chartHarian" height="100"></canvas>
 </div>
 
 {{-- ==============================
-📖 Grafik Total Ayat Kumulatif
+ Grafik Total Ayat Kumulatif
 ============================== --}}
 <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 mb-10 shadow">
-    <h2 class="text-xl font-semibold mb-4">📖 Total Ayat Kumulatif</h2>
+    <h2 class="text-xl font-semibold mb-4"> Total Ayat Kumulatif</h2>
     <canvas id="chartTotalAyat" height="100"></canvas>
 </div>
 
 {{-- ==============================
-📋 Tabel Data Setoran
+ Tabel Data Setoran
 ============================== --}}
 <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow overflow-x-auto">
-    <h2 class="text-xl font-semibold mb-4">📋 Data Hafalan Santri</h2>
+    <h2 class="text-xl font-semibold mb-4"> Data Hafalan Santri</h2>
     <table class="min-w-full border border-gray-300 dark:border-gray-700 rounded-lg">
         <thead class="bg-gray-100 dark:bg-gray-800">
             <tr class="text-left">
@@ -113,7 +113,7 @@
                     <td class="px-4 py-2">{{ $h->santri->nama ?? '-' }}</td>
                     <td class="px-4 py-2">{{ $h->guru->nama ?? '-' }}</td>
                     <td class="px-4 py-2">Surah {{ $h->surah_id }}</td>
-                    <td class="px-4 py-2 text-center">{{ $h->ayah_start }}–{{ $h->ayah_end }}</td>
+                    <td class="px-4 py-2 text-center">{{ $h->ayah_start }}-{{ $h->ayah_end }}</td>
                     <td class="px-4 py-2 text-center">{{ $h->juz_start }}</td>
                     <td class="px-4 py-2">{{ $h->catatan ?? '-' }}</td>
                 </tr>

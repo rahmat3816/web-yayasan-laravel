@@ -17,8 +17,17 @@ class CheckUnitAccess
             return $next($request);
         }
 
-        // Admin & Operator hanya boleh lihat unit sendiri
-        if (in_array(strtolower($user->role), ['admin', 'operator'])) {
+        $unitScopedRoles = [
+            'admin',
+            'admin_unit',
+            'kepala_madrasah',
+            'wakamad_kurikulum',
+            'wakamad_kesiswaan',
+            'wakamad_sarpras',
+            'bendahara',
+        ];
+
+        if (in_array(strtolower($user->role), $unitScopedRoles, true)) {
             $request->attributes->add(['limit_unit_id' => $user->unit_id]);
         }
 

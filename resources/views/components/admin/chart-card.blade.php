@@ -1,5 +1,5 @@
 {{-- ===========================================================
-📈 Komponen Chart Card (Admin)
+ Komponen Chart Card (Admin)
 Untuk menampilkan Chart.js dalam style konsisten.
 =========================================================== --}}
 @props(['label', 'id' => 'chart'])

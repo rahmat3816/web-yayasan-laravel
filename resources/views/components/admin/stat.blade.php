@@ -1,4 +1,4 @@
-@props(['label', 'value' => 0, 'color' => 'indigo', 'icon' => '📘'])
+@props(['label', 'value' => 0, 'color' => 'indigo', 'icon' => ''])
 
 @php
     $colorMap = [

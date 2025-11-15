@@ -1,5 +1,5 @@
 {{-- ===========================================================
-🎛️ Komponen Filter Bar (Admin)
+ Komponen Filter Bar (Admin)
 Digunakan untuk form pencarian & filter laporan.
 =========================================================== --}}
 @props(['action' => '#', 'resetRoute' => null])
@@ -12,13 +12,13 @@ Digunakan untuk form pencarian & filter laporan.
     <div class="mt-4 flex gap-3">
         <button type="submit"
             class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
-            🔍 Tampilkan
+             Tampilkan
         </button>
 
         @if($resetRoute)
             <a href="{{ $resetRoute }}"
                class="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-400">
-                ♻️ Reset
+                 Reset
             </a>
         @endif
     </div>

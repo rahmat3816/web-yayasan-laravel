@@ -1,5 +1,5 @@
 {{-- ==============================
-📘 Detail Unit
+ Detail Unit
 ============================== --}}
 @extends('layouts.admin')
 
@@ -9,11 +9,11 @@
     <x-breadcrumb title="Detail Unit" />
 
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">🏫 Detail Unit</h1>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4"> Detail Unit</h1>
 
         <div class="mb-4">
             <a href="{{ route('admin.unit.index') }}" class="text-blue-600 hover:underline">
-                ← Kembali ke Data Unit
+                <- Kembali ke Data Unit
             </a>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="mt-6 flex justify-end">
             <a href="{{ route('admin.unit.edit', $unit->id) }}"
                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow transition">
-                ✏️ Edit Unit
+                 Edit Unit
             </a>
         </div>
     </div>

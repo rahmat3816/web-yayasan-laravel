@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 class RoleMiddleware
 {
     /**
-    * Format: middleware(['role:admin|operator|superadmin'])
-    */
+     * Format: middleware(['role:admin_unit|superadmin'])
+     */
     public function handle(Request $request, Closure $next, string $roles = ''): Response
     {
         // Abaikan middleware saat testing
@@ -37,7 +37,7 @@ class RoleMiddleware
             return $next($request);
         }
 
-        // Validasi multi-role: admin|operator|guru
+        // Validasi multi-role via daftar slug
         $allowedRoles = preg_split('/[|,]/', strtolower($roles));
         $userRole = strtolower($user->role ?? '');
 

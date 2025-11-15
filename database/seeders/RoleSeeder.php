@@ -9,22 +9,18 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $roles = [
-            'superadmin',
-            'admin',
-            'operator',
-            'guru',
-            'pimpinan',
-            'koordinator_tahfizh_putra',
-            'koordinator_tahfizh_putri',
-            'wali_santri',
-            'wali_kelas'
-        ];
+        $configuredRoles = array_keys(config('jabatan.roles', []));
+
+        $roles = array_unique(array_merge(
+            ['superadmin', 'guru', 'pimpinan', 'wali_santri'],
+            $configuredRoles
+        ));
 
         foreach ($roles as $role) {
-            Role::firstOrCreate(
-                ['name' => $role, 'guard_name' => 'web']
-            );
+            Role::firstOrCreate([
+                'name' => $role,
+                'guard_name' => 'web',
+            ]);
         }
     }
 }

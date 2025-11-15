@@ -2,18 +2,23 @@
 @section('title', 'Tambah Guru')
 
 @section('content')
-<x-breadcrumb title="Tambah Guru" />
+<x-breadcrumb label="Tambah Guru" />
 
-<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">➕ Tambah Guru</h1>
-
-    <a href="{{ route('admin.guru.index') }}" class="text-blue-600 hover:underline">
-        ← Kembali ke Data Guru
-    </a>
+<section class="glass-card max-w-4xl mx-auto p-8 space-y-6">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+        <div>
+            <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Formulir</p>
+            <h1 class="text-2xl font-semibold text-slate-800 dark:text-white">Tambah Data Guru</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-300 mt-1">
+                Lengkapi identitas guru. NIPY akan digenerate otomatis berdasarkan tanggal bergabung.
+            </p>
+        </div>
+        <a href="{{ route('admin.guru.index') }}" class="btn btn-sm btn-outline rounded-full"><- Kembali</a>
+    </div>
 
     @if ($errors->any())
-        <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mt-4 mb-4 dark:bg-red-900 dark:text-red-100">
-            <ul class="list-disc pl-5 space-y-1">
+        <div class="alert alert-error shadow-lg">
+            <ul class="list-disc ml-5 text-sm">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -21,82 +26,53 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.guru.store') }}" method="POST" class="space-y-4 mt-4">
+    <form action="{{ route('admin.guru.store') }}" method="POST" class="space-y-6">
         @csrf
+        <div class="grid md:grid-cols-2 gap-5">
+            <label class="form-control">
+                <span class="label-text">Nama Guru</span>
+                <input type="text" name="nama" value="{{ old('nama') }}" class="input input-bordered" required>
+            </label>
 
-        {{-- Nama Guru --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Nama Guru</label>
-            <input type="text" name="nama" value="{{ old('nama') }}"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100 focus:ring focus:ring-blue-300"
-                required>
+            <label class="form-control">
+                <span class="label-text">Jenis Kelamin</span>
+                <select name="jenis_kelamin" class="select select-bordered" required>
+                    <option value="">Pilih jenis kelamin</option>
+                    <option value="L" @selected(old('jenis_kelamin')==='L')>Laki-laki</option>
+                    <option value="P" @selected(old('jenis_kelamin')==='P')>Perempuan</option>
+                </select>
+            </label>
+
+            @role('superadmin')
+                <label class="form-control md:col-span-2">
+                    <span class="label-text">Unit Pendidikan</span>
+                    <select name="unit_id" class="select select-bordered" required>
+                        <option value="">Pilih unit</option>
+                        @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}" @selected(old('unit_id') == $unit->id)>{{ $unit->nama_unit }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            @endrole
+
+            <label class="form-control">
+                <span class="label-text">Status Aktif</span>
+                <select name="status_aktif" class="select select-bordered" required>
+                    <option value="">Pilih status</option>
+                    <option value="aktif" @selected(old('status_aktif')==='aktif')>Aktif</option>
+                    <option value="nonaktif" @selected(old('status_aktif')==='nonaktif')>Nonaktif</option>
+                </select>
+            </label>
+
+            <label class="form-control">
+                <span class="label-text">Tanggal Bergabung</span>
+                <input type="date" name="tanggal_bergabung" value="{{ old('tanggal_bergabung') }}" class="input input-bordered">
+            </label>
         </div>
 
-        {{-- NIP / NIK --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">NIP / NIK</label>
-            <input type="text" name="nip" value="{{ old('nip') }}"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100">
-        </div>
-
-        {{-- Jenis Kelamin --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Jenis Kelamin</label>
-            <select name="jenis_kelamin"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100" required>
-                <option value="">-- Pilih --</option>
-                <option value="L" @selected(old('jenis_kelamin')==='L')>Laki-laki</option>
-                <option value="P" @selected(old('jenis_kelamin')==='P')>Perempuan</option>
-            </select>
-        </div>
-
-        {{-- Unit Pendidikan (superadmin saja memilih; admin unit otomatis) --}}
-        @role('superadmin')
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Unit Pendidikan</label>
-            <select name="unit_id"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100" required>
-                <option value="">-- Pilih Unit --</option>
-                @foreach ($units as $unit)
-                    <option value="{{ $unit->id }}" @selected(old('unit_id') == $unit->id)>{{ $unit->nama_unit }}</option>
-                @endforeach
-            </select>
-        </div>
-        @endrole
-
-        {{-- Status Aktif --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Status Aktif</label>
-            <select name="status_aktif"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="aktif" @selected(old('status_aktif')==='aktif')>Aktif</option>
-                <option value="nonaktif" @selected(old('status_aktif')==='nonaktif')>Nonaktif</option>
-            </select>
-        </div>
-
-        {{-- Jabatan --}}
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Jabatan (opsional)</label>
-            <select name="jabatan"
-                class="w-full border rounded px-3 py-2 dark:bg-gray-900 dark:text-gray-100">
-                <option value="">— Pilih Jabatan —</option>
-                <option value="wali_kelas" @selected(old('jabatan')==='wali_kelas')>Wali Kelas</option>
-                <option value="koordinator_tahfizh_putra" @selected(old('jabatan')==='koordinator_tahfizh_putra')>Koordinator Tahfizh Putra</option>
-                <option value="koordinator_tahfizh_putri" @selected(old('jabatan')==='koordinator_tahfizh_putri')>Koordinator Tahfizh Putri</option>
-            </select>
-            <p class="text-xs text-gray-500 mt-1">
-                • Koordinator Putra/Putri harus sesuai jenis kelamin guru.<br>
-                • Jika memilih koordinator, <b>sistem otomatis menggantikan</b> koordinator lama di unit ini.
-            </p>
-        </div>
-
-        <div class="pt-4">
-            <button type="submit"
-                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-                💾 Simpan Data
-            </button>
+        <div class="flex justify-end">
+            <button type="submit" class="btn btn-primary rounded-full px-6">Simpan Guru</button>
         </div>
     </form>
-</div>
+</section>
 @endsection

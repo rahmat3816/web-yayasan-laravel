@@ -50,11 +50,10 @@ class GuruController extends Controller
 
         $data = $request->validate([
             'nama'          => ['required','string','max:150'],
-            'nip'           => ['nullable','string','max:50', Rule::unique('guru','nip')],
             'jenis_kelamin' => ['required', Rule::in(['L','P'])],
             'unit_id'       => [$unitScoped ? 'required' : 'nullable','integer','exists:units,id'],
             'status_aktif'  => ['required', Rule::in(['aktif','nonaktif'])],
-            'jabatan'       => ['nullable', Rule::in(self::JABATAN_LIST())],
+            'tanggal_bergabung' => ['nullable','date'],
         ]);
 
         if ($unitScoped) {
@@ -69,17 +68,13 @@ class GuruController extends Controller
         DB::transaction(function () use ($data) {
             $guru = Guru::create([
                 'nama'          => $data['nama'],
-                'nip'           => $data['nip'] ?? null,
                 'jenis_kelamin' => $data['jenis_kelamin'],
                 'unit_id'       => $data['unit_id'],
                 'status_aktif'  => $data['status_aktif'],
+                'tanggal_bergabung' => $data['tanggal_bergabung'] ?? null,
             ]);
 
-            // Buat akun user otomatis
-            $user = $this->createUserForGuru($guru);
-
-            // Sinkron jabatan sesuai form
-            $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
+            $this->createUserForGuru($guru);
         });
 
         return redirect()->route('admin.guru.index')
@@ -111,19 +106,7 @@ class GuruController extends Controller
                          ->get(['id','nama_unit']);
         }
 
-        $userGuru = User::where('linked_guru_id', $guru->id)->first();
-        $jabatanSelected = '';
-        if ($userGuru && method_exists($userGuru, 'hasRole')) {
-            if ($userGuru->hasRole('koordinator_tahfizh_putra')) {
-                $jabatanSelected = 'koordinator_tahfizh_putra';
-            } elseif ($userGuru->hasRole('koordinator_tahfizh_putri')) {
-                $jabatanSelected = 'koordinator_tahfizh_putri';
-            } elseif ($userGuru->hasRole('wali_kelas')) {
-                $jabatanSelected = 'wali_kelas';
-            }
-        }
-
-        return view('admin.guru.edit', compact('guru','units','jabatanSelected'));
+        return view('admin.guru.edit', compact('guru','units'));
     }
 
     // Update guru
@@ -138,11 +121,10 @@ class GuruController extends Controller
 
         $data = $request->validate([
             'nama'          => ['required','string','max:150'],
-            'nip'           => ['nullable','string','max:50', Rule::unique('guru','nip')->ignore($guru->id)],
             'jenis_kelamin' => ['required', Rule::in(['L','P'])],
             'unit_id'       => [$this->isUnitScoped($userLogin) ? 'required' : 'nullable','integer','exists:units,id'],
             'status_aktif'  => ['required', Rule::in(['aktif','nonaktif'])],
-            'jabatan'       => ['nullable', Rule::in(self::JABATAN_LIST())],
+            'tanggal_bergabung' => ['nullable','date'],
         ]);
 
         if ($this->isUnitScoped($userLogin)) {
@@ -152,10 +134,10 @@ class GuruController extends Controller
         DB::transaction(function () use ($guru, $data) {
             $guru->update([
                 'nama'          => $data['nama'],
-                'nip'           => $data['nip'] ?? null,
                 'jenis_kelamin' => $data['jenis_kelamin'],
                 'unit_id'       => $data['unit_id'],
                 'status_aktif'  => $data['status_aktif'],
+                'tanggal_bergabung' => $data['tanggal_bergabung'] ?? $guru->tanggal_bergabung,
             ]);
 
             $user = User::where('linked_guru_id', $guru->id)->first();
@@ -168,7 +150,6 @@ class GuruController extends Controller
                 ]);
             }
 
-            $this->syncJabatanRole($user, $data['jabatan'] ?? null, $guru->jenis_kelamin);
         });
 
         return redirect()->route('admin.guru.index')
@@ -269,37 +250,23 @@ class GuruController extends Controller
         return $base . str_pad((string)random_int(1, 99), 2, '0', STR_PAD_LEFT);
     }
 
-    private function syncJabatanRole(User $user, ?string $jabatan, ?string $jenisKelamin)
-    {
-        if (!$user) return;
-
-        $jabatanLower = strtolower($jabatan ?? 'guru');
-        if (!in_array($jabatanLower, self::JABATAN_LIST(), true)) {
-            $jabatanLower = 'guru';
-        }
-
-        $user->update(['role' => $jabatanLower]);
-
-        $validRoles = self::JABATAN_LIST();
-        if (method_exists($user, 'hasAnyRole') && method_exists($user, 'syncRoles')) {
-            if ($user->hasAnyRole($validRoles)) {
-                $user->syncRoles([$jabatanLower]);
-            } else {
-                $user->assignRole($jabatanLower);
-            }
-        }
-    }
-
     // Helper: cek apakah user terbatas ke unit
     private function isUnitScoped($user): bool
     {
-        return in_array(strtolower($user->role ?? ''), ['admin','operator'], true)
-            && !empty($user->unit_id);
-    }
+        if (!$user) {
+            return false;
+        }
 
-    // Daftar konstanta jabatan
-    private static function JABATAN_LIST(): array
-    {
-        return ['guru','wali_kelas','koordinator_tahfizh_putra','koordinator_tahfizh_putri'];
+        if ($user->isSuperadmin()) {
+            return false;
+        }
+
+        $legacyRole = strtolower($user->role ?? '');
+        if (in_array($legacyRole, ['admin'], true) && !empty($user->unit_id)) {
+            return true;
+        }
+
+        return ($user->hasRole('admin_unit') || $user->hasJabatan('admin_unit'))
+            && !empty($user->unit_id);
     }
 }

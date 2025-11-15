@@ -1,5 +1,5 @@
 {{-- ==============================
-ℹ️ Komponen: Info Card / Highlight Box
+i Komponen: Info Card / Highlight Box
 Usage:
 <x-admin.info-card title="Peringatan" message="Belum ada setoran bulan ini" color="yellow" />
 ============================== --}}

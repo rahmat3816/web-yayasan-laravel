@@ -35,7 +35,17 @@ class UnitAccessMiddleware
             return $next($request);
         }
 
-        if (in_array($role, ['admin', 'operator'], true)) {
+        $unitScopedRoles = [
+            'admin',
+            'admin_unit',
+            'kepala_madrasah',
+            'wakamad_kurikulum',
+            'wakamad_kesiswaan',
+            'wakamad_sarpras',
+            'bendahara',
+        ];
+
+        if (in_array($role, $unitScopedRoles, true)) {
             if (empty($user->unit_id)) {
                 Log::warning('❌ Akses ditolak: unit_id kosong');
                 abort(403, 'Akses ditolak: unit pengguna tidak terdeteksi.');

@@ -1,5 +1,5 @@
 {{-- ==============================
-📘 Edit Unit – Admin & Operator
+ Edit Unit - Admin & Operator
 ============================== --}}
 @extends('layouts.admin')
 
@@ -9,15 +9,15 @@
     <x-breadcrumb title="Edit Unit" />
 
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-6 shadow rounded-lg mt-4">
-        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">✏️ Edit Data Unit</h1>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4"> Edit Data Unit</h1>
 
         <div class="mb-4">
             <a href="{{ route('admin.unit.index') }}" class="text-blue-600 hover:underline">
-                ← Kembali ke Data Unit
+                <- Kembali ke Data Unit
             </a>
         </div>
 
-        {{-- ⚠️ Pesan Error --}}
+        {{--  Pesan Error --}}
         @if ($errors->any())
             <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4 dark:bg-red-900 dark:text-red-100">
                 <ul class="list-disc pl-5 space-y-1">
@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        {{-- 📝 Form Edit --}}
+        {{--  Form Edit --}}
         <form action="{{ route('admin.unit.update', $unit->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('PUT')
@@ -43,7 +43,7 @@
             <div class="pt-4">
                 <button type="submit"
                         class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow transition">
-                    💾 Simpan Perubahan
+                     Simpan Perubahan
                 </button>
             </div>
         </form>

@@ -20,10 +20,8 @@ class GuruObserver
             return;
         }
 
-        // Generate username unik dari nama guru
-        $base = Str::slug($guru->nama, '');
-        if ($base === '') $base = 'guru';
-        $username = $this->uniqueUsername($base);
+        // Generate username unik dari nama guru (kata pertama + 2 angka)
+        $username = $this->generateUsernameTwoDigits($guru->nama);
 
         // Pakai email jika tersedia, kalau tidak buat placeholder
         $email = $guru->email ?: $username.'@yayasan.local';
@@ -114,20 +112,27 @@ class GuruObserver
     }
 
     /**
-     * Buat username unik dengan menambahkan angka jika perlu.
+     * Username format: {kata_pertama}{2-digit random}, contoh "deasy63".
      */
-    protected function uniqueUsername(string $base): string
+    protected function generateUsernameTwoDigits(string $nama): string
     {
-        $username = $base;
-        $i = 1;
-        while (User::where('username', $username)->exists()) {
-            $username = $base.$i;
-            $i++;
-            if ($i > 9999) { // fallback
-                $username = $base.Str::random(4);
-                break;
-            }
+        $firstWord = Str::of($nama)->trim()->explode(' ')->first();
+        $base = Str::slug($firstWord ?: $nama, '');
+        if ($base === '') {
+            $base = 'guru';
         }
+
+        $attempts = 0;
+        do {
+            $suffix = str_pad((string) random_int(0, 99), 2, '0', STR_PAD_LEFT);
+            $username = $base . $suffix;
+            $attempts++;
+        } while (User::where('username', $username)->exists() && $attempts < 50);
+
+        if (User::where('username', $username)->exists()) {
+            $username = $base . Str::random(2);
+        }
+
         return $username;
     }
 }

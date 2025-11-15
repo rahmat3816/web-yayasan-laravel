@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title','Tahfizh · Halaqoh')
+@section('title','Tahfizh - Halaqoh')
 
 @section('content')
 <div class="p-6">
     <!-- Breadcrumb -->
     <div class="text-sm text-gray-500 mb-2">
         <a href="{{ route('tahfizh.dashboard') }}" class="hover:underline">Tahfizh</a>
-        <span class="mx-1">›</span>
+        <span class="mx-1">></span>
         <span class="text-gray-700 font-medium">Halaqoh</span>
     </div>
 
     <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-semibold">📚 Halaqoh</h1>
+        <h1 class="text-2xl font-semibold"> Halaqoh</h1>
         <a href="{{ route('tahfizh.halaqoh.create') }}"
            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow">
             + Buat Halaqoh Baru
@@ -47,7 +47,7 @@
                             {{ $h->unit->nama_unit ?? ('Unit '.$h->unit_id) }}
                             <span class="text-xs text-gray-400">(ID {{ $h->unit_id }})</span>
                         </td>
-                        <td class="px-4 py-3">{{ $h->guru->nama ?? '—' }}</td>
+                        <td class="px-4 py-3">{{ $h->guru->nama ?? '-' }}</td>
                         <td class="px-4 py-3">
                             @php $jk = $h->guru->jenis_kelamin ?? null; @endphp
                             @if($jk === 'L')
@@ -55,11 +55,11 @@
                             @elseif($jk === 'P')
                                 <span class="inline-flex items-center px-2 py-0.5 text-xs rounded bg-pink-100 text-pink-700">P</span>
                             @else
-                                <span class="text-xs text-gray-400">—</span>
+                                <span class="text-xs text-gray-400">-</span>
                             @endif
                         </td>
                         <td class="px-4 py-3">{{ $h->santri->count() }}</td>
-                        <td class="px-4 py-3">{{ $h->keterangan ?? '—' }}</td>
+                        <td class="px-4 py-3">{{ $h->keterangan ?? '-' }}</td>
                         <td class="px-4 py-3">
                             <a href="{{ route('tahfizh.halaqoh.pengampu.edit', $h->id) }}"
                                class="text-blue-600 hover:underline">Ubah Pengampu / Santri</a>

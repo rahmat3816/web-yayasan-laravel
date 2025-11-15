@@ -24,12 +24,15 @@ class RoleAccessTest extends TestCase
         $roles = [
             'superadmin' => '/admin/dashboard',
             'admin' => '/admin/dashboard',
-            'operator' => '/admin/dashboard',
+            'admin_unit' => '/admin/dashboard',
+            'kepala_madrasah' => '/admin/dashboard',
             'guru' => '/guru/dashboard',
-            'koordinator_tahfizh_putra' => '/guru/dashboard',
-            'koordinator_tahfizh_putri' => '/guru/dashboard',
+            'wali_kelas' => '/guru/dashboard',
+            'koordinator_tahfizh_putra' => '/tahfizh/dashboard',
+            'koordinator_tahfizh_putri' => '/tahfizh/dashboard',
             'wali_santri' => '/wali/dashboard',
             'pimpinan' => '/pimpinan/dashboard',
+            'mudir_pondok' => '/pimpinan/dashboard',
         ];
 
         foreach ($roles as $role => $expectedUrl) {

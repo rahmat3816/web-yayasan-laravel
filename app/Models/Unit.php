@@ -40,6 +40,12 @@ class Unit extends Model
         return $this->hasMany(Santri::class, 'unit_id');
     }
 
+    // UNTUK FILAMENT counts()
+    public function santris()
+    {
+        return $this->santri(); // Alias agar Filament bisa pakai `counts('santris')`
+    }
+
     // Unit ↔ Halaqoh (1 : n)
     public function halaqoh()
     {
