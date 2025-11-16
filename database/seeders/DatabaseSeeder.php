@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            AsramaSeeder::class,
+            MusyrifAssignmentSeeder::class,
+            KeluhanSakitSeeder::class,
+            PenangananSementaraSeeder::class,
             // Tambahkan seeder lain jika perlu
         ]);
 

@@ -7,6 +7,14 @@
     $isSuper = $isSuper ?? false;
 @endphp
 
+@if(!empty($forbidden))
+    <div class="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 text-center space-y-3">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-100">Maaf, halaman ini khusus untuk Pengampu Tahfizh.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Silakan hubungi admin jika Anda merasa memiliki akses sebagai pengampu.</p>
+    </div>
+    @php return; @endphp
+@endif
+
 <div class="setoran-wrapper space-y-8">
     {{-- Hero --}}
     <section class="setoran-hero">

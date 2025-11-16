@@ -14,10 +14,44 @@
                     Semua data di bawah bersumber langsung dari log Setoran Hafalan dan hanya disajikan ulang agar mudah dianalisis.
                 </p>
                 <div class="mt-4 flex flex-wrap gap-3 text-xs font-semibold">
-                    <span class="badge badge-outline border-sky-500 text-sky-700">Halaqoh: {{ $halaqoh->nama_halaqoh ?? '-' }}</span>
-                    <span class="badge badge-outline border-sky-500 text-sky-700">Guru: {{ $halaqoh->guru->nama ?? 'Belum ditentukan' }}</span>
-                    <span class="badge badge-outline border-sky-500 text-sky-700">Unit: {{ $halaqoh->unit->nama_unit ?? '-' }}</span>
+                    <span class="badge badge-outline border-sky-500 text-sky-700">Halaqoh: {{ $halaqohLabel ?? ($halaqoh->nama_halaqoh ?? '-') }}</span>
+                    <span class="badge badge-outline border-sky-500 text-sky-700">Guru: {{ $guruLabel ?? ($halaqoh->guru->nama ?? 'Belum ditentukan') }}</span>
+                    <span class="badge badge-outline border-sky-500 text-sky-700">Unit: {{ $unitLabel ?? ($halaqoh->unit->nama_unit ?? '-') }}</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Filter Halaqoh & Guru --}}
+    <div class="card bg-white/95 shadow-2xl text-gray-900">
+        <div class="card-body grid gap-4 sm:grid-cols-3">
+            <div class="form-control">
+                <label class="text-xs font-semibold uppercase text-gray-600">Halaqoh</label>
+                <select class="setoran-select" onchange="window.location=this.value">
+                    @php
+                        $baseUrl = route('filament.admin.pages.tahfizh.setoran-hafalan.rekap');
+                        $currentGuru = $selectedGuruId ?? '';
+                        $currentSantri = $selectedSantriId ?? 'all';
+                    @endphp
+                    <option value="{{ $baseUrl }}?guru_id={{ $currentGuru }}&santri_id={{ $currentSantri }}">Semua Halaqoh</option>
+                    @foreach ($halaqohOptions ?? [] as $h)
+                        <option value="{{ $baseUrl }}?halaqoh_id={{ $h->id }}&guru_id={{ $currentGuru }}&santri_id={{ $currentSantri }}" @selected(($selectedHalaqohId ?? 0) == $h->id)>
+                            H{{ $h->id }} - {{ $h->nama_halaqoh }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="text-xs font-semibold uppercase text-gray-600">Guru</label>
+                <select class="setoran-select" onchange="window.location=this.value">
+                    @php $currentHalaqoh = $selectedHalaqohId ?? ''; @endphp
+                    <option value="{{ $baseUrl }}?halaqoh_id={{ $currentHalaqoh }}&santri_id={{ $currentSantri }}">Semua Guru</option>
+                    @foreach ($guruOptions ?? [] as $g)
+                        <option value="{{ $baseUrl }}?guru_id={{ $g->id }}&halaqoh_id={{ $currentHalaqoh }}&santri_id={{ $currentSantri }}" @selected(($selectedGuruId ?? 0) == $g->id)>
+                            {{ $g->nama }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ use App\Models\Jabatan;
 use App\Models\Santri;
 use App\Models\Unit;
 use App\Models\WaliSantri;
+use App\Models\MusyrifAssignment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -107,6 +108,11 @@ class User extends Authenticatable
             'mudir_pondok',
             'naibul_mudir',
             'naibatul_mudir',
+            // Tahfizh access (role utama dari Guru Jabatan + alias lama)
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
+            'koordinator_tahfizh_putra',
+            'koordinator_tahfizh_putri',
         ];
 
         return $this->hasRole($panelRoles) || $this->hasJabatan($panelRoles);
@@ -165,6 +171,69 @@ class User extends Authenticatable
     public function jabatanAssignments(): HasMany
     {
         return $this->hasMany(GuruJabatan::class, 'user_id');
+    }
+
+    public function musyrifAssignments(): HasMany
+    {
+        return $this->hasMany(MusyrifAssignment::class, 'guru_id', 'linked_guru_id');
+    }
+
+    public function activeMusyrifAssignments()
+    {
+        return $this->musyrifAssignments()->active();
+    }
+
+    public function isActiveMusyrif(): bool
+    {
+        $guruId = $this->linked_guru_id ?? $this->ensureLinkedGuruId($this->name);
+
+        if (! $guruId) {
+            return false;
+        }
+
+        return MusyrifAssignment::query()
+            ->active()
+            ->where('guru_id', $guruId)
+            ->exists();
+    }
+
+    public function hasKesehatanFullAccess(): bool
+    {
+        $roles = [
+            'superadmin',
+            'kabag_kesantrian_putra',
+            'kabag_kesantrian_putri',
+            'koordinator_kesehatan_putra',
+            'koordinator_kesehatan_putri',
+            'koor_kesehatan_putra',
+            'koor_kesehatan_putri',
+        ];
+
+        return $this->hasRole($roles);
+    }
+
+    public function hasKesantrianManagementAccess(): bool
+    {
+        $roles = [
+            'superadmin',
+            'kabag_kesantrian_putra',
+            'kabag_kesantrian_putri',
+        ];
+
+        return $this->hasRole($roles);
+    }
+
+    public function kesehatanGenderScope(): ?string
+    {
+        if ($this->hasRole(['koordinator_kesehatan_putra', 'koor_kesehatan_putra'])) {
+            return 'L';
+        }
+
+        if ($this->hasRole(['koordinator_kesehatan_putri', 'koor_kesehatan_putri'])) {
+            return 'P';
+        }
+
+        return null;
     }
 
     public function jabatans(): BelongsToMany

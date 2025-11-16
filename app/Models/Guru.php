@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\MusyrifAssignment;
 
 class Guru extends Model
 {
@@ -62,6 +63,16 @@ class Guru extends Model
     public function halaqoh()
     {
         return $this->hasOne(\App\Models\Halaqoh::class, 'guru_id');
+    }
+
+    public function musyrifAssignments()
+    {
+        return $this->hasMany(MusyrifAssignment::class, 'guru_id');
+    }
+
+    public function activeMusyrifAssignments()
+    {
+        return $this->musyrifAssignments()->active();
     }
 
     public function user()

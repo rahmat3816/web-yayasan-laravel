@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Unit;
 use App\Policies\UnitPolicy;
+use App\Models\SantriHealthLog;
+use App\Policies\SantriHealthLogPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Unit::class => UnitPolicy::class,
+        SantriHealthLog::class => SantriHealthLogPolicy::class,
     ];
 
     /**

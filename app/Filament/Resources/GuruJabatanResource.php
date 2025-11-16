@@ -50,10 +50,13 @@ class GuruJabatanResource extends Resource
 
                 Forms\Components\Select::make('user_id')
                     ->label('Guru / User')
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'name', function ($query) {
+                        $query->whereHas('guru');
+                    })
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->required()
+                    ->helperText('Hanya guru yang masih aktif dan terdaftar yang ditampilkan.'),
             ]);
     }
 

@@ -168,20 +168,17 @@ class SetoranHafalanController extends Controller
     public function rekap(Request $request)
     {
         $user = Auth::user();
-        if ($user->role === 'superadmin') {
-            $halaqoh = Halaqoh::findOrFail((int) $request->query('halaqoh_id', 1));
-        } else {
-            $linkedGuruId = $user->ensureLinkedGuruId();
-            if (!$linkedGuruId) {
-                return redirect()->route('guru.dashboard')
-                    ->with('error', 'Akun Anda belum ditautkan ke data guru pengampu.');
-            }
-            $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->firstOrFail();
+        $selectedHalaqohId = (int) $request->query('halaqoh_id', 0);
+        $selectedGuruId = 0;
+
+        [$halaqohIds, $selectedHalaqoh] = $this->resolveHalaqohIdsForRekap($user, $selectedHalaqohId, $selectedGuruId);
+        if ($halaqohIds->isEmpty()) {
+            abort(403, 'Anda tidak memiliki halaqoh yang dapat direkap.');
         }
 
         $selectedSantriId = $request->query('santri_id');
 
-        $query = HafalanQuran::where('halaqoh_id', $halaqoh->id)
+        $query = HafalanQuran::whereIn('halaqoh_id', $halaqohIds)
             ->with(['santri:id,nama'])
             ->orderByDesc('tanggal_setor');
 
@@ -196,19 +193,38 @@ class SetoranHafalanController extends Controller
             : $this->hitungRekapHafalanGabungan($collection);
 
         $scoreSummary = $this->buildAverageScoreSummary($collection);
-        $santriOptions = $halaqoh->santri()
-            ->select(['id', 'nama'])
-            ->orderBy('nama')
+        $santriOptions = \App\Models\Santri::whereHas('halaqoh', fn($q) => $q->whereIn('halaqoh.id', $halaqohIds))
+            ->select('santri.id', 'santri.nama')
+            ->orderBy('santri.nama')
+            ->get();
+
+        $accessibleUnitIds = $this->getAccessibleUnitIds($user);
+        $unitNames = \App\Models\Unit::whereIn('id', $accessibleUnitIds)->pluck('nama_unit')->all();
+
+        $halaqohLabel = $selectedHalaqoh?->nama_halaqoh ?: 'Semua Halaqoh';
+        $guruLabel = $selectedHalaqoh?->guru?->nama ?: ($selectedGuruId ? 'Guru tidak ditemukan' : 'Semua Guru');
+        $unitLabel = $user?->unit?->nama_unit ?: ($unitNames ? implode(' / ', $unitNames) : 'Semua Unit Tahfizh');
+
+        $halaqohOptions = Halaqoh::query()
+            ->whereIn('unit_id', $accessibleUnitIds)
+            ->select('id', 'nama_halaqoh')
+            ->orderBy('nama_halaqoh')
             ->get();
 
         return view('guru.setoran.rekap', [
             'data' => $collection,
             'rekap' => $rekap,
-            'halaqoh' => $halaqoh,
+            'halaqoh' => $selectedHalaqoh,
             'totalSetoran' => $collection->count(),
             'santriOptions' => $santriOptions,
             'selectedSantriId' => $selectedSantriId ?: 'all',
             'scoreSummary' => $scoreSummary,
+            'halaqohLabel' => $halaqohLabel,
+            'guruLabel' => $guruLabel,
+            'unitLabel' => $unitLabel,
+            'halaqohOptions' => $halaqohOptions,
+            'selectedHalaqohId' => $selectedHalaqohId,
+            'selectedGuruId' => $selectedGuruId,
         ]);
     }
 
@@ -246,6 +262,94 @@ class SetoranHafalanController extends Controller
         $totals['progress_juz'] = round($totals['progress_juz'] / $groupCount, 2);
 
         return $totals;
+    }
+
+    protected function resolveHalaqohIdsForRekap($user, int $selectedHalaqohId = 0, int $selectedGuruId = 0): array
+    {
+        // Superadmin bebas pilih.
+        if ($user?->role === 'superadmin') {
+            $baseQuery = Halaqoh::query();
+            if ($selectedGuruId) {
+                $baseQuery->where('guru_id', $selectedGuruId);
+            }
+            $ids = $selectedHalaqohId
+                ? $baseQuery->where('id', $selectedHalaqohId)->pluck('id')
+                : $baseQuery->pluck('id');
+
+            return [$ids, $selectedHalaqohId ? $baseQuery->first() : null];
+        }
+
+        // Role/jabatan tahfizh khusus.
+        if ($this->canAccessTahfizhPrivileged($user)) {
+            $unitIds = $this->getAccessibleUnitIds($user);
+            $query = Halaqoh::query()->whereIn('unit_id', $unitIds);
+            if ($selectedGuruId) {
+                $query->where('guru_id', $selectedGuruId);
+            }
+            $ids = $selectedHalaqohId
+                ? $query->where('id', $selectedHalaqohId)->pluck('id')
+                : $query->pluck('id');
+
+            return [$ids, $selectedHalaqohId ? $query->first() : null];
+        }
+
+        // Pengampu biasa.
+        $linkedGuruId = $user?->ensureLinkedGuruId();
+        if (! $linkedGuruId) {
+            return [collect(), null];
+        }
+
+        $halaqoh = Halaqoh::where('guru_id', $linkedGuruId)->first();
+        return [$halaqoh ? collect([$halaqoh->id]) : collect(), $halaqoh];
+    }
+
+    protected function canAccessTahfizhPrivileged($user): bool
+    {
+        $priv = [
+            'kabag_kesantrian_putra',
+            'kabag_kesantrian_putri',
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
+            'koordinator_tahfizh_putra',
+            'koordinator_tahfizh_putri',
+        ];
+
+        $aliases = [
+            'koordinator_tahfizh_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfizh_putri' => 'koor_tahfizh_putri',
+            'koordinator_tahfiz_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfiz_putri' => 'koor_tahfizh_putri',
+        ];
+
+        if ($user?->hasAnyRole($priv)) {
+            return true;
+        }
+
+        $jabatanSlugs = collect($user?->jabatans?->pluck('slug')->toArray() ?? [])
+            ->map(fn ($slug) => strtolower($slug))
+            ->map(fn ($slug) => $aliases[$slug] ?? $slug)
+            ->unique()
+            ->all();
+
+        return collect($priv)->contains(fn ($role) => in_array($role, $jabatanSlugs, true));
+    }
+
+    protected function getAccessibleUnitIds($user): array
+    {
+        if (! $user?->unit_id) {
+            return [];
+        }
+
+        $unit = \App\Models\Unit::find($user->unit_id);
+        if ($unit && str_contains(strtolower($unit->nama_unit), 'pondok pesantren as-sunnah')) {
+            return \App\Models\Unit::whereIn('nama_unit', [
+                'Pondok Pesantren As-Sunnah Gorontalo',
+                'MTS As-Sunnah Gorontalo',
+                'MA As-Sunnah Limboto Barat',
+            ])->pluck('id')->all();
+        }
+
+        return [$user->unit_id];
     }
 
     private function buildAverageScoreSummary($collection): array
@@ -521,5 +625,3 @@ class SetoranHafalanController extends Controller
     }
 
 }
-
-

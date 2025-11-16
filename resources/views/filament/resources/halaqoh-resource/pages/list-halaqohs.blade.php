@@ -8,7 +8,31 @@
     @php
         $currentUser = auth()->user();
         $unitName = $currentUser?->unit->nama_unit ?? 'Semua Unit';
-        $roleName = $currentUser?->roles?->pluck('name')->implode(', ') ?: ($currentUser->role ?? '-');
+        // Prioritas tampilan role: dahulukan Kabag Kesantrian, lalu Koor Tahfizh, lalu koordinator lama.
+        $rolePriorities = [
+            'kabag_kesantrian_putra',
+            'kabag_kesantrian_putri',
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
+            'koordinator_tahfizh_putra',
+            'koordinator_tahfizh_putri',
+        ];
+        $roleAliases = [
+            'koordinator_tahfizh_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfizh_putri' => 'koor_tahfizh_putri',
+            'koordinator_tahfiz_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfiz_putri' => 'koor_tahfizh_putri',
+            'koordinator_tahfihz_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfihz_putri' => 'koor_tahfizh_putri',
+        ];
+        $userRoles = collect($currentUser?->roles?->pluck('name')->toArray() ?? [])
+            ->merge($currentUser?->jabatans?->pluck('slug')->toArray() ?? [])
+            ->map(fn ($r) => strtolower($r))
+            ->map(fn ($r) => $roleAliases[$r] ?? $r)
+            ->unique()
+            ->values();
+        $primaryRole = collect($rolePriorities)->first(fn ($r) => $userRoles->contains($r));
+        $roleName = $primaryRole ? strtoupper($primaryRole) : '-';
         $unassigned = max($this->totalHalaqoh - $this->totalPengampu, 0);
     @endphp
 
@@ -25,7 +49,7 @@
                 <div class="setoran-pill-row flex flex-wrap gap-3 text-sm font-semibold mt-4">
                     <span class="setoran-pill">Unit: {{ $unitName }}</span>
                     <span class="setoran-pill">Pengguna: {{ $currentUser?->name ?? '-' }}</span>
-                    <span class="setoran-pill">Role: {{ strtoupper($roleName) }}</span>
+                    <span class="setoran-pill">Role: {{ $roleName }}</span>
                 </div>
             </div>
             <div class="setoran-hero__actions">
@@ -422,4 +446,3 @@
         </style>
     @endpush
 </x-filament-panels::page>
-

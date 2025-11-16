@@ -11,7 +11,7 @@ class TahfizhDashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
 
-    protected static ?string $navigationLabel = 'Tahfizh Dashboard';
+    protected static ?string $navigationLabel = 'Dashboard Tahfizh';
 
     protected static ?string $navigationGroup = 'Tahfizh';
 
@@ -28,6 +28,8 @@ class TahfizhDashboard extends Page
         'kabag_kesantrian_putri',
         'koordinator_tahfizh_putra',
         'koordinator_tahfizh_putri',
+        'koor_tahfizh_putra',
+        'koor_tahfizh_putri',
     ];
 
     public function mount(): void

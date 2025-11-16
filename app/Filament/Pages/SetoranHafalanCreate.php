@@ -52,6 +52,8 @@ class SetoranHafalanCreate extends Page
             'guru',
             'koordinator_tahfizh_putra',
             'koordinator_tahfizh_putri',
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
         ]);
     }
 }

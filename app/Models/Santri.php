@@ -9,6 +9,8 @@ use App\Models\AbsensiMapel;
 use App\Models\SakitSantri;
 use App\Models\PelanggaranSantri;
 use App\Models\Nilai;
+use App\Models\Asrama;
+use App\Models\SantriHealthLog;
 
 class Santri extends Model
 {
@@ -23,11 +25,13 @@ class Santri extends Model
         'jenis_kelamin', // 'L' / 'P'
         'unit_id',
         'tahun_masuk',
+        'asrama_id',
     ];
 
     protected $casts = [
         'unit_id' => 'integer',
         'tahun_masuk' => 'integer',
+        'asrama_id' => 'integer',
     ];
 
     /* =========================
@@ -62,6 +66,11 @@ class Santri extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function asrama()
+    {
+        return $this->belongsTo(Asrama::class, 'asrama_id');
     }
 
     public function halaqoh()
@@ -142,5 +151,10 @@ class Santri extends Model
     public function nilai()
     {
         return $this->hasMany(Nilai::class, 'santri_id');
+    }
+
+    public function healthLogs()
+    {
+        return $this->hasMany(SantriHealthLog::class, 'santri_id');
     }
 }

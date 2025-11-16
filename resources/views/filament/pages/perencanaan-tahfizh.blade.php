@@ -23,7 +23,33 @@
                 Tetapkan rentang juz–surah–ayat untuk tiap santri, lihat ringkasan otomatis, lalu simpan agar terhubung dengan panel setoran.
             </p>
             <div class="flex flex-wrap gap-3 text-sm font-semibold">
-                <span class="setoran-create__badge">Peran: Koordinator Tahfizh</span>
+                @php
+                    $viewer = auth()->user();
+                    $rolePriorities = [
+                        'kabag_kesantrian_putra',
+                        'kabag_kesantrian_putri',
+                        'koor_tahfizh_putra',
+                        'koor_tahfizh_putri',
+                        'koordinator_tahfizh_putra',
+                        'koordinator_tahfizh_putri',
+                    ];
+                    $roleAliases = [
+                        'koordinator_tahfizh_putra' => 'koor_tahfizh_putra',
+                        'koordinator_tahfizh_putri' => 'koor_tahfizh_putri',
+                        'koordinator_tahfiz_putra' => 'koor_tahfizh_putra',
+                        'koordinator_tahfiz_putri' => 'koor_tahfizh_putri',
+                        'koordinator_tahfihz_putra' => 'koor_tahfizh_putra',
+                        'koordinator_tahfihz_putri' => 'koor_tahfizh_putri',
+                    ];
+                    $rolePool = collect($viewer?->roles?->pluck('name')->toArray() ?? [])
+                        ->merge($viewer?->jabatans?->pluck('slug')->toArray() ?? [])
+                        ->map(fn ($r) => strtolower($r))
+                        ->map(fn ($r) => $roleAliases[$r] ?? $r)
+                        ->unique();
+                    $primaryRole = collect($rolePriorities)->first(fn ($r) => $rolePool->contains($r));
+                    $roleLabel = $primaryRole ? strtoupper($primaryRole) : 'ROLE TIDAK DITEMUKAN';
+                @endphp
+                <span class="setoran-create__badge">Peran: {{ $roleLabel }}</span>
                 <span class="setoran-create__badge">Rentang: Juz → Surah → Ayat</span>
             </div>
         </div>

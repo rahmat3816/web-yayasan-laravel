@@ -6,6 +6,13 @@
     $totalSetoran = $totalSetoran ?? $data->count();
     $santriOptions = $santriOptions ?? collect();
     $selectedSantriId = $selectedSantriId ?? 'all';
+    $halaqohOptions = $halaqohOptions ?? collect();
+    $guruOptions = $guruOptions ?? collect();
+    $selectedHalaqohId = $selectedHalaqohId ?? 0;
+    $selectedGuruId = $selectedGuruId ?? 0;
+    $halaqohLabel = $halaqohLabel ?? ($halaqoh->nama_halaqoh ?? '-');
+    $guruLabel = $guruLabel ?? ($halaqoh->guru->nama ?? 'Belum ditentukan');
+    $unitLabel = $unitLabel ?? ($halaqoh->unit->nama_unit ?? '-');
     $scoreSummary = $scoreSummary ?? [
         'tajwid' => ['average' => 0, 'grade' => '-'],
         'mutqin' => ['average' => 0, 'grade' => '-'],
@@ -15,28 +22,39 @@
 
 <div class="setoran-wrapper space-y-10">
     <section class="setoran-hero">
-        <div class="setoran-hero__content">
-            <div class="space-y-4">
-                <p class="setoran-eyebrow">Rekap Setoran</p>
-                <h1 class="text-3xl md:text-4xl font-semibold leading-tight">Ringkasan Setoran Halaqoh</h1>
-                <div class="flex flex-wrap gap-3 text-sm font-semibold">
-                    <span class="setoran-pill">Halaqoh: {{ $halaqoh->nama_halaqoh ?? '-' }}</span>
-                    <span class="setoran-pill">Guru: {{ $halaqoh->guru->nama ?? 'Belum ditentukan' }}</span>
-                    <span class="setoran-pill">Unit: {{ $halaqoh->unit->nama_unit ?? '-' }}</span>
-                </div>
-                <form method="GET" class="santri-filter-form space-y-2 sm:space-y-0 sm:flex sm:items-center sm:gap-3">
+            <div class="setoran-hero__content w-full">
+                <div class="space-y-4">
+                    <p class="setoran-eyebrow">Rekap Setoran</p>
+                    <h1 class="text-3xl md:text-4xl font-semibold leading-tight">Ringkasan Setoran Halaqoh</h1>
+                    <div class="flex flex-wrap gap-3 text-sm font-semibold">
+                        <span class="setoran-pill">Unit: {{ $unitLabel }}</span>
+                    </div>
+                <form method="GET" class="flex flex-col sm:flex-row sm:items-end gap-4 santri-filter-form w-full">
                     @foreach(request()->except('santri_id') as $name => $value)
                         <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                     @endforeach
-                    <label for="santri-filter-select" class="text-xs uppercase tracking-wide text-white/80 font-semibold">Filter Santri</label>
-                    <select id="santri-filter-select" name="santri_id" class="setoran-select santri-filter-select sm:w-auto">
-                        <option value="all" @selected($selectedSantriId === 'all')>Semua Santri</option>
-                        @foreach ($santriOptions as $option)
-                            <option value="{{ $option->id }}" @selected((string) $selectedSantriId === (string) $option->id)>
-                                {{ $option->nama }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <label class="text-xs uppercase tracking-wide text-white/80 font-semibold flex-1">
+                        <span>Filter Halaqoh</span>
+                        <select name="halaqoh_id" class="setoran-select santri-filter-select w-full mt-2 text-base py-3 px-4" onchange="this.form.submit()">
+                            <option value="">Semua Halaqoh</option>
+                            @foreach ($halaqohOptions as $option)
+                                <option value="{{ $option->id }}" @selected((int) $selectedHalaqohId === (int) $option->id)>
+                                    H{{ $option->id }} - {{ $option->nama_halaqoh }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                    <label for="santri-filter-select" class="text-xs uppercase tracking-wide text-white/80 font-semibold flex-1">
+                        <span>Filter Santri</span>
+                        <select id="santri-filter-select" name="santri_id" class="setoran-select santri-filter-select w-full mt-2 text-base py-3 px-4" onchange="this.form.submit()">
+                            <option value="all" @selected($selectedSantriId === 'all')>Semua Santri</option>
+                            @foreach ($santriOptions as $option)
+                                <option value="{{ $option->id }}" @selected((string) $selectedSantriId === (string) $option->id)>
+                                    {{ $option->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
                 </form>
             </div>
             <div class="setoran-hero__actions"></div>
@@ -305,7 +323,7 @@
         border-radius: 1rem;
         padding: 0.9rem 1.2rem;
         width: 100%;
-        max-width: 380px;
+        max-width: 100%;
         backdrop-filter: blur(6px);
     }
 
@@ -857,6 +875,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 @endpush
 </x-filament::page>
-
-
-

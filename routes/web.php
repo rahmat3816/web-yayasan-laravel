@@ -18,6 +18,7 @@ use App\Http\Controllers\WaliController;
 use App\Http\Controllers\Dashboard\PimpinanDashboardController;
 use App\Http\Controllers\Dashboard\TahfizhDashboardController;
 use App\Http\Controllers\Modules\KesantrianTahfizhController;
+use App\Http\Controllers\Modules\KesantrianModuleController;
 use App\Http\Controllers\Program\TahfizhQuranProgramController;
 
 // ===============================
@@ -333,11 +334,11 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:mudir_pondok|naibul_mudir|naibatul_mudir|superadmin')
         ->name('module.mudir');
 
-    Route::view('/modul/kesantrian-putra', 'modules.kesantrian-putra')
+    Route::get('/modul/kesantrian-putra', [KesantrianModuleController::class, 'putra'])
         ->middleware('role:kabag_kesantrian_putra|superadmin')
         ->name('module.kesantrian.putra');
 
-    Route::view('/modul/kesantrian-putri', 'modules.kesantrian-putri')
+    Route::get('/modul/kesantrian-putri', [KesantrianModuleController::class, 'putri'])
         ->middleware('role:kabag_kesantrian_putri|superadmin')
         ->name('module.kesantrian.putri');
 

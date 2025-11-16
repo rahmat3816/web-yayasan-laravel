@@ -24,11 +24,16 @@ class SetoranHafalan extends Page
         'kabag_kesantrian_putri',
         'koordinator_tahfizh_putra',
         'koordinator_tahfizh_putri',
+        'koor_tahfizh_putra',
+        'koor_tahfizh_putri',
     ];
 
     public function mount(): void
     {
-        abort_unless(static::canView(), 403);
+        if (! static::canView()) {
+            $this->data = ['forbidden' => true];
+            return;
+        }
 
         $controller = app(SetoranHafalanController::class);
         $response = $controller->index(request());

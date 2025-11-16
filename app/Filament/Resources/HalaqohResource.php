@@ -34,6 +34,8 @@ class HalaqohResource extends Resource
             'kabag_kesantrian_putri',
             'koordinator_tahfizh_putra',
             'koordinator_tahfizh_putri',
+            'koor_tahfizh_putra',
+            'koor_tahfizh_putri',
         ]) ?? false;
     }
 
@@ -137,7 +139,7 @@ class HalaqohResource extends Resource
         $user = auth()->user();
 
         if ($user && ! $user->hasRole('superadmin') && $user->unit_id) {
-            $query->where('unit_id', $user->unit_id);
+            $query->whereIn('unit_id', static::getAccessibleUnitIds($user));
         }
 
         return $query;
@@ -175,7 +177,11 @@ class HalaqohResource extends Resource
     protected static function getUnitOptions(): array
     {
         return Unit::query()
-            ->when(!static::userIsSuperadmin(), fn ($q) => $q->where('id', static::getDefaultUnitId()))
+            ->when(!static::userIsSuperadmin(), function ($q) {
+                $user = auth()->user();
+                $unitIds = static::getAccessibleUnitIds($user);
+                $q->whereIn('id', $unitIds ?: [0]);
+            })
             ->orderBy('nama_unit')
             ->pluck('nama_unit', 'id')
             ->toArray();
@@ -184,10 +190,11 @@ class HalaqohResource extends Resource
     protected static function getGuruOptions(?int $unitId = null, ?int $currentGuruId = null): array
     {
         $gender = static::getGenderScope();
+        $unitIds = $unitId ? [$unitId] : static::getAccessibleUnitIds(auth()->user());
 
         return Guru::query()
             ->select('id', 'nama')
-            ->when($unitId, fn ($q) => $q->where('unit_id', $unitId))
+            ->when($unitIds, fn ($q) => $q->whereIn('unit_id', $unitIds))
             ->when($gender, fn ($q) => $q->where('jenis_kelamin', $gender))
             ->where(fn ($q) => $q
                 ->whereDoesntHave('halaqoh')
@@ -196,5 +203,23 @@ class HalaqohResource extends Resource
             ->orderBy('nama')
             ->pluck('nama', 'id')
             ->toArray();
+    }
+
+    protected static function getAccessibleUnitIds($user): array
+    {
+        if (! $user?->unit_id) {
+            return [];
+        }
+
+        $unit = Unit::find($user->unit_id);
+        if ($unit && str_contains(strtolower($unit->nama_unit), 'pondok pesantren as-sunnah')) {
+            return Unit::whereIn('nama_unit', [
+                'Pondok Pesantren As-Sunnah Gorontalo',
+                'MTS As-Sunnah Gorontalo',
+                'MA As-Sunnah Limboto Barat',
+            ])->pluck('id')->all();
+        }
+
+        return [$user->unit_id];
     }
 }

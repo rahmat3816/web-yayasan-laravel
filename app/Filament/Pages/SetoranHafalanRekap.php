@@ -28,6 +28,8 @@ class SetoranHafalanRekap extends Page
         'kabag_kesantrian_putri',
         'koordinator_tahfizh_putra',
         'koordinator_tahfizh_putri',
+        'koor_tahfizh_putra',
+        'koor_tahfizh_putri',
     ];
 
     protected array $data = [];
@@ -67,7 +69,7 @@ class SetoranHafalanRekap extends Page
             return false;
         }
 
-        if ($user->hasAnyRole(self::PRIVILEGED_ROLES)) {
+        if ($user->hasAnyRole(self::PRIVILEGED_ROLES) || static::hasTahfizhJabatan($user)) {
             return true;
         }
 
@@ -91,5 +93,35 @@ class SetoranHafalanRekap extends Page
         }
 
         return Halaqoh::where('guru_id', $guruId)->exists();
+    }
+
+    protected static function hasTahfizhJabatan($user): bool
+    {
+        $aliases = [
+            'koordinator_tahfizh_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfizh_putri' => 'koor_tahfizh_putri',
+            'koordinator_tahfiz_putra' => 'koor_tahfizh_putra',
+            'koordinator_tahfiz_putri' => 'koor_tahfizh_putri',
+        ];
+
+        $jabatanSlugs = collect($user?->jabatans?->pluck('slug')->toArray() ?? [])
+            ->map(fn ($slug) => strtolower($slug))
+            ->map(fn ($slug) => $aliases[$slug] ?? $slug)
+            ->unique()
+            ->all();
+
+        // Cek juga jabatan yang terikat ke guru terkait user (jika pivot menggunakan guru_id).
+        if ($user?->linked_guru_id) {
+            $guruJabatanSlugs = \DB::table('guru_jabatan')
+                ->join('jabatan', 'jabatan.id', '=', 'guru_jabatan.jabatan_id')
+                ->where('guru_jabatan.guru_id', $user->linked_guru_id)
+                ->pluck('jabatan.slug')
+                ->map(fn ($slug) => strtolower($slug))
+                ->map(fn ($slug) => $aliases[$slug] ?? $slug)
+                ->all();
+            $jabatanSlugs = array_unique(array_merge($jabatanSlugs, $guruJabatanSlugs));
+        }
+
+        return collect(self::PRIVILEGED_ROLES)->contains(fn ($role) => in_array($role, $jabatanSlugs, true));
     }
 }

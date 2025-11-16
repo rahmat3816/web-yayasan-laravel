@@ -135,4 +135,19 @@ class GuruObserver
 
         return $username;
     }
+
+    /**
+     * Saat Guru dihapus: bersihkan akun User tertaut agar tidak tersisa di database.
+     */
+    public function deleted(Guru $guru): void
+    {
+        $user = $this->findLinkedUser($guru);
+
+        if (! $user) {
+            return;
+        }
+
+        // Putuskan tautan dan hapus akun supaya tidak ada akses tersisa.
+        $user->delete();
+    }
 }
