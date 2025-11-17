@@ -10,17 +10,6 @@
     </x-filament::section>
 
     <x-filament::section>
-        <x-slot name="heading">Dashboard Kesehatan</x-slot>
-        <x-filament-widgets::widgets
-            :widgets="[
-                \App\Filament\Widgets\KesehatanSummaryWidget::class,
-                \App\Filament\Widgets\KesehatanTrendChart::class,
-            ]"
-            :columns="['default' => 1]"
-        />
-    </x-filament::section>
-
-    <x-filament::section>
         <x-slot name="heading">Dashboard Keamanan</x-slot>
         <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada widget khusus. Silakan tambahkan bila sudah siap.</p>
     </x-filament::section>

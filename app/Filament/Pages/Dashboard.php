@@ -3,15 +3,16 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Dashboard as BaseDashboard;
+use Filament\Widgets;
 
 class Dashboard extends BaseDashboard
 {
-    /**
-     * Sembunyikan semua widget di dashboard utama.
-     * Widget kesehatan tetap tersedia di halaman khusus (Kesantrian / Kesehatan).
-     */
     public function getWidgets(): array
     {
-        return [];
+        // Tampilkan widget umum saja; widget Kesehatan ditempatkan di halaman khusus.
+        return [
+            Widgets\AccountWidget::class,
+            Widgets\FilamentInfoWidget::class,
+        ];
     }
 }

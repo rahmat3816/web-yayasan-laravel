@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MusyrifAssignmentResource\Pages;
 use App\Models\MusyrifAssignment;
+use App\Models\Unit;
+use App\Models\Guru;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -35,7 +37,16 @@ class MusyrifAssignmentResource extends Resource
             ->schema([
                 Forms\Components\Select::make('guru_id')
                     ->label('Guru (Musyrif/Musyrifah)')
-                    ->relationship('guru', 'nama')
+                    ->relationship('guru', 'nama', function ($query) {
+                        $allowedUnitIds = static::allowedUnitIds();
+                        $genderScope = static::genderScope();
+
+                        $query->whereIn('unit_id', $allowedUnitIds);
+
+                        if ($genderScope) {
+                            $query->where('jenis_kelamin', $genderScope);
+                        }
+                    })
                     ->searchable()
                     ->preload()
                     ->required(),
@@ -116,5 +127,35 @@ class MusyrifAssignmentResource extends Resource
         return [
             'index' => Pages\ManageMusyrifAssignments::route('/'),
         ];
+    }
+
+    protected static function allowedUnitIds(): array
+    {
+        return Unit::whereIn('nama_unit', [
+            'Pondok Pesantren As-Sunnah Gorontalo',
+            'MTS As-Sunnah Gorontalo',
+            'MA As-Sunnah Limboto Barat',
+        ])->pluck('id')->all();
+    }
+
+    protected static function genderScope(): ?string
+    {
+        $user = auth()->user();
+        if (! $user) {
+            return null;
+        }
+
+        $roles = collect($user->roles?->pluck('name')->toArray() ?? [])
+            ->map(fn ($r) => strtolower($r));
+
+        if ($roles->contains(fn ($r) => str_contains($r, 'putri'))) {
+            return 'P';
+        }
+
+        if ($roles->contains(fn ($r) => str_contains($r, 'putra'))) {
+            return 'L';
+        }
+
+        return null;
     }
 }

@@ -111,10 +111,10 @@ class SetoranHafalanRekap extends Page
             ->all();
 
         // Cek juga jabatan yang terikat ke guru terkait user (jika pivot menggunakan guru_id).
-        if ($user?->linked_guru_id) {
+        if ($user?->id) {
             $guruJabatanSlugs = \DB::table('guru_jabatan')
                 ->join('jabatan', 'jabatan.id', '=', 'guru_jabatan.jabatan_id')
-                ->where('guru_jabatan.guru_id', $user->linked_guru_id)
+                ->where('guru_jabatan.user_id', $user->id)
                 ->pluck('jabatan.slug')
                 ->map(fn ($slug) => strtolower($slug))
                 ->map(fn ($slug) => $aliases[$slug] ?? $slug)

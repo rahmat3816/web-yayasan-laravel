@@ -159,6 +159,7 @@ class SantriHealthLogResource extends Resource
                     ->options(fn () => PenangananSementara::orderBy('urutan')->pluck('nama', 'id'))
                     ->searchable()
                     ->preload()
+                    ->hidden(fn () => ! auth()->user()?->hasKesehatanFullAccess())
                     ->required(fn () => auth()->user()?->hasKesehatanFullAccess())
                     ->reactive()
                     ->afterStateUpdated(function ($state, callable $set) {
@@ -175,9 +176,11 @@ class SantriHealthLogResource extends Resource
                 Forms\Components\TextInput::make('penanganan_sementara')
                     ->label('Catatan Penanganan')
                     ->placeholder('Tambahkan catatan singkat jika perlu')
-                    ->maxLength(150),
+                    ->maxLength(150)
+                    ->hidden(fn () => ! auth()->user()?->hasKesehatanFullAccess()),
                 Forms\Components\Toggle::make('perlu_rujukan')
-                    ->label('Perlu Rujukan Lanjut?'),
+                    ->label('Perlu Rujukan Lanjut?')
+                    ->hidden(fn () => ! auth()->user()?->hasKesehatanFullAccess()),
                 Forms\Components\Hidden::make('reporter_id')
                     ->default(fn () => auth()->user()?->linked_guru_id ?? auth()->user()?->ensureLinkedGuruId(auth()->user()?->name)),
                 Forms\Components\Hidden::make('musyrif_assignment_id')
@@ -276,7 +279,14 @@ class SantriHealthLogResource extends Resource
                             ->content($record->keluhan ?? '-'),
                         Forms\Components\Select::make('penanganan_id')
                             ->label('Penanganan Sementara')
-                            ->options(fn () => PenangananSementara::orderBy('urutan')->pluck('nama', 'id'))
+                            ->options(function () {
+                                $query = PenangananSementara::orderBy('urutan');
+                                if (! auth()->user()?->hasKesantrianManagementAccess()) {
+                                    $query->whereNotIn('slug', self::$rujukSlugs);
+                                }
+
+                                return $query->pluck('nama', 'id');
+                            })
                             ->searchable()
                             ->preload()
                             ->required(),
