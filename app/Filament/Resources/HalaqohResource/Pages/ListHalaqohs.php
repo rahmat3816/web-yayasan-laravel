@@ -4,7 +4,7 @@ namespace App\Filament\Resources\HalaqohResource\Pages;
 
 use App\Filament\Resources\HalaqohResource;
 use App\Models\Halaqoh;
-use App\Models\Unit;
+use App\Support\TahfizhQuran;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
@@ -60,7 +60,7 @@ class ListHalaqohs extends ListRecords
         $user = auth()->user();
 
         if ($user && ! $user->hasRole('superadmin')) {
-            $unitIds = $this->getAccessibleUnitIds($user);
+            $unitIds = TahfizhQuran::accessibleUnitIds($user);
             if (! empty($unitIds)) {
                 $query->whereIn('unit_id', $unitIds);
             }
@@ -71,20 +71,6 @@ class ListHalaqohs extends ListRecords
 
     protected function getAccessibleUnitIds($user): array
     {
-        if (! $user?->unit_id) {
-            return [];
-        }
-
-        // Jika user berada di unit Pondok, tampilkan juga MTS & MA.
-        $unit = Unit::find($user->unit_id);
-        if ($unit && str_contains(strtolower($unit->nama_unit), 'pondok pesantren as-sunnah')) {
-            return Unit::whereIn('nama_unit', [
-                'Pondok Pesantren As-Sunnah Gorontalo',
-                'MTS As-Sunnah Gorontalo',
-                'MA As-Sunnah Limboto Barat',
-            ])->pluck('id')->all();
-        }
-
-        return [$user->unit_id];
+        return TahfizhQuran::accessibleUnitIds($user);
     }
 }

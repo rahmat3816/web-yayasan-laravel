@@ -22,10 +22,6 @@
     </section>
 
     <section class="hadits-dashboard-stats">
-        <article class="dashboard-card dashboard-card--neutral">
-            <p class="dashboard-card__label">Total Hadits</p>
-            <p class="dashboard-card__value">{{ number_format($stats['total_hadits'] ?? 0) }}</p>
-        </article>
         <article class="dashboard-card">
             <p class="dashboard-card__label">Target Terdaftar</p>
             <p class="dashboard-card__value">{{ number_format($stats['total_targets'] ?? 0) }}</p>
@@ -81,9 +77,9 @@
 
     @if (!empty($kitabAchievements))
         <section class="dashboard-widget">
-            <div class="dashboard-widget__header">
-                <h2>Capaian Target per Kitab</h2>
-                <p>Total hadits vs setoran untuk masing-masing kitab.</p>
+                    <div class="dashboard-widget__header">
+                        <h2>Capaian Target per Kitab</h2>
+                        <p>Total hadits vs setoran untuk masing-masing kitab.</p>
             </div>
             <div class="overflow-x-auto">
                 <table class="dashboard-table">

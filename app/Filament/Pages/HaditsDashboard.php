@@ -71,18 +71,18 @@ class HaditsDashboard extends Page
     protected function loadStats(): void
     {
         $targetsQuery = HaditsTarget::query()
-            ->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()));
-
-        $totalTargets = $targetsQuery->count();
+            ->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()))
+            ->when($this->selectedSantriId, fn ($q) => $q->where('santri_id', $this->selectedSantriId));
 
         $setoranQuery = HaditsSetoran::query()
-            ->whereHas('target.santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()));
+            ->whereHas('target.santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()))
+            ->when($this->selectedSantriId, fn ($q) => $q->whereHas('target', fn ($sub) => $sub->where('santri_id', $this->selectedSantriId)));
 
+        $totalTargets = $targetsQuery->count();
         $totalSetorans = $setoranQuery->count();
         $avgMutqin = round((float) (clone $setoranQuery)->whereNotNull('nilai_mutqin')->avg('nilai_mutqin'), 1);
 
         $this->stats = [
-            'total_hadits' => Hadits::count(),
             'total_targets' => $totalTargets,
             'total_setorans' => $totalSetorans,
             'capaian' => $totalTargets > 0 ? round(($totalSetorans / $totalTargets) * 100, 1) : 0,

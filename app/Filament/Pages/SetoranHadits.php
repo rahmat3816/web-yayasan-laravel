@@ -3,7 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Http\Controllers\Tahfizh\HaditsSetoranPageController;
-use App\Support\TahfizhHadits;
+use App\Models\Halaqoh;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -23,7 +23,6 @@ class SetoranHadits extends Page
     protected static string $view = 'filament.pages.setoran-hadits';
 
     protected array $data = [];
-
     public function mount(): void
     {
         if (! static::canView()) {
@@ -51,16 +50,35 @@ class SetoranHadits extends Page
             return false;
         }
 
-        if (TahfizhHadits::userHasAccess($user)) {
+        if ($user->hasRole('superadmin')) {
             return true;
         }
 
-        return ! empty(TahfizhHadits::accessibleSantriIds($user));
+        return static::guruIsPengampu($user);
     }
 
     public static function shouldRegisterNavigation(): bool
     {
         return static::canView();
+    }
+
+    protected static function guruIsPengampu($user): bool
+    {
+        if (! $user?->hasRole('guru')) {
+            return false;
+        }
+
+        $guruId = $user->linked_guru_id ?? $user->guru?->id;
+
+        if (! $guruId && method_exists($user, 'ensureLinkedGuruId')) {
+            $guruId = $user->ensureLinkedGuruId($user->name);
+        }
+
+        if (! $guruId) {
+            return false;
+        }
+
+        return Halaqoh::where('guru_id', $guruId)->exists();
     }
 
     public function getHeading(): string|\Illuminate\Contracts\Support\Htmlable

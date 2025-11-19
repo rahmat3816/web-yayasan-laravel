@@ -34,6 +34,7 @@
             ->unique();
         $primaryRole = collect($rolePriorities)->first(fn ($role) => $rolePool->contains($role));
         $roleLabel = $primaryRole ? Str::upper($primaryRole) : 'ROLE TIDAK DITEMUKAN';
+        $filters = $filterState ?? ['santri_id' => null, 'tahun' => null, 'semester' => null];
     @endphp
 
     <div class="planner-layout space-y-8 max-w-5xl mx-auto w-full">
@@ -165,7 +166,37 @@
             <section class="setoran-card targets-table">
                 <div class="targets-table__header">
                     <h3 class="text-xl font-semibold text-slate-800 dark:text-white">Daftar Target Hadits</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-300">Data ditampilkan berdasarkan entri terbaru.</p>
+                    <form method="GET" class="flex flex-wrap gap-4 items-end">
+                        <div>
+                            <label class="targets-filter__label">Santri</label>
+                            <select name="filter_santri" class="targets-filter__select" onchange="this.form.submit()">
+                                <option value="">Semua Santri</option>
+                                @foreach ($santriOptions as $santri)
+                                    <option value="{{ $santri->id }}" @selected((string) $filters['santri_id'] === (string) $santri->id)>
+                                        {{ $santri->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="targets-filter__label">Tahun</label>
+                            <select name="filter_tahun" class="targets-filter__select" onchange="this.form.submit()">
+                                <option value="">Semua Tahun</option>
+                                @foreach ($yearOptions ?? [] as $year)
+                                    <option value="{{ $year }}" @selected((string) $filters['tahun'] === (string) $year)>{{ $year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="targets-filter__label">Semester</label>
+                            <select name="filter_semester" class="targets-filter__select" onchange="this.form.submit()">
+                                <option value="">Semua Semester</option>
+                                @foreach (($semesterOptions ?? []) as $value => $label)
+                                    <option value="{{ $value }}" @selected($filters['semester'] === $value)>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="targets-table__body">
                     <div class="targets-table__content">
@@ -222,20 +253,42 @@
             const kitabInfo = document.getElementById('kitabInfo');
             const rangeSummary = document.getElementById('rangeSummary');
             const kitabMap = @json($kitabMap);
+            const blockedMap = @json($blockedHaditsMap ?? []);
             const halaqohMap = @json(($halaqohOptions ?? collect())->mapWithKeys(fn ($halaqoh) => [$halaqoh['id'] => $halaqoh['santri']])->toArray());
             const oldState = @json($old);
             const halaqohSelect = document.getElementById('halaqohSelect');
             const santriSelect = document.getElementById('santriSelect');
+            const tahunSelect = document.querySelector('select[name="tahun"]');
+            const semesterSelect = document.querySelector('select[name="semester"]');
+            const getBlockedIds = () => {
+                const santriId = santriSelect?.value;
+                const tahun = tahunSelect?.value;
+                const semester = semesterSelect?.value;
+                const kitab = kitabSelect.value;
+                if (!santriId || !tahun || !semester || !kitab) {
+                    return [];
+                }
+
+                const key = `${santriId}-${tahun}-${semester}-${kitab}`;
+                return blockedMap[key] ?? [];
+            };
             const renderOptions = (select, items) => {
                 select.innerHTML = '<option value=\"\">-- Pilih Hadits --</option>';
+                const blocked = new Set(getBlockedIds());
+                let availableCount = 0;
                 items.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.id;
                     option.dataset.nomor = item.nomor ?? item.id;
-                    option.textContent = `Hadits ${item.nomor ?? '?'} — ${item.judul}`;
+                    const isBlocked = blocked.has(item.id);
+                    option.textContent = `Hadits ${item.nomor ?? '?'}` + ' - ' + `${item.judul}` + (isBlocked ? ' (sudah ditargetkan)' : '');
+                    option.disabled = isBlocked;
+                    if (!isBlocked) {
+                        availableCount++;
+                    }
                     select.appendChild(option);
                 });
-                select.disabled = items.length === 0;
+                select.disabled = availableCount === 0;
             };
 
             const updateRangeSummary = () => {
@@ -270,6 +323,14 @@
                 if (!selected) {
                     santriSelect.disabled = true;
                 }
+            });
+
+            [santriSelect, tahunSelect, semesterSelect].forEach(field => {
+                field?.addEventListener('change', () => {
+                    if (kitabSelect.value) {
+                        kitabSelect.dispatchEvent(new Event('change'));
+                    }
+                });
             });
 
             kitabSelect.addEventListener('change', () => {
@@ -433,6 +494,11 @@
             font-weight: 500;
         }
 
+        .setoran-select option[disabled] {
+            color: rgba(148,163,184,0.85);
+            font-style: italic;
+        }
+
         .setoran-select:focus {
             outline: 2px solid rgba(99,102,241,0.4);
             outline-offset: 2px;
@@ -500,6 +566,15 @@
             padding: 0.6rem 0.85rem;
             color: var(--planner-text);
             font-weight: 600;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            background-image: none !important;
+            padding-right: 1.5rem;
+        }
+
+        .targets-filter__select::-ms-expand {
+            display: none;
         }
 
         html.dark .targets-filter__select {

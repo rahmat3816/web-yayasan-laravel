@@ -24,11 +24,13 @@ class HaditsTargetPlannerController extends Controller
             'santri_id' => ['required', 'integer', 'exists:santri,id'],
             'tahun' => ['required', 'integer', 'between:2020,2100'],
             'semester' => ['required', 'in:semester_1,semester_2'],
-            'status' => ['required', 'in:belum_mulai,berjalan,selesai'],
             'kitab' => ['required', 'string'],
             'hadits_start_id' => ['required', 'integer'],
             'hadits_end_id' => ['required', 'integer'],
         ]);
+
+        // Default status target ke "berjalan" agar penyimpanan tidak gagal setelah field dihilangkan dari form.
+        $data['status'] = 'berjalan';
 
         if (! TahfizhHadits::userCanManageSantri($user, (int) $data['santri_id'])) {
             return back()->withErrors(['santri_id' => 'Santri tidak berada dalam halaqoh atau unit yang Anda kelola.'])->withInput();

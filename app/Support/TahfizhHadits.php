@@ -121,7 +121,7 @@ class TahfizhHadits
 
     public static function userHasFullSantriScope(?User $user): bool
     {
-        return self::userHasManagementAccess($user);
+        return $user?->hasRole('superadmin') ?? false;
     }
 
     public static function accessibleSantriIds(?User $user): array

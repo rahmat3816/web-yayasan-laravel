@@ -139,8 +139,11 @@ class HalaqohResource extends Resource
 
         $user = auth()->user();
 
-        if ($user && ! $user->hasRole('superadmin') && $user->unit_id) {
-            $query->whereIn('unit_id', static::getAccessibleUnitIds($user));
+        if ($user && ! $user->hasRole('superadmin')) {
+            $unitIds = static::getAccessibleUnitIds($user);
+            if (! empty($unitIds)) {
+                $query->whereIn('unit_id', $unitIds);
+            }
         }
 
         return $query;

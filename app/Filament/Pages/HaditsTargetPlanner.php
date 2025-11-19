@@ -33,7 +33,12 @@ class HaditsTargetPlanner extends Page
         abort_unless(TahfizhHadits::userHasManagementAccess($user), 403);
 
         $santriIds = TahfizhHadits::accessibleSantriIds($user);
-        $hasFullScope = TahfizhHadits::userHasFullSantriScope($user);
+        $hasFullScope = TahfizhHadits::userHasManagementAccess($user);
+        $filters = [
+            'santri_id' => request()->query('filter_santri'),
+            'tahun' => request()->query('filter_tahun'),
+            'semester' => request()->query('filter_semester'),
+        ];
 
         $santriOptions = Santri::query()
             ->select('id', 'nama')
@@ -80,14 +85,21 @@ class HaditsTargetPlanner extends Page
                 ];
             });
 
-        $haditsTargets = HaditsTarget::with(['santri:id,nama', 'hadits:id,judul,kitab,nomor'])
+        $baseTargetQuery = HaditsTarget::with(['santri:id,nama', 'hadits:id,judul,kitab,nomor'])
             ->when(! $hasFullScope, fn ($q) => $q->whereIn('santri_id', $santriIds))
-            ->when($hasFullScope, fn ($q) => $q->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds())))
+            ->when($hasFullScope, fn ($q) => $q->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds())));
+
+        $haditsTargets = (clone $baseTargetQuery)
+            ->when($filters['santri_id'], fn ($q) => $q->where('santri_id', $filters['santri_id']))
+            ->when($filters['tahun'], fn ($q) => $q->where('tahun', $filters['tahun']))
+            ->when($filters['semester'], fn ($q) => $q->where('semester', $filters['semester']))
             ->orderByDesc('tahun')
             ->orderByDesc('semester')
             ->orderBy('santri_id')
             ->orderBy('hadits_id')
             ->get();
+
+        $blockedTargets = (clone $baseTargetQuery)->get();
 
         $groupedTargets = $haditsTargets
             ->groupBy(function (HaditsTarget $target) {
@@ -120,6 +132,18 @@ class HaditsTargetPlanner extends Page
             })
             ->values();
 
+        $blockedHaditsMap = $blockedTargets
+            ->groupBy(function (HaditsTarget $target) {
+                return implode('-', [
+                    $target->santri_id,
+                    $target->tahun,
+                    $target->semester,
+                    $target->hadits?->kitab ?? 'unknown',
+                ]);
+            })
+            ->map(fn ($group) => $group->pluck('hadits_id')->values())
+            ->toArray();
+
         $this->payload = [
             'santriOptions' => $santriOptions,
             'halaqohOptions' => $halaqohOptions,
@@ -127,11 +151,8 @@ class HaditsTargetPlanner extends Page
             'kitabData' => $haditsCollection,
             'haditsTargets' => $haditsTargets,
             'haditsTargetGroups' => $groupedTargets,
-            'statusOptions' => [
-                'belum_mulai' => 'Belum Mulai',
-                'berjalan' => 'Berjalan',
-                'selesai' => 'Selesai',
-            ],
+            'filterState' => $filters,
+            'blockedHaditsMap' => $blockedHaditsMap,
             'semesterOptions' => [
                 'semester_1' => 'Semester 1',
                 'semester_2' => 'Semester 2',

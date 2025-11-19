@@ -19,7 +19,7 @@ class HaditsSetoranPageController extends Controller
 
         abort_unless(TahfizhHadits::userHasAccess($user), 403);
 
-        $hasFullScope = TahfizhHadits::userHasFullSantriScope($user);
+        $hasFullScope = $user?->hasRole('superadmin') ?? false;
         $limitedSantriIds = $hasFullScope ? [] : TahfizhHadits::accessibleSantriIds($user);
 
         $santriQuery = Santri::query()
