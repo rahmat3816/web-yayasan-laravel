@@ -11,9 +11,9 @@ use Illuminate\View\View;
 class SetoranHafalan extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $navigationLabel = 'Setoran Hafalan';
-    protected static ?string $navigationGroup = 'Tahfizh';
-    protected static ?int $navigationSort = 20;
+    protected static ?string $navigationLabel = "Setoran Qur'an";
+    protected static ?string $navigationGroup = "Tahfizh Qur'an";
+    protected static ?int $navigationSort = 4;
     protected static ?string $slug = 'tahfizh/setoran-hafalan';
     protected static string $view = 'filament.pages.setoran-hafalan';
 

@@ -10,9 +10,9 @@ use Illuminate\View\View;
 class PerencanaanTahfizh extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
-    protected static ?string $navigationLabel = 'Perencanaan Tahfizh';
-    protected static ?string $navigationGroup = 'Tahfizh';
-    protected static ?int $navigationSort = 15;
+    protected static ?string $navigationLabel = "Target Qur'an";
+    protected static ?string $navigationGroup = "Tahfizh Qur'an";
+    protected static ?int $navigationSort = 3;
     protected static ?string $slug = 'tahfizh/perencanaan';
     protected static string $view = 'filament.pages.perencanaan-tahfizh';
     protected array $dashboardData = [];
@@ -22,6 +22,8 @@ class PerencanaanTahfizh extends Page
         'kabag_kesantrian_putri',
         'koordinator_tahfizh_putra',
         'koordinator_tahfizh_putri',
+        'koor_tahfizh_putra',
+        'koor_tahfizh_putri',
     ];
 
     public function mount(): void

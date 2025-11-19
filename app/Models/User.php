@@ -9,6 +9,7 @@ use App\Models\Santri;
 use App\Models\Unit;
 use App\Models\WaliSantri;
 use App\Models\MusyrifAssignment;
+use App\Support\TahfizhHadits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -249,5 +250,10 @@ class User extends Authenticatable
             ->whereIn('jabatan.slug', array_map('strtolower', $slugs))
             ->when($unitId, fn($query) => $query->where('guru_jabatan.unit_id', $unitId))
             ->exists();
+    }
+
+    public function hasTahfizhHaditsAccess(): bool
+    {
+        return TahfizhHadits::userHasAccess($this);
     }
 }

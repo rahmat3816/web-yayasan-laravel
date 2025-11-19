@@ -11,11 +11,11 @@ class TahfizhDashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
 
-    protected static ?string $navigationLabel = 'Dashboard Tahfizh';
+    protected static ?string $navigationLabel = "Dashboard Qur'an";
 
-    protected static ?string $navigationGroup = 'Tahfizh';
+    protected static ?string $navigationGroup = "Tahfizh Qur'an";
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'tahfizh-dashboard';
 
@@ -30,6 +30,7 @@ class TahfizhDashboard extends Page
         'koordinator_tahfizh_putri',
         'koor_tahfizh_putra',
         'koor_tahfizh_putri',
+        'koord_tahfizh_akhwat',
     ];
 
     public function mount(): void
@@ -61,6 +62,16 @@ class TahfizhDashboard extends Page
 
     public function getHeading(): string|\Illuminate\Contracts\Support\Htmlable
     {
-        return 'Tahfizh Dashboard';
+        return '';
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return '';
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [];
     }
 }

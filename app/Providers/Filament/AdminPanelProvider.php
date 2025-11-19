@@ -4,8 +4,11 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\SetoranHafalanCreate;
 use App\Filament\Pages\SetoranHafalanRekap;
+use App\Filament\Pages\SetoranHaditsCreate;
 use App\Http\Controllers\Dashboard\TahfizhDashboardController;
 use App\Http\Controllers\Guru\SetoranHafalanController;
+use App\Http\Controllers\Tahfizh\HaditsSetoranFormController;
+use App\Http\Controllers\Tahfizh\HaditsTargetPlannerController;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -63,6 +66,14 @@ class AdminPanelProvider extends PanelProvider
                     Route::get('rekap', SetoranHafalanRekap::class)
                         ->name('rekap');
                 });
+                Route::post('hadits-targets', [HaditsTargetPlannerController::class, 'store'])
+                    ->name('pages.hadits-targets.store');
+                Route::prefix('hadits-setorans')->name('pages.hadits-setorans.')->group(function () {
+                    Route::get('create', \App\Filament\Pages\SetoranHaditsCreate::class)
+                        ->name('create');
+                    Route::post('/', [HaditsSetoranFormController::class, 'store'])
+                        ->name('store');
+                });
             })
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
@@ -71,8 +82,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Dashboard',
+                "Tahfizh Qur'an",
+                'Tahfizh Hadits',
+                'Tahfizh Mutun',
                 'Kesantrian',
-                'Tahfizh',
                 'Bahasa',
                 'Kesehatan',
                 'Keamanan',

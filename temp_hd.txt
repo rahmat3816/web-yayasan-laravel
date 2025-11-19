@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Filament\Pages;
+
+use App\Models\Hadits;
+use App\Models\HaditsSetoran;
+use App\Models\HaditsTarget;
+use App\Support\TahfizhHadits;
+use Filament\Pages\Page;
+
+class HaditsDashboard extends Page
+{
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+
+    protected static ?string $navigationLabel = 'Dashboard Hadits';
+
+    protected static ?string $navigationGroup = 'Tahfizh Hadits';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $slug = 'tahfizh/hadits/dashboard';
+
+    protected static string $view = 'filament.pages.hadits-dashboard';
+
+    public array $stats = [];
+
+    public array $recentSetorans = [];
+
+    public function mount(): void
+    {
+        abort_unless(TahfizhHadits::userHasManagementAccess(auth()->user()), 403);
+
+        $this->loadStats();
+        $this->loadRecentSetorans();
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return TahfizhHadits::userHasManagementAccess(auth()->user());
+    }
+
+    protected function loadStats(): void
+    {
+        $targetsQuery = HaditsTarget::query()
+            ->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()));
+
+        $totalTargets = $targetsQuery->count();
+
+        $setoranQuery = HaditsSetoran::query()
+            ->whereHas('target.santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()));
+
+        $totalSetorans = $setoranQuery->count();
+        $avgMutqin = round((float) (clone $setoranQuery)->whereNotNull('nilai_mutqin')->avg('nilai_mutqin'), 1);
+
+        $this->stats = [
+            'total_hadits' => Hadits::count(),
+            'total_targets' => $totalTargets,
+            'total_setorans' => $totalSetorans,
+            'capaian' => $totalTargets > 0 ? round(($totalSetorans / $totalTargets) * 100, 1) : 0,
+            'avg_mutqin' => $avgMutqin,
+        ];
+    }
+
+    protected function loadRecentSetorans(): void
+    {
+        $this->recentSetorans = HaditsSetoran::query()
+            ->with(['target.santri', 'target.hadits', 'penilai'])
+            ->whereHas('target.santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()))
+            ->latest('tanggal')
+            ->limit(5)
+            ->get()
+            ->map(function (HaditsSetoran $setoran) {
+                return [
+                    'tanggal' => optional($setoran->tanggal)->format('d M Y'),
+                    'santri' => $setoran->target?->santri?->nama ?? '-',
+                    'hadits' => $setoran->target?->hadits?->judul ?? '-',
+                    'hadits_nomor' => $setoran->target?->hadits?->nomor,
+                    'penilai' => $setoran->penilai?->nama ?? '-',
+                    'catatan' => $setoran->catatan,
+                ];
+            })
+            ->all();
+    }
+}

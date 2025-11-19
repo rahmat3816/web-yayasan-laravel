@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\HafalanTarget;
 use App\Models\Santri;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -20,31 +21,32 @@ class TahfizhDashboardController extends Controller
 
         $totalHalaqoh = DB::table('halaqoh')
             ->when($genderFilter, function ($q) use ($genderFilter) {
-                $q->join('guru', 'halaqoh.guru_id', '=', 'guru.id')
-                    ->where('guru.jenis_kelamin', $genderFilter);
+                $q->join('halaqoh_santri as hs', 'halaqoh.id', '=', 'hs.halaqoh_id')
+                    ->join('santri as sh', 'hs.santri_id', '=', 'sh.id');
+                $this->applyGenderFilter($q, 'sh.jenis_kelamin', $genderFilter);
             })
-            ->when($unitFilter, fn ($q) => $q->where('halaqoh.unit_id', $unitFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'halaqoh.unit_id', $unitFilter))
             ->distinct('halaqoh.id')
             ->count('halaqoh.id');
 
         $totalSantri = DB::table('santri')
-            ->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter))
             ->count();
 
         $totalHafalan = DB::table('hafalan_quran as h')
             ->leftJoin('santri as s', 'h.santri_id', '=', 's.id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->count();
 
         $hafalanPerHalaqoh = DB::table('hafalan_quran')
             ->join('halaqoh', 'hafalan_quran.halaqoh_id', '=', 'halaqoh.id')
             ->when($genderFilter, function ($q) use ($genderFilter) {
-                $q->join('guru', 'halaqoh.guru_id', '=', 'guru.id')
-                    ->where('guru.jenis_kelamin', $genderFilter);
+                $q->join('santri as hqs', 'hafalan_quran.santri_id', '=', 'hqs.id');
+                $this->applyGenderFilter($q, 'hqs.jenis_kelamin', $genderFilter);
             })
-            ->when($unitFilter, fn ($q) => $q->where('halaqoh.unit_id', $unitFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'halaqoh.unit_id', $unitFilter))
             ->select('halaqoh.nama_halaqoh', DB::raw('COUNT(*) as total'))
             ->groupBy('halaqoh.nama_halaqoh')
             ->orderByDesc('total')
@@ -54,8 +56,8 @@ class TahfizhDashboardController extends Controller
 
         $hafalanPerSantri = DB::table('hafalan_quran')
             ->join('santri', 'hafalan_quran.santri_id', '=', 'santri.id')
-            ->when($genderFilter, fn ($q) => $q->where('santri.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('santri.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'santri.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'santri.unit_id', $unitFilter))
             ->select('santri.nama', DB::raw('COUNT(*) as total'))
             ->groupBy('santri.nama')
             ->orderByDesc('total')
@@ -65,8 +67,8 @@ class TahfizhDashboardController extends Controller
 
         $santriCandidates = DB::table('hafalan_quran as h')
             ->join('santri as s', 'h.santri_id', '=', 's.id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->select('s.id', 's.nama', DB::raw('SUM(GREATEST(0, (h.ayah_end - h.ayah_start + 1))) as total_ayat'))
             ->groupBy('s.id', 's.nama')
             ->orderByDesc('total_ayat')
@@ -96,8 +98,8 @@ class TahfizhDashboardController extends Controller
 
         $targetSantriOptions = Santri::query()
             ->select('id', 'nama', 'jenis_kelamin', 'unit_id')
-            ->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter))
             ->orderBy('nama')
             ->get();
 
@@ -111,8 +113,8 @@ class TahfizhDashboardController extends Controller
                 'surahEnd:id,nama_surah',
             ])
             ->whereHas('santri', function ($query) use ($genderFilter, $unitFilter) {
-                $query->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-                    ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter));
+                $query->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+                    ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter));
             })
             ->orderByDesc('tahun')
             ->orderByDesc('updated_at')
@@ -169,8 +171,8 @@ class TahfizhDashboardController extends Controller
 
         $exists = DB::table('hafalan_quran as h')
             ->join('santri as s', 'h.santri_id', '=', 's.id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->where('s.id', $santriId)
             ->exists();
 
@@ -281,8 +283,12 @@ class TahfizhDashboardController extends Controller
         $user = Auth::user();
         [$genderFilter, $unitFilter] = $this->resolveFilters($user);
 
-        if (($genderFilter && $santri->jenis_kelamin !== $genderFilter) ||
-            ($unitFilter && $santri->unit_id != $unitFilter && !$user->hasRole('superadmin'))) {
+        $santriGender = $this->normalizeGender($santri->jenis_kelamin);
+        $unitAllowed = $user && $user->hasRole('superadmin')
+            ? true
+            : $this->unitMatches($unitFilter, $santri->unit_id);
+
+        if (($genderFilter && $santriGender !== $genderFilter) || ! $unitAllowed) {
             abort(403);
         }
 
@@ -317,20 +323,100 @@ class TahfizhDashboardController extends Controller
         $genderFilter = null;
         $unitFilter = null;
 
-        if ($user && $user->hasRole('koordinator_tahfizh_putra')) {
+        if ($user && ($user->hasRole('koordinator_tahfizh_putra') || $user->hasRole('koor_tahfizh_putra'))) {
             $genderFilter = 'L';
-        } elseif ($user && $user->hasRole('koordinator_tahfizh_putri')) {
+        } elseif (
+            $user && (
+                $user->hasRole('koordinator_tahfizh_putri') ||
+                $user->hasRole('koor_tahfizh_putri') ||
+                $user->hasRole('koord_tahfizh_akhwat')
+            )
+        ) {
             $genderFilter = 'P';
         }
 
-        if ($user && !$user->hasRole('superadmin') && $user->unit_id) {
-            $unitFilter = $user->unit_id;
+        if ($user && ! $user->hasRole('superadmin')) {
+            $units = $this->getAccessibleUnitIds($user);
+            if (! empty($units)) {
+                $unitFilter = count($units) === 1 ? $units[0] : $units;
+            }
         }
 
         return [$genderFilter, $unitFilter];
     }
 
-    protected function buildTimelineData(?int $santriId, ?string $genderFilter, ?int $unitFilter): array
+    protected function genderVariants(string $gender): array
+    {
+        return $gender === 'P'
+            ? ['P', 'p', 'Putri', 'PUTRI', 'Perempuan', 'PEREMPUAN', 'Wanita', 'W']
+            : ['L', 'l', 'Putra', 'PUTRA', 'Laki-laki', 'LAKI-LAKI', 'Pria', 'LAKI'];
+    }
+
+    protected function applyGenderFilter($query, string $column, ?string $gender)
+    {
+        if (! $gender) {
+            return $query;
+        }
+
+        return $query->whereIn($column, $this->genderVariants($gender));
+    }
+
+    protected function getAccessibleUnitIds($user): array
+    {
+        if (! $user?->unit_id) {
+            return [];
+        }
+
+        $unit = Unit::find($user->unit_id);
+        if ($unit && str_contains(strtolower($unit->nama_unit), 'pondok pesantren as-sunnah')) {
+            return Unit::whereIn('nama_unit', [
+                'Pondok Pesantren As-Sunnah Gorontalo',
+                'MTS As-Sunnah Gorontalo',
+                'MA As-Sunnah Limboto Barat',
+            ])->pluck('id')->all();
+        }
+
+        return [$user->unit_id];
+    }
+
+    protected function applyUnitFilter($query, string $column, $unitFilter)
+    {
+        if (empty($unitFilter)) {
+            return $query;
+        }
+
+        if (is_array($unitFilter)) {
+            return $query->whereIn($column, $unitFilter);
+        }
+
+        return $query->where($column, $unitFilter);
+    }
+
+    protected function normalizeGender(?string $value): ?string
+    {
+        if (! $value) {
+            return null;
+        }
+
+        $first = strtoupper(substr($value, 0, 1));
+
+        return in_array($first, ['L', 'P'], true) ? $first : null;
+    }
+
+    protected function unitMatches($unitFilter, ?int $unitId): bool
+    {
+        if (empty($unitFilter) || ! $unitId) {
+            return true;
+        }
+
+        if (is_array($unitFilter)) {
+            return in_array($unitId, $unitFilter, true);
+        }
+
+        return (int) $unitId === (int) $unitFilter;
+    }
+
+    protected function buildTimelineData(?int $santriId, ?string $genderFilter, $unitFilter): array
     {
         if (!$santriId) {
             return [
@@ -341,8 +427,8 @@ class TahfizhDashboardController extends Controller
 
         $records = DB::table('hafalan_quran as h')
             ->join('santri as s', 'h.santri_id', '=', 's.id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->where('h.santri_id', $santriId)
             ->orderBy('h.tanggal_setor')
             ->get(['h.tanggal_setor', 'h.ayah_start', 'h.ayah_end', 's.nama']);
@@ -376,11 +462,11 @@ class TahfizhDashboardController extends Controller
         ];
     }
 
-    protected function santriWithinScope(int $santriId, ?string $genderFilter, ?int $unitFilter): bool
+    protected function santriWithinScope(int $santriId, ?string $genderFilter, $unitFilter): bool
     {
         return Santri::query()
-            ->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter))
             ->where('id', $santriId)
             ->exists();
     }
@@ -477,12 +563,12 @@ class TahfizhDashboardController extends Controller
         return $merged;
     }
 
-    protected function buildProgressChart(?string $genderFilter, ?int $unitFilter): array
+    protected function buildProgressChart(?string $genderFilter, $unitFilter): array
     {
         $targets = HafalanTarget::with('santri:id,nama,unit_id,jenis_kelamin')
             ->whereHas('santri', function ($query) use ($genderFilter, $unitFilter) {
-                $query->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-                    ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter));
+                $query->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+                    ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter));
             })
             ->orderByDesc('tahun')
             ->limit(12)
@@ -494,8 +580,8 @@ class TahfizhDashboardController extends Controller
 
         $actualMap = DB::table('hafalan_quran as h')
             ->join('santri as s', 's.id', '=', 'h.santri_id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->selectRaw('h.santri_id, YEAR(h.tanggal_setor) as tahun, SUM(GREATEST(0, (h.ayah_end - h.ayah_start + 1))) as total')
             ->groupBy('h.santri_id', 'tahun')
             ->get()
@@ -512,7 +598,7 @@ class TahfizhDashboardController extends Controller
         return $chart;
     }
 
-    protected function buildPercentageSeries(?string $genderFilter, ?int $unitFilter): array
+    protected function buildPercentageSeries(?string $genderFilter, $unitFilter): array
     {
         $now = now();
         $currentYear = $now->year;
@@ -578,8 +664,8 @@ class TahfizhDashboardController extends Controller
 
         $targets = HafalanTarget::with('santri:id,nama,jenis_kelamin,unit_id')
             ->whereHas('santri', function ($query) use ($genderFilter, $unitFilter) {
-                $query->when($genderFilter, fn ($q) => $q->where('jenis_kelamin', $genderFilter))
-                    ->when($unitFilter, fn ($q) => $q->where('unit_id', $unitFilter));
+                $query->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 'jenis_kelamin', $genderFilter))
+                    ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 'unit_id', $unitFilter));
             })
             ->whereBetween('tahun', [$currentYear - 1, $currentYear])
             ->get();
@@ -587,8 +673,8 @@ class TahfizhDashboardController extends Controller
         if ($targets->isNotEmpty()) {
             $actualByPeriod = DB::table('hafalan_quran as h')
                 ->join('santri as s', 's.id', '=', 'h.santri_id')
-                ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-                ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+                ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+                ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
                 ->selectRaw('h.santri_id, YEAR(h.tanggal_setor) as tahun, MONTH(h.tanggal_setor) as bulan, SUM(GREATEST(0,(h.ayah_end-h.ayah_start+1))) as total')
                 ->groupBy('h.santri_id', 'tahun', 'bulan')
                 ->get()
@@ -667,12 +753,12 @@ class TahfizhDashboardController extends Controller
         return $series;
     }
 
-    protected function buildActualCoverageSummary(?string $genderFilter, ?int $unitFilter): array
+    protected function buildActualCoverageSummary(?string $genderFilter, $unitFilter): array
     {
         $entries = DB::table('hafalan_quran as h')
             ->join('santri as s', 's.id', '=', 'h.santri_id')
-            ->when($genderFilter, fn ($q) => $q->where('s.jenis_kelamin', $genderFilter))
-            ->when($unitFilter, fn ($q) => $q->where('s.unit_id', $unitFilter))
+            ->when($genderFilter, fn ($q) => $this->applyGenderFilter($q, 's.jenis_kelamin', $genderFilter))
+            ->when($unitFilter, fn ($q) => $this->applyUnitFilter($q, 's.unit_id', $unitFilter))
             ->select('h.santri_id', 's.nama', 's.unit_id', 's.jenis_kelamin', 'h.surah_id', 'h.ayah_start', 'h.ayah_end', 'h.halaqoh_id')
             ->orderBy('s.nama')
             ->get()

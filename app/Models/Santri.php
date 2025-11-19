@@ -79,6 +79,14 @@ class Santri extends Model
             ->withTimestamps();
     }
 
+    /**
+     * Alias untuk kompatibilitas dengan komponen yang mengharapkan nama relasi jamak.
+     */
+    public function halaqohs()
+    {
+        return $this->halaqoh();
+    }
+
     public function user()
     {
         // Tautan via wali_santri.user (bila anak memiliki wali yang login)
@@ -126,6 +134,21 @@ class Santri extends Model
     public function hafalan()
     {
         return $this->hasMany(\App\Models\HafalanQuran::class, 'santri_id');
+    }
+
+    public function haditsTargets()
+    {
+        return $this->hasMany(\App\Models\HaditsTarget::class, 'santri_id');
+    }
+
+    public function haditsSetorans()
+    {
+        return $this->hasManyThrough(
+            \App\Models\HaditsSetoran::class,
+            \App\Models\HaditsTarget::class,
+            'santri_id',
+            'target_id'
+        );
     }
 
     public function wali()

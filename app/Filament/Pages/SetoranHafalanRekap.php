@@ -13,11 +13,11 @@ class SetoranHafalanRekap extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationLabel = 'Rekap Setoran';
+    protected static ?string $navigationLabel = "Rekap Qur'an";
 
-    protected static ?string $navigationGroup = 'Tahfizh';
+    protected static ?string $navigationGroup = "Tahfizh Qur'an";
 
-    protected static ?int $navigationSort = 25;
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $slug = 'tahfizh/setoran-hafalan/rekap';
 

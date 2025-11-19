@@ -22,8 +22,9 @@ class HalaqohResource extends Resource
     protected static ?string $model = Halaqoh::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Tahfizh';
-    protected static ?int $navigationSort = 10;
+    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationLabel = 'Halaqoh';
+    protected static ?int $navigationSort = 2;
     protected static ?string $slug = 'tahfizh/halaqoh';
 
     public static function canViewAny(): bool
@@ -207,19 +208,56 @@ class HalaqohResource extends Resource
 
     protected static function getAccessibleUnitIds($user): array
     {
-        if (! $user?->unit_id) {
+        if (! $user) {
             return [];
         }
 
-        $unit = Unit::find($user->unit_id);
-        if ($unit && str_contains(strtolower($unit->nama_unit), 'pondok pesantren as-sunnah')) {
-            return Unit::whereIn('nama_unit', [
-                'Pondok Pesantren As-Sunnah Gorontalo',
-                'MTS As-Sunnah Gorontalo',
-                'MA As-Sunnah Limboto Barat',
-            ])->pluck('id')->all();
+        $clusterNames = [
+            'Pondok Pesantren As-Sunnah Gorontalo',
+            'MTS As-Sunnah Gorontalo',
+            'MA As-Sunnah Limboto Barat',
+        ];
+
+        $expandCluster = function (?int $unitId) use ($clusterNames): array {
+            if (! $unitId) {
+                return [];
+            }
+
+            $unit = Unit::find($unitId);
+            if (! $unit) {
+                return [$unitId];
+            }
+
+            $matchesCluster = collect($clusterNames)->contains(function ($name) use ($unit) {
+                $current = strtolower($unit->nama_unit ?? '');
+                $target = strtolower($name);
+
+                return $current === $target || str_contains($current, $target);
+            });
+
+            if ($matchesCluster) {
+                return Unit::whereIn('nama_unit', $clusterNames)->pluck('id')->all();
+            }
+
+            return [$unitId];
+        };
+
+        $unitIds = [];
+
+        if ($user->unit_id) {
+            $unitIds = array_merge($unitIds, $expandCluster($user->unit_id));
         }
 
-        return [$user->unit_id];
+        $jabatanUnitIds = $user->jabatans()
+            ->pluck('guru_jabatan.unit_id')
+            ->filter()
+            ->map(fn ($id) => (int) $id)
+            ->all();
+
+        foreach ($jabatanUnitIds as $jabatanUnitId) {
+            $unitIds = array_merge($unitIds, $expandCluster($jabatanUnitId));
+        }
+
+        return array_values(array_unique($unitIds));
     }
 }

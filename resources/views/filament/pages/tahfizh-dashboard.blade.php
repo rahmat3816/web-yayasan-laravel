@@ -6,8 +6,6 @@ Tujuan: Menampilkan data real hafalan per halaqoh menggunakan Chart.js
 File: resources/views/tahfizh/dashboard.blade.php
 ============================== --}}
 
-<x-breadcrumb />
-
 <section class="filament-hero">
     <div class="filament-hero__meta">
         <p class="filament-hero__eyebrow">Panel Tahfizh Putri</p>

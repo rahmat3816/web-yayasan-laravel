@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             MusyrifAssignmentSeeder::class,
             KeluhanSakitSeeder::class,
             PenangananSementaraSeeder::class,
+            HaditsSeeder::class,
             // Tambahkan seeder lain jika perlu
         ]);
 
