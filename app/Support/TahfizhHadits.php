@@ -37,6 +37,7 @@ class TahfizhHadits
         'koordinator_tahfizh_putri',
         'kabag_kesantrian_putra',
         'kabag_kesantrian_putri',
+        'koord_tahfizh_akhwat',
     ];
 
     protected static ?array $unitIdsCache = null;
@@ -116,7 +117,15 @@ class TahfizhHadits
     }
     public static function userHasManagementAccess(?User $user): bool
     {
-        return $user?->hasAnyRole(self::managerRoles()) ?? false;
+        if (! $user) {
+            return false;
+        }
+
+        if (method_exists($user, 'isSuperadmin') && $user->isSuperadmin()) {
+            return true;
+        }
+
+        return $user->hasAnyRole(self::managerRoles());
     }
 
     public static function userHasFullSantriScope(?User $user): bool

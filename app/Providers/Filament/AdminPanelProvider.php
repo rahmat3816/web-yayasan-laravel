@@ -9,6 +9,8 @@ use App\Http\Controllers\Dashboard\TahfizhDashboardController;
 use App\Http\Controllers\Guru\SetoranHafalanController;
 use App\Http\Controllers\Tahfizh\HaditsSetoranFormController;
 use App\Http\Controllers\Tahfizh\HaditsTargetPlannerController;
+use App\Http\Controllers\Tahfizh\MutunTargetPlannerController;
+use App\Http\Controllers\Tahfizh\MutunSetoranFormController;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,6 +46,10 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 \App\Filament\Pages\Dashboard::class,
+                \App\Filament\Pages\MutunDashboard::class,
+                \App\Filament\Pages\MutunTargets::class,
+                \App\Filament\Pages\SetoranMutun::class,
+                \App\Filament\Pages\RekapMutun::class,
             ])
             ->routes(function () {
                 Route::prefix('tahfizh-dashboard')->name('pages.tahfizh-dashboard.')->group(function () {
@@ -68,10 +74,18 @@ class AdminPanelProvider extends PanelProvider
                 });
                 Route::post('hadits-targets', [HaditsTargetPlannerController::class, 'store'])
                     ->name('pages.hadits-targets.store');
+                Route::post('mutun-targets', [MutunTargetPlannerController::class, 'store'])
+                    ->name('pages.mutun-targets.store');
                 Route::prefix('hadits-setorans')->name('pages.hadits-setorans.')->group(function () {
                     Route::get('create', \App\Filament\Pages\SetoranHaditsCreate::class)
                         ->name('create');
                     Route::post('/', [HaditsSetoranFormController::class, 'store'])
+                        ->name('store');
+                });
+                Route::prefix('mutun-setorans')->name('pages.mutun-setorans.')->group(function () {
+                    Route::get('create', \App\Filament\Pages\SetoranMutunCreate::class)
+                        ->name('create');
+                    Route::post('/', [MutunSetoranFormController::class, 'store'])
                         ->name('store');
                 });
             })

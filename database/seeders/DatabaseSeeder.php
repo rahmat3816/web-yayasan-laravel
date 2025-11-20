@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             KeluhanSakitSeeder::class,
             PenangananSementaraSeeder::class,
             HaditsSeeder::class,
+            MutunSeeder::class,
             // Tambahkan seeder lain jika perlu
         ]);
 

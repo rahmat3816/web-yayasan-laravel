@@ -151,6 +151,21 @@ class Santri extends Model
         );
     }
 
+    public function mutunTargets()
+    {
+        return $this->hasMany(\App\Models\MutunTarget::class, 'santri_id');
+    }
+
+    public function mutunSetorans()
+    {
+        return $this->hasManyThrough(
+            \App\Models\MutunSetoran::class,
+            \App\Models\MutunTarget::class,
+            'santri_id',
+            'target_id'
+        );
+    }
+
     public function wali()
     {
         return $this->hasMany(WaliSantri::class, 'santri_id');
