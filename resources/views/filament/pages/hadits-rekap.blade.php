@@ -86,20 +86,24 @@
             </article>
             <article class="setoran-stat-card setoran-stat-card--success">
                 <div class="setoran-stat-card__content">
-                    <p class="setoran-stat-label">Selesai</p>
-                    <div class="setoran-stat-inline">
-                        <p class="setoran-stat-value">{{ number_format($stats['selesai'] ?? 0) }}</p>
-                        <span class="setoran-stat-badge">{{ number_format($stats['capaian'] ?? 0, 1) }}%</span>
-                    </div>
+                    <p class="setoran-stat-label">Setoran Selesai</p>
+                    <p class="setoran-stat-value">{{ number_format($stats['selesai'] ?? 0) }}</p>
                 </div>
                 <x-filament::icon icon="heroicon-o-check-badge" class="h-8 w-8 text-white/80" />
+            </article>
+            <article class="setoran-stat-card setoran-stat-card--accent">
+                <div class="setoran-stat-card__content">
+                    <p class="setoran-stat-label">Persentase Capaian</p>
+                    <p class="setoran-stat-value">{{ number_format($stats['capaian'] ?? 0, 1) }}%</p>
+                </div>
+                <x-filament::icon icon="heroicon-o-sparkles" class="h-8 w-8 text-white/80" />
             </article>
             <article class="setoran-stat-card setoran-stat-card--mutqin">
                 <div class="setoran-stat-card__content">
                     <p class="setoran-stat-label">Rata-rata Mutqin</p>
                     <p class="setoran-stat-value">{{ number_format($stats['rata_mutqin'] ?? 0, 1) }}</p>
                 </div>
-                <x-filament::icon icon="heroicon-o-sparkles" class="h-8 w-8 text-white/80" />
+                <x-filament::icon icon="heroicon-o-star" class="h-8 w-8 text-white/80" />
             </article>
         </section>
 
@@ -401,17 +405,21 @@
                 letter-spacing: 0.15em;
             }
 
-            .setoran-stat-card--neutral {
-                background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-            }
+        .setoran-stat-card--neutral {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+        }
 
-            .setoran-stat-card--success {
-                background: linear-gradient(135deg, #34d399, #059669);
-            }
+        .setoran-stat-card--success {
+            background: linear-gradient(135deg, #34d399, #059669);
+        }
 
-            .setoran-stat-card--mutqin {
-                background: linear-gradient(135deg, #fb923c, #f97316);
-            }
+        .setoran-stat-card--accent {
+            background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+        }
+
+        .setoran-stat-card--mutqin {
+            background: linear-gradient(135deg, #fb923c, #f97316);
+        }
 
             .setoran-card {
                 border-radius: 1.75rem;

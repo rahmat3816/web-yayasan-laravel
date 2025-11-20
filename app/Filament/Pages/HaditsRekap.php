@@ -101,9 +101,11 @@ class HaditsRekap extends Page
             ->toArray();
 
         if ($refreshSantri || empty($this->filters['santri'] ?? null)) {
-            $this->filters['santri'] = Santri::query()
+        $santriUnitIds = $this->resolveUnitFilterIds();
+
+        $this->filters['santri'] = Santri::query()
                 ->whereIn('unit_id', TahfizhHadits::unitIds())
-                ->when($this->unitId, fn ($query) => $query->where('unit_id', $this->unitId))
+                ->when($santriUnitIds, fn ($query) => $query->whereIn('unit_id', $santriUnitIds))
                 ->orderBy('nama')
                 ->pluck('nama', 'id')
                 ->toArray();
@@ -112,6 +114,8 @@ class HaditsRekap extends Page
 
     protected function loadData(): void
     {
+        $unitFilterIds = $this->resolveUnitFilterIds();
+
         $targets = HaditsTarget::query()
             ->with([
                 'santri:id,nama,unit_id',
@@ -122,7 +126,7 @@ class HaditsRekap extends Page
                 'setorans.details:id,setoran_id,segment_id,status',
             ])
             ->whereHas('santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()))
-            ->when($this->unitId, fn ($query) => $query->whereHas('santri', fn ($q) => $q->where('unit_id', $this->unitId)))
+            ->when($unitFilterIds, fn ($query) => $query->whereHas('santri', fn ($q) => $q->whereIn('unit_id', $unitFilterIds)))
             ->when($this->kitab, fn ($query) => $query->whereHas('hadits', fn ($q) => $q->where('kitab', $this->kitab)))
             ->when($this->santriId, fn ($query) => $query->where('santri_id', $this->santriId))
             ->when($this->tahun, fn ($query) => $query->where('tahun', $this->tahun))
@@ -184,7 +188,7 @@ class HaditsRekap extends Page
                 'penilai:id,nama',
             ])
             ->whereHas('target.santri', fn ($query) => $query->whereIn('unit_id', TahfizhHadits::unitIds()))
-            ->when($this->unitId, fn ($query) => $query->whereHas('target.santri', fn ($q) => $q->where('unit_id', $this->unitId)))
+            ->when($unitFilterIds, fn ($query) => $query->whereHas('target.santri', fn ($q) => $q->whereIn('unit_id', $unitFilterIds)))
             ->when($this->kitab, fn ($query) => $query->whereHas('target.hadits', fn ($q) => $q->where('kitab', $this->kitab)))
             ->when($this->santriId, fn ($query) => $query->whereHas('target', fn ($q) => $q->where('santri_id', $this->santriId)))
             ->when($this->tahun, fn ($query) => $query->whereHas('target', fn ($q) => $q->where('tahun', $this->tahun)))
@@ -257,5 +261,30 @@ class HaditsRekap extends Page
         }
 
         return $unitIds[0] ?? null;
+    }
+
+    protected function resolveUnitFilterIds(): ?array
+    {
+        if (! $this->unitId) {
+            return null;
+        }
+
+        $unit = Unit::find($this->unitId);
+
+        if (! $unit) {
+            return null;
+        }
+
+        $clusterNames = [
+            'Pondok Pesantren As-Sunnah Gorontalo',
+            'MTS As-Sunnah Gorontalo',
+            'MA As-Sunnah Limboto Barat',
+        ];
+
+        if (in_array($unit->nama_unit, $clusterNames, true)) {
+            return Unit::whereIn('nama_unit', $clusterNames)->pluck('id')->all();
+        }
+
+        return [$this->unitId];
     }
 }
