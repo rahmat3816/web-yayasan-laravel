@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             PenangananSementaraSeeder::class,
             HaditsSeeder::class,
             MutunSeeder::class,
+            KeamananCategorySeeder::class,
+            KeamananViolationSeeder::class,
+            KeamananKetaatanSeeder::class,
             // Tambahkan seeder lain jika perlu
         ]);
 

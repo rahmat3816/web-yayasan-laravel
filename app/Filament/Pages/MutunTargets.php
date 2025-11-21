@@ -26,6 +26,11 @@ class MutunTargets extends Page
 
     protected array $payload = [];
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return TahfizhMutun::userHasManagementAccess(auth()->user());
+    }
+
     public function mount(): void
     {
         $user = Auth::user();
@@ -162,11 +167,6 @@ class MutunTargets extends Page
     public function getHeading(): string
     {
         return '';
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return true;
     }
 
     public static function canView(): bool

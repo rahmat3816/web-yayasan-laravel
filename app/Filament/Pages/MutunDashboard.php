@@ -66,7 +66,7 @@ class MutunDashboard extends Page
 
     public static function shouldRegisterNavigation(): bool
     {
-        return true;
+        return TahfizhMutun::userHasManagementAccess(auth()->user());
     }
 
     public static function canView(): bool

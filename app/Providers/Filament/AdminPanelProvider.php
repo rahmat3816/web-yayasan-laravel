@@ -11,6 +11,10 @@ use App\Http\Controllers\Tahfizh\HaditsSetoranFormController;
 use App\Http\Controllers\Tahfizh\HaditsTargetPlannerController;
 use App\Http\Controllers\Tahfizh\MutunTargetPlannerController;
 use App\Http\Controllers\Tahfizh\MutunSetoranFormController;
+use App\Filament\Pages\KeamananDashboard;
+use App\Filament\Pages\PencatatanPelanggaran;
+use App\Filament\Pages\RekapPelanggaran;
+use App\Filament\Pages\CatatKetaatan;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -50,6 +54,10 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Pages\MutunTargets::class,
                 \App\Filament\Pages\SetoranMutun::class,
                 \App\Filament\Pages\RekapMutun::class,
+                KeamananDashboard::class,
+                PencatatanPelanggaran::class,
+                RekapPelanggaran::class,
+                CatatKetaatan::class,
             ])
             ->routes(function () {
                 Route::prefix('tahfizh-dashboard')->name('pages.tahfizh-dashboard.')->group(function () {
@@ -96,10 +104,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Dashboard',
+                'Kesantrian',
                 "Tahfizh Qur'an",
                 'Tahfizh Hadits',
                 'Tahfizh Mutun',
-                'Kesantrian',
                 'Bahasa',
                 'Kesehatan',
                 'Keamanan',
